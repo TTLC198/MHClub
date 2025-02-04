@@ -1,0 +1,32 @@
+@model UserProfileDto
+
+<div>
+    <h4>@Model.Name</h4>
+    <div>
+        <p>Рейтинг: @Model.Rating</p>
+        <p>Отзывы: @Model.ReviewsCount</p>
+        <p>Кол-во объявлений: @Model.ReviewsCount</p>
+        <p>Зарегистрирован: @Model.DateOfRegistration</p>
+        <p>Скрыть телефон</p> 
+    </div>
+</div>
+<div>
+    <li class="nav-item">
+        <button
+            onclick="location.href='@Url.Action("Logout", "Auth")';"
+            class="layout-button">Выйти
+        </button>
+    </li>
+    <li class="nav-item">
+        <button
+            onclick="location.href='@Url.Action("Logout", "Auth")';"
+            class="layout-button">Редактировать
+        </button>
+    </li>
+    <li class="nav-item">
+        <button
+            onclick="location.href='@Url.Action("Logout", "Auth")';"
+            class="layout-button">Показать архивные объявления
+        </button>
+    </li>
+</div>

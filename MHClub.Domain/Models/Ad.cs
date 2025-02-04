@@ -93,4 +93,6 @@ public class Ad
 
     [ForeignKey("ConditionId")]
     public Condition Condition { get; set; } = new Condition();
+    
+    //todo SellerId
 }

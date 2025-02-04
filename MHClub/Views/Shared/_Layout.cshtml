@@ -37,18 +37,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link me-2" href="@Url.Action("Login", "Auth")">Профиль</a>
+                            <a class="nav-link me-2" href="@Url.Action("Index", "Profile")">Профиль</a>
                         </li>
                         <li class="nav-item">
                             <button
                                 onclick="location.href='/PostAd';"
                                 class="layout-button">Жалобы
                             </button>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link me-2" href="@Url.Action("Logout", "Auth")">
-                                <i class="fas fa-right-from-bracket"></i>
-                            </a>
                         </li>
                     }
                     else if(User.IsInRole("User")) {
@@ -60,7 +55,7 @@
                         </li>
                         <!-- Профиль как ссылка -->
                         <li class="nav-item">
-                            <a class="nav-link me-2" href="@Url.Action("Login", "Auth")">Профиль</a>
+                            <a class="nav-link me-2" href="@Url.Action("Index", "Profile")">Профиль</a>
                         </li>
                         <!-- Разместить объявление как кнопка -->
                         <li class="nav-item">
@@ -68,11 +63,6 @@
                                 onclick="location.href='/PostAd';"
                                 class="layout-button">Разместить объявление
                             </button>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link me-2" href="@Url.Action("Logout", "Auth")">
-                                <i class="fas fa-right-from-bracket"></i>
-                            </a>
                         </li>
                     }
                     else
