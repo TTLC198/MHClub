@@ -10,3 +10,6 @@
 /Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub.Domain/obj/Debug/net8.0/refint/MHClub.Domain.dll
 /Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub.Domain/obj/Debug/net8.0/MHClub.Domain.pdb
 /Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub.Domain/obj/Debug/net8.0/ref/MHClub.Domain.dll
+/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub.Domain/obj/Debug/net8.0/MHClub.Domain.sourcelink.json
+/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub.Domain/bin/Debug/net8.0/MHClub.Domain.runtimeconfig.json
+/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub.Domain/obj/Debug/net8.0/MHClub.Domain.genruntimeconfig.cache

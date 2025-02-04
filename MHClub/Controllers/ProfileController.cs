@@ -33,10 +33,14 @@ public class ProfileController : Controller
 
         var ads = _dbContext.Ads.Where(a => a.SellerId == userId);
         var adsCount = await ads.CountAsync();
+        var reviewsByUser = await _dbContext.Reviews.Where(r => r.UserId == userId).ToListAsync();
         var reviewsByAds = _dbContext.Reviews.Join(ads, r => r.AdId, r => r.Id, (r, ad) => r);
         var reviewsCount = await reviewsByAds.CountAsync();
         var ratings = reviewsByAds?.Select(x => x.Estimation);
         double? rating = ratings?.Any() == true ? ratings.Average() : null;
+
+        ViewBag.Ads = await ads.ToListAsync();
+        ViewBag.Reviews = reviewsByUser;
         
         var userProfileDto = new UserProfileDto(user, rating, reviewsCount, adsCount);
         return View(userProfileDto);
