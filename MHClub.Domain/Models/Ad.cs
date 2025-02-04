@@ -94,5 +94,9 @@ public class Ad
     [ForeignKey("ConditionId")]
     public Condition Condition { get; set; } = new Condition();
     
-    //todo SellerId
+    [Column("sellerid")]
+    public int SellerId { get; set; }
+
+    [ForeignKey("SellerId")] 
+    public User Seller { get; set; } = new User();
 }

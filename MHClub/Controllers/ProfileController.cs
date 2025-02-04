@@ -31,10 +31,14 @@ public class ProfileController : Controller
         if (user is null)
             return NotFound();
 
-        var ads = _dbContext.Ads.Where(a => a.)
-        var rating = _dbContext.Reviews.Where(r => r.)
+        var ads = _dbContext.Ads.Where(a => a.SellerId == userId);
+        var adsCount = await ads.CountAsync();
+        var reviewsByAds = _dbContext.Reviews.Join(ads, r => r.AdId, r => r.Id, (r, ad) => r);
+        var reviewsCount = await reviewsByAds.CountAsync();
+        var ratings = reviewsByAds?.Select(x => x.Estimation);
+        double? rating = ratings?.Any() == true ? ratings.Average() : null;
         
-        var userProfileDto = new UserProfileDto(user);
+        var userProfileDto = new UserProfileDto(user, rating, reviewsCount, adsCount);
         return View(userProfileDto);
     }
 }

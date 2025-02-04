@@ -44,6 +44,11 @@ public class ApplicationDbContext : DbContext
             .HasOne(a => a.Tariff)
             .WithMany()
             .HasForeignKey(a => a.TariffId);
+        
+        modelBuilder.Entity<Ad>()
+            .HasOne(a => a.Seller)
+            .WithMany()
+            .HasForeignKey(a => a.SellerId);
 
         modelBuilder.Entity<Ad>()
             .HasOne(a => a.Condition)

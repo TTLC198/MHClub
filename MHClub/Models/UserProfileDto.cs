@@ -4,15 +4,15 @@ namespace MHClub.Models;
 
 public class UserProfileDto : User
 {
-    public double Rating { get; set; }
+    public double? Rating { get; set; }
     
-    public int ReviewsCount { get; set; }
+    public int? ReviewsCount { get; set; }
     
-    public int AdsCount { get; set; }
+    public int? AdsCount { get; set; }
     
     public UserProfileDto() {}
     
-    public UserProfileDto(User user, double rating, int reviewsCount, int adsCount)
+    public UserProfileDto(User user, double? rating, int? reviewsCount, int? adsCount)
     {
         Email = user.Email;
         Name = user.Name;
