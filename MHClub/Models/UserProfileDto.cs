@@ -17,7 +17,6 @@ public class UserProfileDto : User
         Email = user.Email;
         Name = user.Name;
         DateOfRegistration = user.DateOfRegistration;
-        Photo = user.Photo;
         Password = user.Password;
         Rating = rating;
         ReviewsCount = reviewsCount;

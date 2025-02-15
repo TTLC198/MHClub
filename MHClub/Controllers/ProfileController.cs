@@ -1,4 +1,6 @@
+using System.Security.Claims;
 using MHClub.Domain;
+using MHClub.Domain.Models;
 using MHClub.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +24,8 @@ public class ProfileController : Controller
     }
     
     [HttpGet]
-    public async Task<IActionResult> Index()
+    [Route("Ads")]
+    public async Task<IActionResult> Ads()
     {
         var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
         if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
@@ -30,19 +33,56 @@ public class ProfileController : Controller
         var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == userId);
         if (user is null)
             return NotFound();
+        
+        ViewBag.Ads = await _dbContext.Ads
+            .Include(a => a.Medias)
+            .Where(a => a.SellerId == user.Id)
+            .ToListAsync();
+        
+        return View(await GetUserProfileAsync(user));
+    }
+    
+    [HttpGet]
+    [Route("ArchivedAds")]
+    public async Task<IActionResult> ArchivedAds()
+    {
+        var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
+        if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
+            return Unauthorized();
+        var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == userId);
+        if (user is null)
+            return NotFound();
+        
+        ViewBag.ArchivedAds = await _dbContext.Ads.Where(a => a.SellerId == user.Id && !a.Status).ToListAsync();
+        
+        return View(await GetUserProfileAsync(user));
+    }
+    
+    [HttpGet]
+    [Route("Reviews")]
+    public async Task<IActionResult> Reviews()
+    {
+        var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
+        if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
+            return Unauthorized();
+        var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == userId);
+        if (user is null)
+            return NotFound();
+        
+        ViewBag.Reviews = await _dbContext.Reviews.Where(r => r.UserId == user.Id).ToListAsync();
+        
+        return View(await GetUserProfileAsync(user));
+    }
 
-        var ads = _dbContext.Ads.Where(a => a.SellerId == userId);
+    private async Task<UserProfileDto> GetUserProfileAsync(User user)
+    {
+        var ads = _dbContext.Ads.Where(a => a.SellerId == user.Id);
         var adsCount = await ads.CountAsync();
-        var reviewsByUser = await _dbContext.Reviews.Where(r => r.UserId == userId).ToListAsync();
         var reviewsByAds = _dbContext.Reviews.Join(ads, r => r.AdId, r => r.Id, (r, ad) => r);
         var reviewsCount = await reviewsByAds.CountAsync();
         var ratings = reviewsByAds?.Select(x => x.Estimation);
         double? rating = ratings?.Any() == true ? ratings.Average() : null;
-
-        ViewBag.Ads = await ads.ToListAsync();
-        ViewBag.Reviews = reviewsByUser;
         
-        var userProfileDto = new UserProfileDto(user, rating, reviewsCount, adsCount);
-        return View(userProfileDto);
+        return new UserProfileDto(user, rating, reviewsCount, adsCount);
     }
 }

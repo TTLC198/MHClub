@@ -9,10 +9,23 @@ public class Media
     public int Id { get; set; }
 
     [Display(Name = "Путь к файлу")]
-    public string? Way { get; set; }
+    [Column("path")]
+    public string Path { get; set; }
+    
+    [Display(Name = "Тип контента")]
+    [Column("contenttype")]
+    public string ContentType { get; set; }
 
     [Display(Name = "Объявление")]
+    [Column("adid")]
+    [ForeignKey("adid")]
     public int? AdId { get; set; }
-
+    
     public Ad? Ad { get; set; }
+    
+    [Display(Name = "Пользователь")]
+    [Column("userid")]
+    public int? UserId { get; set; }
+
+    public User? User { get; set; }
 }

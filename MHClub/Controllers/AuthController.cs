@@ -44,7 +44,6 @@ public class AuthController : Controller
         ModelState.Remove(nameof(Domain.Models.User.Id));
         ModelState.Remove(nameof(Domain.Models.User.Name));
         ModelState.Remove(nameof(Domain.Models.User.Phone));
-        ModelState.Remove(nameof(Domain.Models.User.Photo));
         ModelState.Remove(nameof(Domain.Models.User.DateOfRegistration));
         if (!ModelState.IsValid)
         {

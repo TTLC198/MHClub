@@ -1,0 +1,31 @@
+@using MHClub.Domain.Models
+@using MHClub.Utils
+@model UserProfileDto
+
+@{
+    Layout = "_ProfileLayout";
+}
+
+@if (ViewBag.Ads != null)
+{
+    <div class="row row-cols-4">
+        @foreach (Ad ad in ViewBag.Ads)
+        {
+            <div class="col pe-2 pb-2">
+                <div class="card h-100">
+                    @{
+                        var image = ad.Medias.FirstOrDefault();
+                    }
+                    @if (image is not null)
+                    {
+                        <img src="@Url.Action("Get", "Media", new {path = image.Path.GetLocalPath()})" class="card-img-top" alt="..."> 
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title">@ad.Name </h5>
+                        <p class="card-text">@ad.Cost</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

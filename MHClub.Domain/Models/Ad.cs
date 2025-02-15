@@ -99,4 +99,7 @@ public class Ad
 
     [ForeignKey("SellerId")] 
     public User Seller { get; set; } = new User();
+    
+    
+    public List<Media> Medias { get; set; }
 }

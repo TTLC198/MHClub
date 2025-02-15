@@ -31,9 +31,6 @@ public class User
     [StringLength(50, MinimumLength = 8, ErrorMessage = "минимальная длина пароля - 8 символов")]
     public string? Password { get; set; }
 
-    [Display(Name = "Фото")]
-    public string? Photo { get; set; }
-
     [Display(Name = "Дата регистрации")]
     public DateOnly DateOfRegistration { get; set; }
 

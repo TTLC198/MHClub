@@ -16,7 +16,15 @@ public class ApplicationDbContext : DbContext
     {
         Database.EnsureCreated();
     }
-    
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        base.OnConfiguring(optionsBuilder);
+        
+        optionsBuilder.EnableSensitiveDataLogging();
+        optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Trace);
+    }
+
     public DbSet<Role> Roles { get; set; }
     public DbSet<Tariff> Tariffs { get; set; }
     public DbSet<Category> Categories { get; set; }
@@ -85,9 +93,14 @@ public class ApplicationDbContext : DbContext
             .WithMany()
             .HasForeignKey(r => r.UserId);
 
-        modelBuilder.Entity<Media>()
+        /*modelBuilder.Entity<Media>()
             .HasOne(m => m.Ad)
             .WithMany()
-            .HasForeignKey(m => m.AdId);
+            .HasForeignKey(m => m.AdId);*/
+        
+        modelBuilder.Entity<Media>()
+            .HasOne(m => m.User)
+            .WithMany()
+            .HasForeignKey(m => m.UserId);
     }
 }
