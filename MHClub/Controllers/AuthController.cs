@@ -4,6 +4,7 @@ using MHClub.Domain;
 using MHClub.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using MHClub.Models;
+using MHClub.Models.User;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -15,7 +16,7 @@ namespace MHClub.Controllers;
 
 [Controller]
 [Route("[controller]")]
-public class AuthController : Controller
+public class AuthController : BaseController
 {
     private readonly ILogger<AuthController> _logger;
     private readonly ApplicationDbContext _dbContext;

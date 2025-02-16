@@ -1,9 +1,8 @@
-using MHClub.Domain.Models;
+namespace MHClub.Models.User;
 
-namespace MHClub.Models;
-
-public class UserProfileDto : User
+public class UserProfileDto : Domain.Models.User
 {
+    public string ImageUrl { get; set; }
     public double? Rating { get; set; }
     
     public int? ReviewsCount { get; set; }
@@ -12,7 +11,7 @@ public class UserProfileDto : User
     
     public UserProfileDto() {}
     
-    public UserProfileDto(User user, double? rating, int? reviewsCount, int? adsCount)
+    public UserProfileDto(Domain.Models.User user, double? rating, int? reviewsCount, int? adsCount, string imageUrl)
     {
         Email = user.Email;
         Name = user.Name;
@@ -21,5 +20,6 @@ public class UserProfileDto : User
         Rating = rating;
         ReviewsCount = reviewsCount;
         AdsCount = adsCount;
+        ImageUrl = imageUrl;
     }
 }

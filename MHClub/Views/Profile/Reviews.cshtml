@@ -1,5 +1,5 @@
 @using MHClub.Domain.Models
-@model UserProfileDto
+@model MHClub.Models.User.UserProfileDto
 
 @{
     Layout = "_ProfileLayout";
@@ -7,15 +7,18 @@
 
 @if (ViewBag.Reviews != null)
 {
-    <div class="row row-cols-4">
-        @foreach (Ad ad in ViewBag.Reviews)
+    <div class="col">
+        @foreach (Review review in ViewBag.Reviews)
         {
-            <div class="col pe-2 pb-2">
-                <div class="card h-100">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5xJj2eY0CRT5Wkf-XklUtNd2t2dtJVivThA&s" class="card-img-top" alt="...">
+            <div class="row pe-2 pb-2">
+                <div class="card">
+                    <div class="card-header">
+                        @review.Estimation
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">@ad.Name </h5>
-                        <p class="card-text">@ad.Cost</p>
+                        <blockquote class="blockquote mb-0">
+                            <p>@review.Description</p>
+                        </blockquote>
                     </div>
                 </div>
             </div>

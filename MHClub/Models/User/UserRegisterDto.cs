@@ -1,9 +1,8 @@
 using System.ComponentModel.DataAnnotations;
-using MHClub.Domain.Models;
 
-namespace MHClub.Models;
+namespace MHClub.Models.User;
 
-public class UserRegisterDto : User
+public class UserRegisterDto : Domain.Models.User
 {
     [Display(Name = "Повторите пароль")]
     [Required(ErrorMessage = "Необходимо заполнить поле")]

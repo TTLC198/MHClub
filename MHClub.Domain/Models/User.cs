@@ -39,4 +39,7 @@ public class User
 
     [JsonIgnore]
     public Role? Role { get; set; }
+    
+    [JsonIgnore]
+    public List<Media>? Medias { get; set; }
 }

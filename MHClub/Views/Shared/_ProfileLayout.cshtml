@@ -1,5 +1,5 @@
-@using MHClub.Domain.Models
-@model UserProfileDto
+@using MHClub.Utils
+@model MHClub.Models.User.UserProfileDto
 
 @{
 Layout = "_Layout";
@@ -8,6 +8,15 @@ Layout = "_Layout";
 <div class="container">
     <div class="row justify-content-between">
         <div class="col-md-auto">
+            <div class="d-flex justify-content-center">
+                <label class="custom-file-upload">
+                    <div id="img_container">
+                        <div class="ratio ratio-1x1 rounded-circle overflow-hidden" style="width: 200px; height: 200px;">
+                            <img id="profile-image" src="@Url.Action("Get", "Media", new { path = Model.ImageUrl.GetLocalPath() })" class="card-img-top img-cover" alt="avatar">
+                        </div>
+                    </div>
+                </label>
+            </div>
             <h4>@Model.Name</h4>
             <div>
                 <p>Рейтинг: @Model.Rating</p>
@@ -23,12 +32,12 @@ Layout = "_Layout";
                     Выйти
                 </button>
                 <button
-                    onclick="location.href='@Url.Action("Logout", "Auth")';"
+                    onclick="location.href='@Url.Action("Edit", "Profile")';"
                     class="layout-button">
                     Редактировать
                 </button>
                 <button
-                    onclick="location.href='@Url.Action("Logout", "Auth")';"
+                    onclick="location.href='@Url.Action("ArchivedAds", "Profile")';"
                     class="layout-button">
                     Показать архивные объявления
                 </button>

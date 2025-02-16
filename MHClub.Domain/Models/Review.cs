@@ -18,6 +18,8 @@ public class Review
     public string Description { get; set; } = string.Empty;
 
     [Display(Name = "Объявление")]
+    [Column("AdId")]
+    [ForeignKey("AdId")]
     public int AdId { get; set; }
 
     public Ad Ad { get; set; } = new Ad();

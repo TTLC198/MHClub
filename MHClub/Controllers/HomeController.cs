@@ -5,7 +5,7 @@ namespace MHClub.Controllers;
 
 [Controller]
 [Route("[controller]")]
-public class HomeController : Controller
+public class HomeController : BaseController
 {
     private readonly ILogger<AuthController> _logger;
     private readonly ApplicationDbContext _dbContext;

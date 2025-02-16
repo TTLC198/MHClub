@@ -84,23 +84,8 @@ public class ApplicationDbContext : DbContext
             .HasForeignKey(c => c.UserId);
 
         modelBuilder.Entity<Review>()
-            .HasOne(r => r.Ad)
-            .WithMany()
-            .HasForeignKey(r => r.AdId);
-
-        modelBuilder.Entity<Review>()
             .HasOne(r => r.User)
             .WithMany()
             .HasForeignKey(r => r.UserId);
-
-        /*modelBuilder.Entity<Media>()
-            .HasOne(m => m.Ad)
-            .WithMany()
-            .HasForeignKey(m => m.AdId);*/
-        
-        modelBuilder.Entity<Media>()
-            .HasOne(m => m.User)
-            .WithMany()
-            .HasForeignKey(m => m.UserId);
     }
 }

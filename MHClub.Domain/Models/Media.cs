@@ -25,6 +25,7 @@ public class Media
     
     [Display(Name = "Пользователь")]
     [Column("userid")]
+    [ForeignKey("userid")]
     public int? UserId { get; set; }
 
     public User? User { get; set; }

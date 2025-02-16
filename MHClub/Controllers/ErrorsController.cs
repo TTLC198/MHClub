@@ -4,7 +4,7 @@ namespace MHClub.Controllers;
 
 [Controller]
 [Route("[controller]")]
-public class ErrorsController : Controller
+public class ErrorsController : BaseController
 {
     [HttpGet]
     public IActionResult Index(string error)

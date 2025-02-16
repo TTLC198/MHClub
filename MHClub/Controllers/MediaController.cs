@@ -4,6 +4,7 @@ using System.Web;
 using MHClub.Domain;
 using MHClub.Domain.Models;
 using MHClub.Models;
+using MHClub.Services;
 using MHClub.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,17 +14,19 @@ namespace MHClub.Controllers;
 
 [Controller]
 [Route("Media")]
-public class MediaController : Controller
+public class MediaController : BaseController
 {
     private readonly ILogger<MediaController> _logger;
     private readonly IWebHostEnvironment _environment;
     private readonly ApplicationDbContext _dbContext;
+    private readonly MediaService _mediaService;
 
-    public MediaController(ILogger<MediaController> logger, ApplicationDbContext dbContext, IWebHostEnvironment environment)
+    public MediaController(ILogger<MediaController> logger, ApplicationDbContext dbContext, IWebHostEnvironment environment, MediaService mediaService)
     {
         _logger = logger;
         _dbContext = dbContext;
         _environment = environment;
+        _mediaService = mediaService;
     }
     
     [AllowAnonymous]
@@ -81,46 +84,9 @@ public class MediaController : Controller
     {
         if (mediaCreateDto is null or ({UserId: <= 0} and {AdId: <= 0}) or {Image: null})
             return RedirectToAction("Index", "Errors", new { error = "Id must be greater than 0" });
-        
-        var uniqueFileName = FileNameHelper.GetUniqueFileName(mediaCreateDto.Image.FileName);
-        
-        var filePath = Path.Combine(_environment.WebRootPath,
-            "images",
-            uniqueFileName);
 
-        _logger.LogDebug("Upload image with path = {Name}", filePath);
-        
-        var media = new Media
-        {
-            AdId = mediaCreateDto.AdId == 0 ? null : mediaCreateDto.AdId,
-            UserId = mediaCreateDto.UserId == 0 ? null : mediaCreateDto.UserId,
-            ContentType = mediaCreateDto.Image.ContentType,
-            Path = filePath
-        };
+        var uploadResult = await _mediaService.UploadImage(mediaCreateDto);
 
-        try
-        {
-            Directory.CreateDirectory(Path.GetDirectoryName(filePath) ?? throw new InvalidOperationException("Directory name is null"));
-            
-            _dbContext.Media.Add(media);
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e.Message);
-            return StatusCode(StatusCodes.Status500InternalServerError,
-                "Произошла ошибка");
-        }
-        finally
-        {
-            await using var stream = new FileStream(filePath, FileMode.CreateNew);
-            await mediaCreateDto.Image.CopyToAsync(stream);
-        }
-
-        return await _dbContext.SaveChangesAsync() switch
-        {
-            0 =>
-             RedirectToAction("Index", "Errors", new { error = "Id must be greater than 0" }),
-            _ => Ok(ImageUriHelper.GetImagePathAsUri(media.Path))
-        };
+        return uploadResult.Item1 ? Ok(uploadResult.Item2) : BadRequest(uploadResult.Item2);
     }
 }
