@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace MHClub.Domain.Models;
 
@@ -100,7 +101,12 @@ public class Ad
     [ForeignKey("SellerId")] 
     public User Seller { get; set; } = new User();
     
+    [JsonIgnore]
     public List<Media> Medias { get; set; }
     
+    [JsonIgnore]
     public List<Review> Reviews { get; set; }
+    
+    [JsonIgnore]
+    public List<Favourite> Favourites { get; set; }
 }

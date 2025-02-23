@@ -38,54 +38,6 @@ public class ApplicationDbContext : DbContext
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<User>()
-            .HasOne(u => u.Role)
-            .WithMany()
-            .HasForeignKey(u => u.RoleId);
-
-        modelBuilder.Entity<Ad>()
-            .HasOne(a => a.Category)
-            .WithMany()
-            .HasForeignKey(a => a.CategoryId);
-
-        modelBuilder.Entity<Ad>()
-            .HasOne(a => a.Tariff)
-            .WithMany()
-            .HasForeignKey(a => a.TariffId);
         
-        modelBuilder.Entity<Ad>()
-            .HasOne(a => a.Seller)
-            .WithMany()
-            .HasForeignKey(a => a.SellerId);
-
-        modelBuilder.Entity<Ad>()
-            .HasOne(a => a.Condition)
-            .WithMany()
-            .HasForeignKey(a => a.ConditionId);
-
-        modelBuilder.Entity<Favourite>()
-            .HasOne(f => f.Ad)
-            .WithMany()
-            .HasForeignKey(f => f.AdId);
-
-        modelBuilder.Entity<Favourite>()
-            .HasOne(f => f.User)
-            .WithMany()
-            .HasForeignKey(f => f.UserId);
-
-        modelBuilder.Entity<Complaint>()
-            .HasOne(c => c.Ad)
-            .WithMany()
-            .HasForeignKey(c => c.AdId);
-
-        modelBuilder.Entity<Complaint>()
-            .HasOne(c => c.User)
-            .WithMany()
-            .HasForeignKey(c => c.UserId);
-
-        modelBuilder.Entity<Review>()
-            .HasOne(r => r.User)
-            .WithMany()
-            .HasForeignKey(r => r.UserId);
     }
 }

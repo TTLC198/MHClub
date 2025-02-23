@@ -19,6 +19,7 @@ public class HomeController : BaseController
     [Route("/")]
     public IActionResult Index()
     {
-        return View("Index");
+        //return View("Index");
+        return RedirectToAction("Index", "Ads");
     }
 }

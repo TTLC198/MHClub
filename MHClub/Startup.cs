@@ -1,9 +1,11 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using MHClub.Domain;
+using MHClub.Domain.Models;
 using MHClub.Services;
 using MHClub.Utils;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace MHClub;
@@ -37,7 +39,10 @@ public class Startup
         services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = "/Auth/Login");
         services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connection));
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+        services.Configure<PasswordHasherOptions>(options => options.CompatibilityMode = PasswordHasherCompatibilityMode.IdentityV2);
+        services.AddScoped<PasswordHasher<User>>();
         services.AddScoped<MediaService>();
+        services.AddScoped<RestCountriesService>();
         services.AddControllers(options => options.AllowEmptyInputInBodyModelBinding = true);
         services.AddControllers().AddJsonOptions(opt =>
         {

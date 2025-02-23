@@ -42,4 +42,7 @@ public class User
     
     [JsonIgnore]
     public List<Media>? Medias { get; set; }
+    
+    [JsonIgnore]
+    public List<Favourite>? Favourites { get; set; }
 }

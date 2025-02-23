@@ -1,0 +1,29 @@
+@using MHClub.Models.Ads
+@using MHClub.Utils
+@model List<AdsIndexViewModel>
+
+@if (ViewBag.Ads != null)
+{
+    <div class="row row-cols-4">
+        @foreach (var ad in Model)
+        {
+            <div class="col pe-2 pb-2">
+                <a href="@Url.Action("Single", "Ads", new { id = ad.Id })" style="text-decoration: none">
+                    <div class="card h-100">
+                        @{
+                            var image = ad.Images.FirstOrDefault();
+                        }
+                        @if (image is not null)
+                        {
+                            <img src="@Url.Action("Get", "Media", new { path = image.GetLocalPath() })" class="card-img-top" alt="...">
+                        }
+                        <div class="card-body">
+                            <h5 class="card-title">@ad.Name </h5>
+                            <p class="card-text">@ad.Cost</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+}

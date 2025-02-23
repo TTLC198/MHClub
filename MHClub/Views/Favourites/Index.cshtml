@@ -1,0 +1,11 @@
+@using MHClub.Models.Ads
+@model MHClub.Models.Ads.AdsIndexDto
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Избранное";
+}
+
+<h3>@ViewData["Title"]</h3>
+
+@await Html.PartialAsync("_AdsPartialView", (List<AdsIndexViewModel>)ViewBag.Ads)

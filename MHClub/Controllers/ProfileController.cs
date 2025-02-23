@@ -2,6 +2,7 @@ using System.Security.Claims;
 using MHClub.Domain;
 using MHClub.Domain.Models;
 using MHClub.Models;
+using MHClub.Models.Ads;
 using MHClub.Models.User;
 using MHClub.Services;
 using MHClub.Utils;
@@ -21,12 +22,14 @@ public class ProfileController : BaseController
     private readonly ILogger<AuthController> _logger;
     private readonly ApplicationDbContext _dbContext;
     private readonly MediaService _mediaService;
+    private readonly PasswordHasher<User> _passwordHasher;
 
-    public ProfileController(ILogger<AuthController> logger, ApplicationDbContext dbContext, MediaService mediaService)
+    public ProfileController(ILogger<AuthController> logger, ApplicationDbContext dbContext, MediaService mediaService, PasswordHasher<User> passwordHasher)
     {
         _logger = logger;
         _dbContext = dbContext;
         _mediaService = mediaService;
+        _passwordHasher = passwordHasher;
     }
     
     [HttpGet]
@@ -68,26 +71,29 @@ public class ProfileController : BaseController
             ModelState.Remove(nameof(UserEditDto.RepeatPassword));
         }
         
-        if (ModelState.IsValid)
-        {
-            return View(inputUser);
-        }
-        
+        var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
+        if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
+            return Unauthorized();
         var user = await _dbContext.Users
-            .Include(user => user.Role)
-            .Include(user => user.Medias)
-            .FirstOrDefaultAsync(u => u.Email == inputUser.Email);
-
+            .Include(u => u.Medias)
+            .FirstOrDefaultAsync(u => u.Id == userId);
         if (user is null)
         {
             ModelState.AddModelError(string.Empty, "Пользователь с введенными данными не найден");
             return View(inputUser);
         }
+        
+        var userPhoto = user.Medias?.FirstOrDefault();
+        inputUser.ImageUrl = userPhoto?.Path ?? "";
+            
+        if (ModelState.IsValid)
+        {
+            return View(inputUser);
+        }
 
         if (passwordEditMode)
         {
-            var hasher = new PasswordHasher<User>();
-            var result = hasher.VerifyHashedPassword(user, user.Password!, inputUser.Password!);
+            var result = _passwordHasher.VerifyHashedPassword(user, user.Password!, inputUser.OldPassword!);
             if (result == PasswordVerificationResult.Failed)
             {
                 ModelState.AddModelError(nameof(UserEditDto.OldPassword), "Введен неверный пароль");
@@ -100,7 +106,7 @@ public class ProfileController : BaseController
                 return View(inputUser);
             }
             
-            user.Password = hasher.HashPassword(user, inputUser.Password!);
+            user.Password = _passwordHasher.HashPassword(inputUser, inputUser.Password!);
         }
 
         if (inputUser.Avatar is not null)
@@ -142,10 +148,15 @@ public class ProfileController : BaseController
         if (user is null)
             return NotFound();
         
-        ViewBag.Ads = await _dbContext.Ads
+        var ads = await _dbContext.Ads
             .Include(a => a.Medias)
             .Where(a => a.SellerId == user.Id)
             .ToListAsync();
+
+        ViewBag.Ads = ads.Select(ad => new AdsIndexViewModel(ad)
+        {
+            Images = ad.Medias.Select(m => m.Path).ToList()
+        }).ToList();
         
         var photo = user.Medias?.FirstOrDefault();
         
@@ -167,11 +178,19 @@ public class ProfileController : BaseController
         if (user is null)
             return NotFound();
         
-        ViewBag.ArchivedAds = await _dbContext.Ads.Where(a => a.SellerId == user.Id && !a.Status).ToListAsync();
+        var ads = await _dbContext.Ads
+            .Where(a => a.SellerId == user.Id && !a.Status)
+            .Include(ad => ad.Medias)
+            .ToListAsync();
+        
+        ViewBag.Ads = ads.Select(ad => new AdsIndexViewModel(ad)
+        {
+            Images = ad.Medias.Select(m => m.Path).ToList()
+        }).ToList();
         
         var photo = user.Medias?.FirstOrDefault();
         
-        return View(await GetUserProfileAsync(user, photo?.Path ?? ""));
+        return View("Ads", await GetUserProfileAsync(user, photo?.Path ?? ""));
     }
     
     [HttpGet]

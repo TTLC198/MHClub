@@ -1,0 +1,8 @@
+@using MHClub.Models.Ads
+@model MHClub.Models.Ads.AdsIndexDto
+
+@{
+    Layout = "_Layout";
+}
+
+@await Html.PartialAsync("_AdsPartialView", (List<AdsIndexViewModel>)ViewBag.Ads)

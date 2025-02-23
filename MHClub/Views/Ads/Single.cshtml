@@ -1,0 +1,19 @@
+@model MHClub.Models.Ads.AdsIndexViewModel
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="container">
+    <div class="row justify-content-between">
+        <div class="col-md-8 justify-content-center">
+            <a href="@ViewBag.ReturnUrl">
+                <img src="images/arrow-left-s-line.png" alt="back"/>
+            </a>
+            <h4>@Model.Name</h4>
+        </div>
+        <div class="col-md-auto">
+        </div>
+    </div>
+</div>

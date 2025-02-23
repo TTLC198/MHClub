@@ -20,11 +20,13 @@ public class AuthController : BaseController
 {
     private readonly ILogger<AuthController> _logger;
     private readonly ApplicationDbContext _dbContext;
+    private readonly PasswordHasher<User> _passwordHasher;
 
-    public AuthController(ILogger<AuthController> logger, ApplicationDbContext dbContext)
+    public AuthController(ILogger<AuthController> logger, ApplicationDbContext dbContext, PasswordHasher<User> passwordHasher)
     {
         _logger = logger;
         _dbContext = dbContext;
+        _passwordHasher = passwordHasher;
     }
     
     [HttpGet]
@@ -61,8 +63,7 @@ public class AuthController : BaseController
             return View(inputUser);
         }
 
-        var hasher = new PasswordHasher<User>();
-        var result = hasher.VerifyHashedPassword(user, user.Password, inputUser.Password!);
+        var result = _passwordHasher.VerifyHashedPassword(user, user.Password, inputUser.Password!);
 
         if (result == PasswordVerificationResult.Failed)
         {
@@ -117,7 +118,7 @@ public class AuthController : BaseController
                 Name = inputUser.Name?.Trim(),
                 Phone = inputUser.Phone?.Trim(),
                 Email = inputUser.Email?.Trim(),
-                Password = hasher.HashPassword(inputUser, inputUser.Password!).Trim(),
+                Password = _passwordHasher.HashPassword(inputUser, inputUser.Password!).Trim(),
                 DateOfRegistration = DateOnly.FromDateTime(DateTime.Now),
                 RoleId = 2, //User
             };
