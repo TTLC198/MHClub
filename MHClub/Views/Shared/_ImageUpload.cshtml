@@ -1,12 +1,18 @@
-<label class="custom-file-upload">
-    @Html.TextBox("Images", "", new {
-        type= "file",
-        onchange="upload(this)",
-        style= "display:none",
-        accept="image/*"})
-    <div id="img_container">
-        <div class="overflow-hidden" style="width: 200px; height: 200px;">
-            <i class="bi-image"></i>
+<div class="card p-3 text-center" style="width: 180px;">
+    <label class="position-relative w-100">
+        @Html.TextBox("Images", "", new
+        {
+            type = "file",
+            onchange = "previewImage(this)",
+            @class = "form-control d-none",
+            accept = "image/*"
+        })
+        <div id="img_container" class="d-flex justify-content-center align-items-center position-relative">
+            <div class="ratio overflow-hidden border border-secondary"
+                 style="width: 80px; height: 80px;">
+                <img id="profile-image" src="" class="img-fluid d-none" alt="">
+            </div>
+            <i id="plus-icon" class="bi bi-plus-lg position-absolute fs-2 text-secondary"></i>
         </div>
-    </div>
-</label>
+    </label>
+</div>

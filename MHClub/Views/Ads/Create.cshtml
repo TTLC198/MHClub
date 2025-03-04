@@ -12,358 +12,578 @@
         }))
 {
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="d-flex justify-content-center">
-        <div class="d-flex flex-column w-75 gap-2">
-            <div class="d-inline-flex w-auto gap-2 align-items-center mb-1">
-                <i class="bi-chevron-left" onclick="location.href='@ViewBag.ReturnUrl';"></i>
-                <h4>
-                    <span class="align-middle">
-                        @ViewData["Title"]
-                    </span>
-                </h4>
+
+    <div class="container mt-4">
+        <div class="card shadow-sm p-4">
+            <div class="d-flex align-items-center mb-3">
+                <i class="bi-chevron-left fs-4 me-2" onclick="location.href='@ViewBag.ReturnUrl';"></i>
+                <h4 class="mb-0">@ViewData["Title"]</h4>
             </div>
-            
-            <div class="form-group mb-1 w-100">
-                <div class="col-md-10 w-100">
-                    @Html.LabelFor(m => m.Name, new
-                    {
-                        @class = "col-md-2 w-100 control-label"
-                    })
-                    <div class="input-container">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.Name, new { @class = "form-label fw-bold" })
                         @Html.TextBoxFor(m => m.Name, new
                         {
-                            @class = "form-control w-100",
+                            @class = "form-control bg-light",
                             placeholder = "Введите название объявления",
-                            type = "text"
+                            style = "border: none; background-color: #EAEAEA;"
                         })
+                        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group mb-1 w-100">
-                <div class="col-md-10 w-100">
-                    @Html.LabelFor(m => m.ConditionId, new
-                    {
-                        @class = "col-md-2 w-100 control-label"
-                    })
-                    <div class="input-container">
-                        @Html.DropDownListFor(m => m.ConditionId, (List<SelectListItem>)ViewBag.Conditions, null, new
-                        {
-                            @class = "form-control w-100",
-                            placeholder = "Выберите состояние"
-                        })
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.ConditionId, new { @class = "form-label fw-bold" })
+                        @Html.DropDownListFor(m => m.ConditionId, (List<SelectListItem>)ViewBag.Conditions,
+                            "-- Выберите состояние --", new { @class = "form-select bg-light", style = "border: none; background-color: #EAEAEA;" })
+                        @Html.ValidationMessageFor(m => m.ConditionId, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.ConditionId, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group mb-1 w-100">
-                <div class="col-md-10 w-100">
-                    @Html.LabelFor(m => m.ManufactureCountry, new
-                    {
-                        @class = "col-md-2 w-100 control-label"
-                    })
-                    <div class="input-container">
-                        @Html.DropDownListFor(m => m.ManufactureCountry, Model.CountriesSelect, null, new
-                        {
-                            @class = "form-control w-100",
-                            placeholder = "Выберите страну-производитель",
-                            type = "text"
-                        })
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.ManufactureCountry, new { @class = "form-label fw-bold" })
+                        @Html.DropDownListFor(m => m.ManufactureCountry, Model.CountriesSelect,
+                            "-- Выберите страну-производитель --", new { @class = "form-select bg-light", style = "border: none; background-color: #EAEAEA;" })
+                        @Html.ValidationMessageFor(m => m.ManufactureCountry, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.ManufactureCountry, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group mb-1 w-100">
-                <div class="col-md-10 w-100">
-                    @Html.LabelFor(m => m.Quantity, new
-                    {
-                        @class = "col-md-2 w-100 control-label"
-                    })
-                    <div class="input-container">
-                        @{
-                            var quantitySelectList = new List<SelectListItem>();
-                            for (var i = 0; i < 20; i++)
-                            {
-                                quantitySelectList.Add(new SelectListItem($"{i} шт.", $"{i}"));
-                            }
-                        }
-                        @Html.DropDownListFor(m => m.Quantity, quantitySelectList, null, new
-                        {
-                            @class = "form-control w-100",
-                            placeholder = "Выберите количество",
-                            type = "text"
-                        })
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.Quantity, new { @class = "form-label fw-bold" })
+                        @Html.DropDownListFor(m => m.Quantity, Enumerable.Range(0, 20)
+                                .Select(i => new SelectListItem($"{i} шт.", i.ToString())).ToList(),
+                            "-- Выберите количество --", new { @class = "form-select bg-light", style = "border: none; background-color: #EAEAEA;" })
+                        @Html.ValidationMessageFor(m => m.Quantity, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.Quantity, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group mb-1 w-100">
-                <div class="col-md-10 w-100">
-                    @Html.LabelFor(m => m.Description, new
-                    {
-                        @class = "col-md-2 w-100 control-label"
-                    })
-                    <div class="input-container">
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.Description, new { @class = "form-label fw-bold" })
                         @Html.TextAreaFor(m => m.Description, new
                         {
-                            @class = "form-control w-100",
+                            @class = "form-control bg-light",
                             placeholder = "Введите описание",
-                            type = "text"
+                            style = "border: none; background-color: #EAEAEA;"
                         })
+                        @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group mb-1">
-                @Html.LabelFor(m => m.Images, new { @class = "col-md-2 form-label w-100" })
-                <div class="images control-group col-md-10 w-100">
-                    <div class="mb-1 d-flex justify-content-between w-100">
-                        <button type="button" class="btn layout-button w-100 m-1" id="addImageButton">Добавить</button>
-                        <button type="button" class="btn layout-button w-100 m-1" id="removeImageButton">Убрать</button>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Загрузите фото</label>
+                        <input type="file" id="imageUpload" multiple class="form-control bg-light" accept="image/*" style="border: none; background-color: #EAEAEA;">
+                        <div id="imagePreview" class="mt-2 d-flex flex-wrap"></div>
                     </div>
-                </div>
-            </div>
 
-            <h4>Информация о доставке</h4>
+                    <h5 class="mt-4">Информация о доставке</h5>
+                    <hr>
 
-            <div class="form-group mb-1 w-100">
-                <div class="col-md-10 w-100">
-                    @Html.LabelFor(m => m.StartCountry, new
-                    {
-                        @class = "col-md-2 w-100 control-label"
-                    })
-                    <div class="input-container">
-                        @Html.DropDownListFor(m => m.StartCountry, Model.CountriesSelect, null, new
-                        {
-                            @class = "form-control w-100",
-                            placeholder = "Выберите страну отправления",
-                            type = "text"
-                        })
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.StartCountry, new { @class = "form-label fw-bold" })
+                        @Html.DropDownListFor(m => m.StartCountry, Model.CountriesSelect,
+                            "-- Выберите страну отправления --", new { @class = "form-select bg-light", style = "border: none; background-color: #EAEAEA;" })
+                        @Html.ValidationMessageFor(m => m.StartCountry, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.StartCountry, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group mb-1 w-100">
-                <div class="col-md-10 w-100">
-                    @Html.LabelFor(m => m.CountryOfIntermediateArrival, new
-                    {
-                        @class = "col-md-2 w-100 control-label"
-                    })
-                    <div class="input-container">
-                        @Html.DropDownListFor(m => m.CountryOfIntermediateArrival, Model.CountriesSelect, null, new
-                        {
-                            @class = "form-control w-100",
-                            placeholder = "Выберите страну промежуточного пребывания",
-                            type = "text"
-                        })
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.CountryOfIntermediateArrival, new { @class = "form-label fw-bold" })
+                        @Html.DropDownListFor(m => m.CountryOfIntermediateArrival, Model.CountriesSelect,
+                            "-- Выберите страну промежуточного пребывания --", new { @class = "form-select bg-light", style = "border: none; background-color: #EAEAEA;" })
+                        @Html.ValidationMessageFor(m => m.CountryOfIntermediateArrival, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.CountryOfIntermediateArrival, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group mb-1 w-100">
-                <div class="col-md-10 w-100">
-                    @Html.LabelFor(m => m.CountryOfDelivery, new
-                    {
-                        @class = "col-md-2 w-100 control-label"
-                    })
-                    <div class="input-container">
-                        @Html.DropDownListFor(m => m.CountryOfDelivery, Model.CountriesSelect, null, new
-                        {
-                            @class = "form-control w-100",
-                            placeholder = "Выберите страну доставки",
-                            type = "text"
-                        })
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.CountryOfDelivery, new { @class = "form-label fw-bold" })
+                        @Html.DropDownListFor(m => m.CountryOfDelivery, Model.CountriesSelect,
+                            "-- Выберите страну доставки --", new { @class = "form-select bg-light", style = "border: none; background-color: #EAEAEA;" })
+                        @Html.ValidationMessageFor(m => m.CountryOfDelivery, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.CountryOfDelivery, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group mb-1 w-100">
-                <div class="col-md-10 w-100">
-                    @Html.LabelFor(m => m.PlannedDeliveryDays, new
-                    {
-                        @class = "col-md-2 w-100 control-label"
-                    })
-                    <div class="input-container">
-                        @Html.TextBoxFor(m => m.PlannedDeliveryDays, null, new
-                        {
-                            @class = "form-control w-100",
-                            placeholder = "Выберите страну доставки",
-                            type = "text"
-                        })
-                    </div>
-                    @Html.ValidationMessageFor(m => m.PlannedDeliveryDays, "", new { @class = "text-danger" })
-                </div>
-            </div>
+                    <h5 class="mt-4">Калькулятор полной стоимости</h5>
+                    <hr>
 
-            <h4>Калькулятор полной стоимости</h4>
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.Cost, new { @class = "form-label fw-bold" })
+                        @Html.TextBoxFor(m => m.Cost, new
+                        {
+                            @class = "form-control bg-light",
+                            placeholder = "Введите стоимость в рублях",
+                            style = "border: none; background-color: #EAEAEA;"
+                        })
+                        @Html.ValidationMessageFor(m => m.Cost, "", new { @class = "text-danger" })
+                    </div>
 
-            <div class="form-group mb-1 w-100">
-                <div class="col-md-10 w-100">
-                    @Html.LabelFor(m => m.Cost, new
-                    {
-                        @class = "col-md-2 w-100 control-label"
-                    })
-                    <div class="input-container">
-                        @Html.TextBoxFor(m => m.Cost, null, new
-                        {
-                            @class = "form-control w-100",
-                            placeholder = "Введите стоимость товара в рублях",
-                            type = "text"
-                        })
+                    <h5 class="mt-4">Габариты посылки</h5>
+                    <hr>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            @Html.LabelFor(m => m.Length, new { @class = "form-label fw-bold" })
+                            @Html.TextBoxFor(m => m.Length, new
+                            {
+                                @class = "form-control bg-light dimension-input",
+                                placeholder = "Длина",
+                                style = "border: none; background-color: #EAEAEA;"
+                            })
+                            @Html.ValidationMessageFor(m => m.Length, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-4">
+                            @Html.LabelFor(m => m.Width, new { @class = "form-label fw-bold" })
+                            @Html.TextBoxFor(m => m.Width, new
+                            {
+                                @class = "form-control bg-light dimension-input",
+                                placeholder = "Ширина",
+                                style = "border: none; background-color: #EAEAEA;"
+                            })
+                            @Html.ValidationMessageFor(m => m.Width, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-4">
+                            @Html.LabelFor(m => m.Height, new { @class = "form-label fw-bold" })
+                            @Html.TextBoxFor(m => m.Height, new
+                            {
+                                @class = "form-control bg-light dimension-input",
+                                placeholder = "Высота",
+                                style = "border: none; background-color: #EAEAEA;"
+                            })
+                            @Html.ValidationMessageFor(m => m.Height, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                    @Html.ValidationMessageFor(m => m.Cost, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group mb-1 w-100">
-                <div class="col-md-10 w-100">
-                    @Html.Label("", "Габариты с учетом упаковки в см", new
-                    {
-                        @class = "col-md-2 w-100 control-label"
-                    })
-                    <div class="input-container">
-                        @Html.LabelFor(m => m.Height, new
-                        {
-                            @class = "col-md-2 w-auto control-label"
-                        })
-                        @Html.TextBoxFor(m => m.Height, null, new
-                        {
-                            @class = "form-control w-100",
-                            placeholder = "Введите высоту",
-                            type = "text"
-                        })
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Объем (см³)</label>
+                        <input type="text" id="volume" class="form-control bg-light" readonly style="border: none; background-color: #EAEAEA;">
                     </div>
-                    @Html.ValidationMessageFor(m => m.Height, "", new { @class = "text-danger" })
-                    <div class="input-container">
-                        @Html.LabelFor(m => m.Width, new
-                        {
-                        @class = "col-md-2 w-auto control-label"
-                        })
-                        @Html.TextBoxFor(m => m.Width, null, new
-                        {
-                            @class = "form-control w-100",
-                            placeholder = "Введите ширину",
-                            type = "text"
-                        })
-                    </div>
-                    @Html.ValidationMessageFor(m => m.Width, "", new { @class = "text-danger" })
-                    <div class="input-container">
-                        @Html.LabelFor(m => m.Length, new
-                        {
-                        @class = "col-md-2 w-auto control-label"
-                        })
-                        @Html.TextBoxFor(m => m.Length, null, new
-                        {
-                            @class = "form-control w-100",
-                            placeholder = "Введите длину",
-                            type = "text"
-                        })
-                    </div>
-                    @Html.ValidationMessageFor(m => m.Length, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group mb-1 w-100">
-                <div class="col-md-10 w-100">
-                    @Html.LabelFor(m => m.CostOfDelivery, new
-                    {
-                        @class = "col-md-2 w-100 control-label"
-                    })
-                    <div class="input-container">
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.CostOfDelivery, new { @class = "form-label fw-bold" })
                         @Html.TextBoxFor(m => m.CostOfDelivery, null, new
                         {
-                            @class = "form-control w-100",
+                            @class = "form-control bg-light",
+                            style = "border: none; background-color: #EAEAEA;",
                             placeholder = "Введите приблизительный вес с упаковкой за единицу (кг)",
                             type = "text"
                         })
+                        @Html.ValidationMessageFor(m => m.CostOfDelivery, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.CostOfDelivery, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group mb-1 w-100">
-                <div class="col-md-10 w-100">
-                    @Html.LabelFor(m => m.SellerMargin, new
-                    {
-                        @class = "col-md-2 w-100 control-label"
-                    })
-                    <div class="input-container">
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.SellerMargin, new { @class = "form-label fw-bold" })
                         @Html.TextBoxFor(m => m.SellerMargin, null, new
                         {
-                            @class = "form-control w-100",
+                            @class = "form-control bg-light",
+                            style = "border: none; background-color: #EAEAEA;",
                             placeholder = "Введите наценку от продавца (в процентах)",
                             type = "text"
                         })
+                        @Html.ValidationMessageFor(m => m.SellerMargin, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.SellerMargin, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group mb-1 w-100">
-                <div class="col-md-10 w-100">
-                    @Html.LabelFor(m => m.OurService, new
-                    {
-                        @class = "col-md-2 w-100 control-label"
-                    })
-                    <div class="input-container">
-                        @Html.CheckBoxFor(m => m.OurService, new
-                        {
-                            @class = "form-control w-100",
-                            placeholder = "Выберите"
-                        })
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.OurService, new { @class = "form-label fw-bold" })
+                        <div class="input-container">
+                            <div class="form-check">
+                                @Html.CheckBoxFor(m => m.OurService, new
+                                {
+                                    @class = "form-check-input"
+                                })
+                            </div>
+                        </div>
+                        @Html.ValidationMessageFor(m => m.OurService, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.OurService, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group mb-1 w-100">
-                <div class="col-md-10 w-100">
-                    @Html.LabelFor(m => m.TotalCost, new
-                    {
-                        @class = "col-md-2 w-100 control-label"
-                    })
-                    <div class="input-container">
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.TotalCost, new { @class = "form-label fw-bold" })
                         @Html.TextBoxFor(m => m.TotalCost, new
                         {
-                            @class = "form-control w-100",
+                            @class = "form-control bg-light",
+                            style = "border: none; background-color: #EAEAEA;",
                             placeholder = "Введите конечную стоимость",
                             type = "text"
                         })
+                        @Html.ValidationMessageFor(m => m.TotalCost, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.TotalCost, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group mb-1 w-100">
-                <div class="col-md-10 w-100">
-                    @Html.LabelFor(m => m.BankCommission, new
-                    {
-                        @class = "col-md-2 w-100 control-label"
-                    })
-                    <div class="input-container">
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.BankCommission, new { @class = "form-label fw-bold" })
                         @Html.TextBoxFor(m => m.BankCommission, new
                         {
-                            @class = "form-control w-100",
+                            @class = "form-control bg-light",
+                            style = "border: none; background-color: #EAEAEA;",
                             placeholder = "Введите комиссию банка",
                             type = "text"
                         })
+                        @Html.ValidationMessageFor(m => m.BankCommission, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.BankCommission, "", new { @class = "text-danger" })
+
+
+                    <button id="submit" class="btn text-white w-100"
+                            style="background-color: #FFB8D2;">
+                        Разместить
+                    </button>
                 </div>
             </div>
-
-            <button id="submit" class="btn layout-button w-100">Разместить</button>
         </div>
     </div>
 }
+
+@*@using (Html.BeginForm("Create", "Ads", FormMethod.Post, new
+        {
+            id = "formData",
+            enctype = "multipart/form-data"
+        }))
+{
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="d-flex justify-content-center">
+    <div class="d-flex flex-column w-75 gap-2">
+        <div class="d-inline-flex w-auto gap-2 align-items-center mb-1">
+            <i class="bi-chevron-left" onclick="location.href='@ViewBag.ReturnUrl';"></i>
+            <h4>
+                <span class="align-middle">
+                    @ViewData["Title"]
+                </span>
+            </h4>
+        </div>
+
+        <div class="form-group mb-1 w-100">
+            <div class="col-md-10 w-100">
+                @Html.LabelFor(m => m.Name, new
+                {
+                    @class = "col-md-2 w-100 control-label"
+                })
+                <div class="input-container">
+                    @Html.TextBoxFor(m => m.Name, new
+                    {
+                        @class = "form-control w-100",
+                        placeholder = "Введите название объявления",
+                        type = "text"
+                    })
+                </div>
+                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group mb-1 w-100">
+            <div class="col-md-10 w-100">
+                @Html.LabelFor(m => m.ConditionId, new
+                {
+                    @class = "col-md-2 w-100 control-label"
+                })
+                <div class="input-container">
+                    @Html.DropDownListFor(m => m.ConditionId, (List<SelectListItem>)ViewBag.Conditions, null, new
+                    {
+                        @class = "form-control w-100",
+                        placeholder = "Выберите состояние"
+                    })
+                </div>
+                @Html.ValidationMessageFor(m => m.ConditionId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group mb-1 w-100">
+            <div class="col-md-10 w-100">
+                @Html.LabelFor(m => m.ManufactureCountry, new
+                {
+                    @class = "col-md-2 w-100 control-label"
+                })
+                <div class="input-container">
+                    @Html.DropDownListFor(m => m.ManufactureCountry, Model.CountriesSelect, null, new
+                    {
+                        @class = "form-control w-100",
+                        placeholder = "Выберите страну-производитель",
+                        type = "text"
+                    })
+                </div>
+                @Html.ValidationMessageFor(m => m.ManufactureCountry, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group mb-1 w-100">
+            <div class="col-md-10 w-100">
+                @Html.LabelFor(m => m.Quantity, new
+                {
+                    @class = "col-md-2 w-100 control-label"
+                })
+                <div class="input-container">
+                    @{
+                        var quantitySelectList = new List<SelectListItem>();
+                        for (var i = 0; i < 20; i++)
+                        {
+                            quantitySelectList.Add(new SelectListItem($"{i} шт.", $"{i}"));
+                        }
+                    }
+                    @Html.DropDownListFor(m => m.Quantity, quantitySelectList, null, new
+                    {
+                        @class = "form-control w-100",
+                        placeholder = "Выберите количество",
+                        type = "text"
+                    })
+                </div>
+                @Html.ValidationMessageFor(m => m.Quantity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group mb-1 w-100">
+            <div class="col-md-10 w-100">
+                @Html.LabelFor(m => m.Description, new
+                {
+                    @class = "col-md-2 w-100 control-label"
+                })
+                <div class="input-container">
+                    @Html.TextAreaFor(m => m.Description, new
+                    {
+                        @class = "form-control w-100",
+                        placeholder = "Введите описание",
+                        type = "text"
+                    })
+                </div>
+                @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group mb-1">
+            @Html.LabelFor(m => m.Images, new { @class = "col-md-2 form-label w-100" })
+            <div class="images">
+
+            </div>
+            <div class="control-group col-md-10 w-100">
+                <div class="mb-1 d-flex justify-content-between w-100">
+                    <button type="button" class="btn layout-button w-100 m-1" id="addImageButton">Добавить</button>
+                    <button type="button" class="btn layout-button w-100 m-1" id="removeImageButton">Убрать</button>
+                </div>
+            </div>
+        </div>
+
+        <h4>Информация о доставке</h4>
+
+        <div class="form-group mb-1 w-100">
+            <div class="col-md-10 w-100">
+                @Html.LabelFor(m => m.StartCountry, new
+                {
+                    @class = "col-md-2 w-100 control-label"
+                })
+                <div class="input-container">
+                    @Html.DropDownListFor(m => m.StartCountry, Model.CountriesSelect, null, new
+                    {
+                        @class = "form-control w-100",
+                        placeholder = "Выберите страну отправления",
+                        type = "text"
+                    })
+                </div>
+                @Html.ValidationMessageFor(m => m.StartCountry, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group mb-1 w-100">
+            <div class="col-md-10 w-100">
+                @Html.LabelFor(m => m.CountryOfIntermediateArrival, new
+                {
+                    @class = "col-md-2 w-100 control-label"
+                })
+                <div class="input-container">
+                    @Html.DropDownListFor(m => m.CountryOfIntermediateArrival, Model.CountriesSelect, null, new
+                    {
+                        @class = "form-control w-100",
+                        placeholder = "Выберите страну промежуточного пребывания",
+                        type = "text"
+                    })
+                </div>
+                @Html.ValidationMessageFor(m => m.CountryOfIntermediateArrival, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group mb-1 w-100">
+            <div class="col-md-10 w-100">
+                @Html.LabelFor(m => m.CountryOfDelivery, new
+                {
+                    @class = "col-md-2 w-100 control-label"
+                })
+                <div class="input-container">
+                    @Html.DropDownListFor(m => m.CountryOfDelivery, Model.CountriesSelect, null, new
+                    {
+                        @class = "form-control w-100",
+                        placeholder = "Выберите страну доставки",
+                        type = "text"
+                    })
+                </div>
+                @Html.ValidationMessageFor(m => m.CountryOfDelivery, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group mb-1 w-100">
+            <div class="col-md-10 w-100">
+                @Html.LabelFor(m => m.PlannedDeliveryDays, new
+                {
+                    @class = "col-md-2 w-100 control-label"
+                })
+                <div class="input-container">
+                    @Html.TextBoxFor(m => m.PlannedDeliveryDays, null, new
+                    {
+                        @class = "form-control w-100",
+                        placeholder = "Выберите страну доставки",
+                        type = "text"
+                    })
+                </div>
+                @Html.ValidationMessageFor(m => m.PlannedDeliveryDays, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <h4>Калькулятор полной стоимости</h4>
+
+        <div class="form-group mb-1 w-100">
+            <div class="col-md-10 w-100">
+                @Html.LabelFor(m => m.Cost, new
+                {
+                    @class = "col-md-2 w-100 control-label"
+                })
+                <div class="input-container">
+                    @Html.TextBoxFor(m => m.Cost, null, new
+                    {
+                        @class = "form-control w-100",
+                        placeholder = "Введите стоимость товара в рублях",
+                        type = "text"
+                    })
+                </div>
+                @Html.ValidationMessageFor(m => m.Cost, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group mb-1 w-100">
+            <div class="col-md-10 w-100">
+                @Html.Label("", "Габариты с учетом упаковки в см", new
+                {
+                    @class = "col-md-2 w-100 control-label"
+                })
+                <div class="input-container d-flex flex-row gap-2">
+                    @Html.LabelFor(m => m.Height, new
+                    {
+                        @class = "col-md-2 w-auto control-label"
+                    })
+                    @Html.TextBoxFor(m => m.Height, null, new
+                    {
+                        @class = "form-control w-100",
+                        placeholder = "Введите высоту",
+                        type = "text"
+                    })
+                </div>
+                @Html.ValidationMessageFor(m => m.Height, "", new { @class = "text-danger" })
+                <div class="input-container d-flex flex-row gap-2">
+                    @Html.LabelFor(m => m.Width, new
+                    {
+                        @class = "col-md-2 w-auto control-label"
+                    })
+                    @Html.TextBoxFor(m => m.Width, null, new
+                    {
+                        @class = "form-control w-100",
+                        placeholder = "Введите ширину",
+                        type = "text"
+                    })
+                </div>
+                @Html.ValidationMessageFor(m => m.Width, "", new { @class = "text-danger" })
+                <div class="input-container d-flex flex-row gap-2">
+                    @Html.LabelFor(m => m.Length, new
+                    {
+                        @class = "col-md-2 w-auto control-label"
+                    })
+                    @Html.TextBoxFor(m => m.Length, null, new
+                    {
+                        @class = "form-control w-100",
+                        placeholder = "Введите длину",
+                        type = "text"
+                    })
+                </div>
+                @Html.ValidationMessageFor(m => m.Length, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group mb-1 w-100">
+            <div class="col-md-10 w-100">
+                @Html.LabelFor(m => m.CostOfDelivery, new
+                {
+                    @class = "col-md-2 w-100 control-label"
+                })
+                <div class="input-container">
+                    @Html.TextBoxFor(m => m.CostOfDelivery, null, new
+                    {
+                        @class = "form-control w-100",
+                        placeholder = "Введите приблизительный вес с упаковкой за единицу (кг)",
+                        type = "text"
+                    })
+                </div>
+                @Html.ValidationMessageFor(m => m.CostOfDelivery, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group mb-1 w-100">
+            <div class="col-md-10 w-100">
+                @Html.LabelFor(m => m.SellerMargin, new
+                {
+                    @class = "col-md-2 w-100 control-label"
+                })
+                <div class="input-container">
+                    @Html.TextBoxFor(m => m.SellerMargin, null, new
+                    {
+                        @class = "form-control w-100",
+                        placeholder = "Введите наценку от продавца (в процентах)",
+                        type = "text"
+                    })
+                </div>
+                @Html.ValidationMessageFor(m => m.SellerMargin, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group mb-1 w-100">
+            <div class="col-md-10 w-100">
+                @Html.LabelFor(m => m.OurService, new
+                {
+                    @class = "col-md-2 w-100 control-label"
+                })
+                <div class="input-container">
+                    @Html.CheckBoxFor(m => m.OurService, new
+                    {
+                        @class = "form-control w-100",
+                        placeholder = "Выберите"
+                    })
+                </div>
+                @Html.ValidationMessageFor(m => m.OurService, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group mb-1 w-100">
+            <div class="col-md-10 w-100">
+                @Html.LabelFor(m => m.TotalCost, new
+                {
+                    @class = "col-md-2 w-100 control-label"
+                })
+                <div class="input-container">
+                    @Html.TextBoxFor(m => m.TotalCost, new
+                    {
+                        @class = "form-control w-100",
+                        placeholder = "Введите конечную стоимость",
+                        type = "text"
+                    })
+                </div>
+                @Html.ValidationMessageFor(m => m.TotalCost, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group mb-1 w-100">
+            <div class="col-md-10 w-100">
+                @Html.LabelFor(m => m.BankCommission, new
+                {
+                    @class = "col-md-2 w-100 control-label"
+                })
+                <div class="input-container">
+                    @Html.TextBoxFor(m => m.BankCommission, new
+                    {
+                        @class = "form-control w-100",
+                        placeholder = "Введите комиссию банка",
+                        type = "text"
+                    })
+                </div>
+                @Html.ValidationMessageFor(m => m.BankCommission, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <button id="submit" class="btn layout-button w-100">Разместить</button>
+    </div>
+    </div>
+}*@
 
 @section Scripts {
 
@@ -388,6 +608,7 @@
         }
 
         $(document).ready(function () {
+            $("#removeImageButton").hide();
         $("#addImageButton").click(function () {
             $.ajax({
                 url: '@Url.Action("GetUploadForm", "Media")',
@@ -398,6 +619,7 @@
             })
                 .done(function(result) {
                     $('.images').append(result);
+                    $("#removeImageButton").show();
                 }).fail(function(xhr) {
                 console.log('error : ' + xhr.status + ' - ' + xhr.statusText + ' - ' + xhr.responseText);
             });
@@ -405,13 +627,68 @@
 
         $("#removeImageButton").click(function () {
             if ($('.images').children().length == 1) {
-                alert("No more images to remove");
+                $("#removeImageButton").hide();
                 return false;
             }
 
-            $(".images").children().eq($('.images').children().length - 1).remove();
+            $(".images").children().eq($('.images').children().length).remove();
         });
     });
+    
+        function previewImage(input) {
+            const file = input.files[0];
+            const reader = new FileReader();
+            const imgElement = document.getElementById("profile-image");
+            const plusIcon = document.getElementById("plus-icon");
+
+            reader.onload = function (e) {
+                imgElement.src = e.target.result;
+                imgElement.classList.remove("d-none");
+                plusIcon.classList.add("d-none");
+            };
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+
+        document.getElementById('imageUpload').addEventListener('change', function(event) {
+            const previewContainer = document.getElementById('imagePreview');
+            previewContainer.innerHTML = '';
+            Array.from(event.target.files).forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imgWrapper = document.createElement('div');
+                    imgWrapper.className = 'position-relative m-1';
+                    imgWrapper.innerHTML = `<img src="${e.target.result}" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
+                <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0" onclick="removeImage(${index})">&times;</button>`;
+                    previewContainer.appendChild(imgWrapper);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        function removeImage(index) {
+            const input = document.getElementById('imageUpload');
+            const files = Array.from(input.files);
+            files.splice(index, 1);
+            const dataTransfer = new DataTransfer();
+            files.forEach(file => dataTransfer.items.add(file));
+            input.files = dataTransfer.files;
+            document.getElementById('imageUpload').dispatchEvent(new Event('change'));
+        }
+
+        function calculateVolume() {
+            let length = parseFloat(document.querySelector("[name='Length']").value) || 0;
+            let width = parseFloat(document.querySelector("[name='Width']").value) || 0;
+            let height = parseFloat(document.querySelector("[name='Height']").value) || 0;
+            let volume = length * width * height;
+            document.getElementById("volume").value = volume > 0 ? volume : "";
+        }
+
+        document.querySelectorAll(".dimension-input").forEach(input => {
+            input.addEventListener("input", calculateVolume);
+        });
     </script>
 
 }
