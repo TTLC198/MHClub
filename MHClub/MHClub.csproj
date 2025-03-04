@@ -32,6 +32,9 @@
 
     <ItemGroup>
       <Content Remove="obj\**" />
+      <Content Update="wwwroot\contentImages\no_content.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>

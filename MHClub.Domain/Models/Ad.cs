@@ -15,7 +15,7 @@ public class Ad
 
     [Display(Name = "Стоимость")]
     [Required]
-    [Range(0, double.MaxValue)]
+    [Range(10, double.MaxValue)]
     public float Cost { get; set; }
 
     [Display(Name = "Статус")]
@@ -26,11 +26,11 @@ public class Ad
     public string? ManufactureCountry { get; set; }
 
     [Display(Name = "Количество")]
-    [Range(0, int.MaxValue)]
+    [Range(1, int.MaxValue)]
     public int? Quantity { get; set; }
 
     [Display(Name = "Описание")]
-    public string? Description { get; set; }
+    public string? Description { get; set; } = "";
 
     [Display(Name = "Страна промежуточного прибытия")]
     public string? CountryOfIntermediateArrival { get; set; }
@@ -38,6 +38,10 @@ public class Ad
     [Display(Name = "Страна доставки")]
     [Required]
     public string CountryOfDelivery { get; set; } = string.Empty;
+    
+    [Display(Name = "Страна отправления")]
+    [Column("startcountry")]
+    public string? StartCountry { get; set; }
 
     [Display(Name = "Высота")]
     [Required]
@@ -64,7 +68,7 @@ public class Ad
     public bool OurService { get; set; }
 
     [Display(Name = "Стоимость доставки")]
-    [Range(0, int.MaxValue)]
+    [Range(10, int.MaxValue)]
     public int? CostOfDelivery { get; set; }
 
     [Display(Name = "Таможенная пошлина 1")]
@@ -98,15 +102,15 @@ public class Ad
     [Column("sellerid")]
     public int SellerId { get; set; }
 
-    [ForeignKey("SellerId")] 
-    public User Seller { get; set; } = new User();
+    [ForeignKey("SellerId")]
+    public User? Seller { get; set; }
     
-    [JsonIgnore]
-    public List<Media> Medias { get; set; }
-    
-    [JsonIgnore]
-    public List<Review> Reviews { get; set; }
-    
-    [JsonIgnore]
-    public List<Favourite> Favourites { get; set; }
+    [Column("creationdate")]
+    public DateTime CreationDate { get; set; }
+
+    [JsonIgnore] public List<Media>? Medias { get; set; }
+
+    [JsonIgnore] public List<Review>? Reviews { get; set; }
+
+    [JsonIgnore] public List<Favourite>? Favourites { get; set; }
 }

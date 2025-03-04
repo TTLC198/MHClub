@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets/MHClub.bundle.scp.css"
     },
     {
+      "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/contentImages/no_content.png",
+      "PackagePath": "staticwebassets/contentImages/no_content.png"
+    },
+    {
       "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/css/site.css",
       "PackagePath": "staticwebassets/css/site.css"
     },
@@ -17,8 +21,20 @@
       "PackagePath": "staticwebassets/images/arrow-left-s-line.png"
     },
     {
+      "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/images/avatar_QjscbU6EUNTFSe46_9b71.jpg",
+      "PackagePath": "staticwebassets/images/avatar_QjscbU6EUNTFSe46_9b71.jpg"
+    },
+    {
       "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/images/avatar_QjscbU6EUNTFSe46_a15e.jpg",
       "PackagePath": "staticwebassets/images/avatar_QjscbU6EUNTFSe46_a15e.jpg"
+    },
+    {
+      "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/images/images (1)_153a.jpeg",
+      "PackagePath": "staticwebassets/images/images (1)_153a.jpeg"
+    },
+    {
+      "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/images/images_062a.jpeg",
+      "PackagePath": "staticwebassets/images/images_062a.jpeg"
     },
     {
       "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/images/images_1219.jpeg",
@@ -29,8 +45,28 @@
       "PackagePath": "staticwebassets/images/images_55fb.jpeg"
     },
     {
+      "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/images/images_a289.jpeg",
+      "PackagePath": "staticwebassets/images/images_a289.jpeg"
+    },
+    {
       "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/images/images_f4f5.jpeg",
       "PackagePath": "staticwebassets/images/images_f4f5.jpeg"
+    },
+    {
+      "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/images/гринч_4ce3.jpg",
+      "PackagePath": "staticwebassets/images/гринч_4ce3.jpg"
+    },
+    {
+      "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/images/кухня_2e0a.jpg",
+      "PackagePath": "staticwebassets/images/кухня_2e0a.jpg"
+    },
+    {
+      "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/images/новогодний_9920.jpg",
+      "PackagePath": "staticwebassets/images/новогодний_9920.jpg"
+    },
+    {
+      "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/images/новогодний_fad7.jpg",
+      "PackagePath": "staticwebassets/images/новогодний_fad7.jpg"
     },
     {
       "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/js/site.js",

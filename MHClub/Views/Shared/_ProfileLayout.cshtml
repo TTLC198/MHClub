@@ -2,7 +2,7 @@
 @model MHClub.Models.User.UserProfileDto
 
 @{
-Layout = "_Layout";
+    Layout = "_Layout";
 }
 
 <div class="container">
@@ -20,27 +20,43 @@ Layout = "_Layout";
             <h4>@Model.Name</h4>
             <div>
                 <p>Рейтинг: @Model.Rating</p>
-                <p>Отзывы: <a href="@Url.Action("Reviews")">@Model.ReviewsCount</a></p>
-                <p>Кол-во объявлений: <a href="@Url.Action("Ads")">@Model.AdsCount</a></p>
-                <p>Зарегистрирован: @Model.DateOfRegistration</p>
-                <p>Скрыть телефон</p>
+                <p>Отзывы: <a href="@Url.Action("Reviews", new { userId = Model.Id })">@Model.ReviewsCount</a></p>
+                <p>Кол-во объявлений: <a href="@Url.Action("OwnProfile", new { userId = Model.Id })">@Model.AdsCount</a></p>
+                <p>Зарегистрирован c @Model.DateOfRegistration</p>
+                <p>Телефон: @Model.Phone</p>
             </div>
-            <div>
-                <button
-                    onclick="location.href='@Url.Action("Logout", "Auth")';"
-                    class="layout-button">
-                    Выйти
-                </button>
-                <button
-                    onclick="location.href='@Url.Action("Edit", "Profile")';"
-                    class="layout-button">
-                    Редактировать
-                </button>
-                <button
-                    onclick="location.href='@Url.Action("ArchivedAds", "Profile")';"
-                    class="layout-button">
-                    Показать архивные объявления
-                </button>
+            <div class="d-flex flex-column gap-2">
+                @if (ViewBag.IsArchivedAds == true)
+                {
+                    <button
+                        onclick="location.href='@ViewBag.ReturnUrl';"
+                        class="btn profile-button">
+                        Назад
+                    </button>
+                }
+                else
+                {
+                    @if (ViewBag.IsOwn == true)
+                    {
+                        <button
+                            onclick="location.href='@Url.Action("Logout", "Auth")';"
+                            style="background: #EB275F !important;"
+                            class="btn profile-button">
+                            Выйти
+                        </button>
+                        <button
+                            onclick="location.href='@Url.Action("Edit", "Profile")';"
+                            class="btn profile-button">
+                            Редактировать
+                        </button>
+                    }
+
+                    <button
+                        onclick="location.href='@Url.Action("ArchivedAds", "Profile", new { userId = Model.Id })';"
+                        class="btn profile-button">
+                        Показать архивные объявления
+                    </button>
+                }
             </div>
         </div>
         <div class="col-md-8 justify-content-center">

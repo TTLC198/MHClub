@@ -38,6 +38,14 @@ public class ApplicationDbContext : DbContext
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        
+        /*modelBuilder.Entity<Category>()
+            .HasMany(c => c.Children)
+            .WithOne(c => c.ParentCategory)
+            .HasForeignKey(fk => fk.ParentCategoryId);*/
+
+        modelBuilder.Entity<Category>()
+            .HasOne(c => c.ParentCategory)
+            .WithMany(c => c.Children)
+            .HasForeignKey(fk => fk.ParentCategoryId);
     }
 }

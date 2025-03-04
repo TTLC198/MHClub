@@ -1,0 +1,12 @@
+<label class="custom-file-upload">
+    @Html.TextBox("Images", "", new {
+        type= "file",
+        onchange="upload(this)",
+        style= "display:none",
+        accept="image/*"})
+    <div id="img_container">
+        <div class="overflow-hidden" style="width: 200px; height: 200px;">
+            <i class="bi-image"></i>
+        </div>
+    </div>
+</label>

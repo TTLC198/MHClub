@@ -58,165 +58,215 @@ public class ProfileController : BaseController
     [Route("Edit")]
     public async Task<IActionResult> Edit([FromForm]UserEditDto inputUser, string? returnUrl = null)
     {
-        ViewBag.ReturnUrl = returnUrl ?? Request.Headers.Referer!;
+        try
+        {
+            ViewBag.ReturnUrl = returnUrl ?? Request.Headers.Referer!;
 
-        var passwordEditMode = !string.IsNullOrEmpty(inputUser.OldPassword) ||
-                               !string.IsNullOrEmpty(inputUser.Password) ||
-                               !string.IsNullOrEmpty(inputUser.RepeatPassword);
+            var passwordEditMode = !string.IsNullOrEmpty(inputUser.OldPassword) ||
+                                   !string.IsNullOrEmpty(inputUser.Password) ||
+                                   !string.IsNullOrEmpty(inputUser.RepeatPassword);
 
-        if (!passwordEditMode)
-        {
-            ModelState.Remove(nameof(UserEditDto.OldPassword));
-            ModelState.Remove(nameof(UserEditDto.Password));
-            ModelState.Remove(nameof(UserEditDto.RepeatPassword));
-        }
-        
-        var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
-        if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
-            return Unauthorized();
-        var user = await _dbContext.Users
-            .Include(u => u.Medias)
-            .FirstOrDefaultAsync(u => u.Id == userId);
-        if (user is null)
-        {
-            ModelState.AddModelError(string.Empty, "Пользователь с введенными данными не найден");
-            return View(inputUser);
-        }
-        
-        var userPhoto = user.Medias?.FirstOrDefault();
-        inputUser.ImageUrl = userPhoto?.Path ?? "";
-            
-        if (ModelState.IsValid)
-        {
-            return View(inputUser);
-        }
-
-        if (passwordEditMode)
-        {
-            var result = _passwordHasher.VerifyHashedPassword(user, user.Password!, inputUser.OldPassword!);
-            if (result == PasswordVerificationResult.Failed)
+            if (!passwordEditMode)
             {
-                ModelState.AddModelError(nameof(UserEditDto.OldPassword), "Введен неверный пароль");
+                ModelState.Remove(nameof(UserEditDto.OldPassword));
+                ModelState.Remove(nameof(UserEditDto.Password));
+                ModelState.Remove(nameof(UserEditDto.RepeatPassword));
+            }
+
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
+            if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
+                return Unauthorized();
+            var user = await _dbContext.Users
+                .Include(u => u.Medias)
+                .FirstOrDefaultAsync(u => u.Id == userId);
+            if (user is null)
+            {
+                ModelState.AddModelError(string.Empty, "Пользователь с введенными данными не найден");
                 return View(inputUser);
             }
-        
-            if (!inputUser.IsPasswordEquals)
+
+            var userPhoto = user.Medias?.FirstOrDefault();
+            inputUser.ImageUrl = userPhoto?.Path ?? "";
+
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError(nameof(UserEditDto.RepeatPassword), "Пароли должны совпадать");
                 return View(inputUser);
             }
-            
-            user.Password = _passwordHasher.HashPassword(inputUser, inputUser.Password!);
-        }
 
-        if (inputUser.Avatar is not null)
-        {
-            var oldImage = user.Medias?.FirstOrDefault();
-            if (oldImage is not null)
-                await _mediaService.Delete(oldImage.Id);
-            var mediaCreateDto = new MediaCreateDto()
+            if (passwordEditMode)
             {
-                UserId = user.Id,
-                Image = inputUser.Avatar
-            };
-            var uploadResult = await _mediaService.UploadImage(mediaCreateDto);
-            if (!uploadResult.Item1) 
-                return RedirectToAction("Index", "Errors", new { error = uploadResult.Item2 });
+                var result = _passwordHasher.VerifyHashedPassword(user, user.Password!, inputUser.OldPassword!);
+                if (result == PasswordVerificationResult.Failed)
+                {
+                    ModelState.AddModelError(nameof(UserEditDto.OldPassword), "Введен неверный пароль");
+                    return View(inputUser);
+                }
+
+                if (!inputUser.IsPasswordEquals)
+                {
+                    ModelState.AddModelError(nameof(UserEditDto.RepeatPassword), "Пароли должны совпадать");
+                    return View(inputUser);
+                }
+
+                user.Password = _passwordHasher.HashPassword(inputUser, inputUser.Password!);
+            }
+
+            if (inputUser.Avatar is not null)
+            {
+                var oldImage = user.Medias?.FirstOrDefault();
+                if (oldImage is not null)
+                    await _mediaService.Delete(oldImage.Id);
+                var mediaCreateDto = new MediaCreateDto()
+                {
+                    UserId = user.Id,
+                    Image = inputUser.Avatar
+                };
+                var uploadResult = await _mediaService.UploadImage(mediaCreateDto);
+                if (!uploadResult.Item1)
+                    return RedirectToAction("Index", "Errors", new { error = uploadResult.Item2 });
+            }
+
+            user.Email = inputUser.Email;
+            user.Phone = inputUser.Phone;
+            user.Name = inputUser.Name;
+
+            await _dbContext.SaveChangesAsync();
+
+            return RedirectToAction("OwnProfile");
         }
-        
-        user.Email = inputUser.Email;
-        user.Phone = inputUser.Phone;
-        user.Name = inputUser.Name;
-
-        await _dbContext.SaveChangesAsync();
-        
-        return RedirectToAction("Ads");
-    }
-    
-    [HttpGet]
-    [Route("Ads")]
-    public async Task<IActionResult> Ads(string? returnUrl = null)
-    {
-        ViewBag.ReturnUrl = returnUrl ?? Request.Headers.Referer!;
-        
-        var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
-        if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
-            return Unauthorized();
-        var user = await _dbContext.Users
-            .Include(u => u.Medias)
-            .FirstOrDefaultAsync(u => u.Id == userId);
-        if (user is null)
-            return NotFound();
-        
-        var ads = await _dbContext.Ads
-            .Include(a => a.Medias)
-            .Where(a => a.SellerId == user.Id)
-            .ToListAsync();
-
-        ViewBag.Ads = ads.Select(ad => new AdsIndexViewModel(ad)
+        catch (Exception exception)
         {
-            Images = ad.Medias.Select(m => m.Path).ToList()
-        }).ToList();
-        
-        var photo = user.Medias?.FirstOrDefault();
-        
-        return View(await GetUserProfileAsync(user, photo?.Path ?? ""));
+            return RedirectToAction("Index", "Errors", new { error = exception.Message });
+        }
     }
-    
+
     [HttpGet]
-    [Route("ArchivedAds")]
-    public async Task<IActionResult> ArchivedAds(string? returnUrl = null)
+    [Route("OwnProfile")]
+    public IActionResult OwnProfile(string? returnUrl = null)
     {
         ViewBag.ReturnUrl = returnUrl ?? Request.Headers.Referer!;
         
         var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
         if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
             return Unauthorized();
-        var user = await _dbContext.Users
-            .Include(u => u.Medias)
-            .FirstOrDefaultAsync(u => u.Id == userId);
-        if (user is null)
-            return NotFound();
         
-        var ads = await _dbContext.Ads
-            .Where(a => a.SellerId == user.Id && !a.Status)
-            .Include(ad => ad.Medias)
-            .ToListAsync();
-        
-        ViewBag.Ads = ads.Select(ad => new AdsIndexViewModel(ad)
+        return RedirectToAction("Profile", "Profile", new { userId });
+    }
+
+    [HttpGet]
+    [Route("{userId:int}/")]
+    public async Task<IActionResult> Profile(int userId, string? returnUrl = null)
+    {
+        try
         {
-            Images = ad.Medias.Select(m => m.Path).ToList()
-        }).ToList();
-        
-        var photo = user.Medias?.FirstOrDefault();
-        
-        return View("Ads", await GetUserProfileAsync(user, photo?.Path ?? ""));
+            ViewBag.ReturnUrl = returnUrl ?? Request.Headers.Referer!;
+
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
+            if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userIdByClaim))
+                return Unauthorized();
+            
+            var user = await _dbContext.Users
+                .Include(u => u.Medias)
+                .FirstOrDefaultAsync(u => u.Id == userId);
+            if (user is null)
+                return NotFound();
+
+            if (userIdByClaim == userId)
+                ViewBag.IsOwn = true;
+
+            var ads = await _dbContext.Ads
+                .Include(a => a.Medias)
+                .Where(a => a.SellerId == user.Id)
+                .ToListAsync();
+
+            ViewBag.Ads = ads.Select(ad => new AdsIndexViewModel(ad)
+            {
+                Images = ad.Medias.Select(m => m.Path).ToList()
+            }).ToList();
+            
+            var photo = user.Medias?.FirstOrDefault();
+
+            return View(await GetUserProfileAsync(user, photo?.Path ?? ""));
+        }
+        catch (Exception exception)
+        {
+            return RedirectToAction("Index", "Errors", new { error = exception.Message });
+        }
     }
     
     [HttpGet]
-    [Route("Reviews")]
-    public async Task<IActionResult> Reviews(string? returnUrl = null)
+    [Route("{userId:int}/ArchivedAds")]
+    public async Task<IActionResult> ArchivedAds(int userId, string? returnUrl = null)
     {
-        ViewBag.ReturnUrl = returnUrl ?? Request.Headers.Referer!;
-        
-        var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
-        if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
-            return Unauthorized();
-        var user = await _dbContext.Users
-            .Include(u => u.Medias)
-            .FirstOrDefaultAsync(u => u.Id == userId);
-        if (user is null)
-            return NotFound();
-        
-        var ads = _dbContext.Ads
-            .Include(a => a.Reviews)
-            .Where(a => a.SellerId == user.Id);
-                 
-        ViewBag.Reviews = await ads.SelectMany(a => a.Reviews).ToListAsync();
-        
-        var photo = user.Medias?.FirstOrDefault();
-        
-        return View(await GetUserProfileAsync(user, photo?.Path ?? ""));
+        try
+        {
+            ViewBag.ReturnUrl = returnUrl ?? Request.Headers.Referer!;
+
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
+            if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userIdByClaim))
+                return Unauthorized();
+            var user = await _dbContext.Users
+                .Include(u => u.Medias)
+                .FirstOrDefaultAsync(u => u.Id == userId);
+            if (user is null)
+                return NotFound();
+            
+            ViewBag.IsArchivedAds = true;
+
+            var ads = await _dbContext.Ads
+                .Where(a => a.SellerId == user.Id && !a.Status)
+                .Include(ad => ad.Medias)
+                .ToListAsync();
+
+            ViewBag.Ads = ads.Select(ad => new AdsIndexViewModel(ad)
+            {
+                Images = ad.Medias.Select(m => m.Path).ToList()
+            }).ToList();
+
+            var photo = user.Medias?.FirstOrDefault();
+
+            return View("Ads", await GetUserProfileAsync(user, photo?.Path ?? ""));
+        }
+        catch (Exception exception)
+        {
+            return RedirectToAction("Index", "Errors", new { error = exception.Message });
+        }
+    }
+    
+    [HttpGet]
+    [Route("{userId:int}/Reviews")]
+    public async Task<IActionResult> Reviews(int userId, string? returnUrl = null)
+    {
+        try
+        {
+            ViewBag.ReturnUrl = returnUrl ?? Request.Headers.Referer!;
+
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
+            if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userIdByClaim))
+                return Unauthorized();
+            var user = await _dbContext.Users
+                .Include(u => u.Medias)
+                .FirstOrDefaultAsync(u => u.Id == userId);
+            if (user is null)
+                return NotFound();
+            
+            if (userIdByClaim == userId)
+                ViewBag.IsOwn = true;
+
+            var ads = _dbContext.Ads
+                .Include(a => a.Reviews)
+                .Where(a => a.SellerId == user.Id);
+
+            ViewBag.Reviews = await ads.SelectMany(a => a.Reviews).ToListAsync();
+
+            var photo = user.Medias?.FirstOrDefault();
+
+            return View(await GetUserProfileAsync(user, photo?.Path ?? ""));
+        }
+        catch (Exception exception)
+        {
+            return RedirectToAction("Index", "Errors", new { error = exception.Message });
+        }
     }
 
     private async Task<UserProfileDto> GetUserProfileAsync(User user, string userPhoto)

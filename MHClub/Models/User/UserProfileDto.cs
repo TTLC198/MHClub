@@ -15,6 +15,7 @@ public class UserProfileDto : Domain.Models.User
     {
         Email = user.Email;
         Name = user.Name;
+        Phone = user.Phone;
         DateOfRegistration = user.DateOfRegistration;
         Password = user.Password;
         Rating = rating;

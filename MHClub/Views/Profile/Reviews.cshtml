@@ -3,25 +3,18 @@
 
 @{
     Layout = "_ProfileLayout";
+    ViewData["Title"] = "Просмотр отзывов";
 }
 
-@if (ViewBag.Reviews != null)
+@if (ViewBag.Reviews is not null)
 {
-    <div class="col">
-        @foreach (Review review in ViewBag.Reviews)
-        {
-            <div class="row pe-2 pb-2">
-                <div class="card">
-                    <div class="card-header">
-                        @review.Estimation
-                    </div>
-                    <div class="card-body">
-                        <blockquote class="blockquote mb-0">
-                            <p>@review.Description</p>
-                        </blockquote>
-                    </div>
-                </div>
-            </div>
-        }
+    @await Html.PartialAsync("_ReviewsPartialView", (List<Review>)ViewBag.Reviews)
+}
+else
+{
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Загрузка...</span>
+        </div>
     </div>
 }

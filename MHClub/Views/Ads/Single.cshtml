@@ -1,3 +1,5 @@
+@using MHClub.Domain.Models
+@using MHClub.Utils
 @model MHClub.Models.Ads.AdsIndexViewModel
 
 @{
@@ -6,14 +8,191 @@
 }
 
 <div class="container">
-    <div class="row justify-content-between">
-        <div class="col-md-8 justify-content-center">
-            <a href="@ViewBag.ReturnUrl">
-                <img src="images/arrow-left-s-line.png" alt="back"/>
-            </a>
-            <h4>@Model.Name</h4>
+    <div class="row justify-content-center gap-6">
+        <div class="col-6 d-flex flex-column">
+            <div class="d-inline-flex w-auto gap-2 align-items-center mb-2">
+                <i class="bi-chevron-left" onclick="location.href='@ViewBag.ReturnUrl';"></i>
+                <h4>
+                    <span class="align-middle">
+                        @Model.Name
+                    </span>
+                </h4>
+            </div>
+            @{
+                var images = Model.Images ?? [];
+            }
+
+            @if (images!.Any())
+            {
+                <div class="d-flex flex-column mb-6">
+                    <div id="carousel" class="carousel slide mb-3" data-bs-ride="carousel" data-bs-interval="0">
+                        <div class="carousel-inner">
+                            @{
+                                var firstImage = true;
+                            }
+                            @foreach (var image in Model.Images ?? [])
+                            {
+                                <div class="carousel-item@(firstImage ? Html.Raw(" active") : Html.Raw(""))">
+                                    <img class="ad-image img w-100" src="@Url.Action("Get", "Media", new { path = image.GetLocalPath() })" alt="/images/@image">
+                                </div>
+                                firstImage = false;
+                            }
+                        </div>
+                        @if (images!.Count() > 1)
+                        {
+                            <a class="carousel-control-prev" data-bs-target="#carousel" role="button"
+                               data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            </a>
+                            <a class="carousel-control-next" data-bs-target="#carousel" role="button"
+                               data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            </a>
+                        }
+                    </div>
+                    <div class="row gap-2 mb-4 w-100">
+                        <div class="col-2">
+                            @if (images?.Count() > 1)
+                            {
+                                <div id="carousel" class="carousel w-100" data-bs-ride="carousel" data-bs-interval="0">
+                                    <div class="carousel-inner">
+                                        @{
+                                            var list = Model.Images ?? [];/*
+                                            list.Add(list[0]);
+                                            list.RemoveAt(list.Count - 1);*/
+                                        }
+                                        @for (var i = 0; i < list.Count; i++)
+                                        {
+                                            var image = list[i];
+                                            <div class="carousel-item@(i == 1 ? Html.Raw(" active") : Html.Raw(""))">
+                                                <img class="img-fluid img h-25" src="@Url.Action("Get", "Media", new { path = image.GetLocalPath() })" alt="/images/@image">
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="col-2">
+                            @if (images?.Count() > 2)
+                            {
+                                <div id="carousel" class="carousel w-100" data-bs-ride="carousel" data-bs-interval="0">
+                                    <div class="carousel-inner">
+                                        @{
+                                            var list = Model.Images ?? [];/*
+                                            list.Add(list[0]);
+                                            list.RemoveAt(list.Count - 1);*/
+                                        }
+                                        @for (var i = 0; i < list.Count; i++)
+                                        {
+                                            var image = list[i];
+                                            <div class="carousel-item@(i == 2 ? Html.Raw(" active") : Html.Raw(""))">
+                                                <img class="img-fluid img h-25" src="@Url.Action("Get", "Media", new { path = image.GetLocalPath() })" alt="/images/@image">
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="col-4">
+
+                        </div>
+                    </div>
+                    <div id="fullpage" onclick="this.style.display='none';"></div>
+                </div>
+            }
+            else
+            {
+                <img
+                    src="~/contentImages/no_content.png"
+                    class="d-block img-fluid"
+                    alt="...">
+            }
+            <div class="p-2" style="background-color: #EAEAEA; min-height: 120pt">
+                <p class="text-break">@Model.Description</p>
+            </div>
         </div>
-        <div class="col-md-auto">
+        <div class="col-4">
+            <div class="d-flex flex-column">
+                <div class="d-flex gap-1 flex-row align-items-center">
+                    <h3 class="gradient-text">@Model.Cost</h3>
+                    <h3>рублей</h3>
+                    @if (Model.IsOwn != true)
+                    {
+                        <button id="fav-button" class="m-2" data-fav="@(!Model.IsFavourite)">
+                            @if (Model.IsFavourite == true)
+                            {
+                                <i class="bi-heart-fill"></i>
+                            }
+                            else
+                            {
+                                <i class="bi-heart"></i>
+                            }
+                        </button>
+                    }
+                </div>
+
+                <h4>Информация о доставке и сроках от продавца: </h4>
+                <div class="d-flex flex-column">
+                    <p>Доставка откуда: @Model?.StartCountry</p>
+                    <p>Доставка через: @Model?.CountryOfIntermediateArrival</p>
+                    <p>Доставка куда: @Model?.CountryOfDelivery</p>
+                    <p>Габариты с упаковкой: @Model?.Width*@Model?.Length*@Model?.Height (Ш*Д*В)</p>
+                    <p>Процент продавца: @Model?.SellerMargin</p>
+                    <p>Примерные сроки доставки: </p>
+                </div>
+
+                <h3>Информация о публикаторе</h3>
+                <div class="d-flex flex-column">
+                    <p>Имя: <a href="@Url.Action("OwnProfile", "Profile", new { userId = Model?.SellerId })">@Model?.UserProfileDto?.Name</a></p>
+                    <p>Рейтинг: @Model?.UserProfileDto?.Rating</p>
+                    <p>Отзывы: <a href="@Url.Action("Reviews", "Profile", new { userId = Model?.SellerId })">@Model?.UserProfileDto?.ReviewsCount</a></p>
+                    <p>Кол-во объявлений: <a href="@Url.Action("OwnProfile", "Profile", new { userId = Model?.SellerId })">@Model?.UserProfileDto?.AdsCount</a></p>
+                    <p>Зарегистрирован: @Model?.UserProfileDto?.DateOfRegistration</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            const imgs = document.querySelectorAll('.img');
+            const fullPage = document.querySelector('#fullpage');
+
+            imgs.forEach(img => {
+                img.addEventListener('click', function() {
+                    fullPage.style.backgroundImage = 'url(' + img.src + ')';
+                    fullPage.style.display = 'block';
+                });
+            });
+
+            $(".carousel-control-prev").click(function() {
+                $('.carousel').carousel('prev');
+            });
+
+            $(".carousel-control-next").click(function() {
+                $('.carousel').carousel('next');
+            });
+        
+            $("#fav-button").click(function () {
+                $.ajax({
+                    url: '/Favourites?adId=@Model?.Id&isFavourite='+$("#fav-button").data("fav"),
+                    type: 'POST',
+                    cache: false,
+                    async: true,
+                    })
+                    .done(function(result) {
+                        $("#fav-button").data("fav", !$("#fav-button").data("fav"));
+                        if ($("#fav-button").data("fav")) {
+                            $("#fav-button").html("<i class=\"bi-heart\"></i>");
+                        }
+                        else {
+                            $("#fav-button").html("<i class=\"bi-heart-fill\"></i>");
+                        }
+                    });
+            });
+        });
+    </script>
+}

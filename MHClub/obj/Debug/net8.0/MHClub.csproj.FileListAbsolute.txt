@@ -111,3 +111,4 @@
 /Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll
 /Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll
 /Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/bin/Debug/net8.0/wwwroot/contentImages/no_content.png

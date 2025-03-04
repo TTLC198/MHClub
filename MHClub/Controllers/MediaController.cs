@@ -89,4 +89,12 @@ public class MediaController : BaseController
 
         return uploadResult.Item1 ? Ok(uploadResult.Item2) : BadRequest(uploadResult.Item2);
     }
+    
+    [Authorize]
+    [HttpGet]
+    [Route("upload")]
+    public ActionResult GetUploadForm()
+    {
+        return PartialView("_ImageUpload");
+    }
 }

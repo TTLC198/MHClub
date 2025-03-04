@@ -1,13 +1,16 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - MHClub</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <link rel="stylesheet" href="~/MHClub.styles.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <style>
         .nav-link {
             background-color: transparent !important;
@@ -19,7 +22,7 @@
         }
     </style>
 </head>
-<body>
+<body class="d-flex flex-column h-100">
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container mt-2 mb-2" style="max-width: 1200px;">
@@ -37,16 +40,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link me-2" href="@Url.Action("Ads", "Profile")">Профиль</a>
+                            <a class="nav-link me-2" href="@Url.Action("OwnProfile", "Profile")">Профиль</a>
                         </li>
                         <li class="nav-item">
                             <button
                                 onclick="location.href='/PostAd';"
-                                class="layout-button">Жалобы
+                                class="layout-button">
+                                Жалобы
                             </button>
                         </li>
                     }
-                    else if(User.IsInRole("User")) {
+                    else if (User.IsInRole("User"))
+                    {
                         <!-- Избранное как ссылка -->
                         <li class="nav-item">
                             <a class="nav-link me-2" href="@Url.Action("Index", "Favourites")">
@@ -55,23 +60,24 @@
                         </li>
                         <!-- Профиль как ссылка -->
                         <li class="nav-item">
-                            <a class="nav-link me-2" href="@Url.Action("Ads", "Profile")">Профиль</a>
+                            <a class="nav-link me-2" href="@Url.Action("OwnProfile", "Profile")">Профиль</a>
                         </li>
                         <!-- Разместить объявление как кнопка -->
                         <li class="nav-item">
                             <button
                                 onclick="location.href='@Url.Action("Create", "Ads")';"
-                                class="layout-button">Разместить объявление
+                                class="layout-button">
+                                Разместить объявление
                             </button>
                         </li>
                     }
                     else
                     {
-                    <li class="nav-item">
-                        <a class="nav-link me-2" href="@Url.Action("Login", "Auth")">
-                            <i class="fas fa-right-to-bracket"></i>
-                        </a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link me-2" href="@Url.Action("Login", "Auth")">
+                                <i class="fas fa-right-to-bracket"></i>
+                            </a>
+                        </li>
                     }
                 </ul>
             </div>
@@ -84,15 +90,14 @@
     </main>
 </div>
 
-<footer class="border-top footer text-muted">
-    <div class="container"
-         style="align-items: center">
-        &copy; 2025 - MHClub
+<footer class="border-top footer text-muted mt-auto">
+    <div class="container">
+        <p class="text-center text-body-secondary">© 2025 MHClub</p>
     </div>
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
-@await RenderSectionAsync("Scripts", required: false)
+@await RenderSectionAsync("Scripts", false)
 </body>
 </html>
