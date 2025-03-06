@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace MHClub.Domain.Models;
 
@@ -13,19 +14,23 @@ public class Review
     [Range(1, 5)]
     public int Estimation { get; set; }
 
-    [Display(Name = "Описание отзыва")]
+    [Display(Name = "Оставьте письменный отзыв")]
     [Required]
     public string Description { get; set; } = string.Empty;
 
     [Display(Name = "Объявление")]
     [Column("AdId")]
     [ForeignKey("AdId")]
+    [ValidateNever]
     public int AdId { get; set; }
 
-    public Ad Ad { get; set; } = new Ad();
+    [ValidateNever]
+    public Ad? Ad { get; set; }
 
     [Display(Name = "Пользователь")]
+    [ValidateNever]
     public int UserId { get; set; }
 
-    public User User { get; set; } = new User();
+    [ValidateNever]
+    public User? User { get; set; }
 }

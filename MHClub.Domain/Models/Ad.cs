@@ -63,7 +63,7 @@ public class Ad
     [Range(0, int.MaxValue)]
     public int SellerMargin { get; set; }
 
-    [Display(Name = "Наш сервис")]
+    [Display(Name = "Рассчет НЕ через наш сервис")]
     [Required]
     public bool OurService { get; set; }
 

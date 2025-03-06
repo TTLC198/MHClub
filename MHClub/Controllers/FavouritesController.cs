@@ -26,6 +26,7 @@ public class FavouritesController : BaseController
         _mediaService = mediaService;
     }
 
+    [Authorize]
     [HttpGet]
     [Route("Index")]
     public async Task<IActionResult> Index()
@@ -45,6 +46,7 @@ public class FavouritesController : BaseController
 
             var ads = user.Favourites?
                 .Select(f => f.Ad)
+                .Distinct()
                 .ToList();
 
             ViewBag.Ads = ads.Select(ad => new AdsIndexViewModel(ad)

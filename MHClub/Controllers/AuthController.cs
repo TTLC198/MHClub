@@ -14,6 +14,7 @@ using Microsoft.VisualBasic;
 
 namespace MHClub.Controllers;
 
+[AllowAnonymous]
 [Controller]
 [Route("[controller]")]
 public class AuthController : BaseController

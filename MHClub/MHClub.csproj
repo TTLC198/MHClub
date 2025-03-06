@@ -41,4 +41,8 @@
       <None Remove="obj\**" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Models\Reviews\" />
+    </ItemGroup>
+
 </Project>

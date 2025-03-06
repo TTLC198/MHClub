@@ -1,0 +1,61 @@
+@model MHClub.Models.User.UserProfileDto;
+
+@{
+    Layout = "_ProfileLayout";
+    ViewData["Title"] = "Публикация отзыва";
+}
+
+<div>
+
+    @using (Html.BeginForm("Create", "Reviews", FormMethod.Post))
+    {
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.Hidden("Id", ViewBag.Id, new {})
+    @Html.Hidden("ReviewToCreate.AdId", ViewBag.AdId, new {})
+    @Html.Hidden("ReturnUrl", ViewBag.ReturnUrl, new {})
+
+    <div class="container mt-4">
+        <div class="card shadow-sm p-4">
+            <div class="d-flex align-items-center mb-3">
+                <i class="bi-chevron-left fs-4 me-2" onclick="location.href='@ViewBag.ReturnUrl';"></i>
+                <h4 class="mb-0">Заполните форму</h4>
+            </div>
+
+            <div class="col-md-12">
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.ReviewToCreate.Estimation, new { @class = "form-label fw-bold" })
+                    <div class="star-rating animated-stars ms-2">
+                        <input type="radio" id="star5" name="ReviewToCreate.Estimation" value="5">
+                        <label for="star5" class="bi bi-star-fill"></label>
+                        <input type="radio" id="star4" name="ReviewToCreate.Estimation" value="4">
+                        <label for="star4" class="bi bi-star-fill"></label>
+                        <input type="radio" id="star3" name="ReviewToCreate.Estimation" value="3">
+                        <label for="star3" class="bi bi-star-fill"></label>
+                        <input type="radio" id="star2" name="ReviewToCreate.Estimation" value="2">
+                        <label for="star2" class="bi bi-star-fill"></label>
+                        <input type="radio" id="star1" name="ReviewToCreate.Estimation" value="1">
+                        <label for="star1" class="bi bi-star-fill"></label>
+                    </div>
+                    @Html.ValidationMessageFor(m => m.ReviewToCreate.Estimation, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.ReviewToCreate.Description, new { @class = "form-label fw-bold" })
+                    @Html.TextAreaFor(m => m.ReviewToCreate.Description, new
+                    {
+                        @class = "form-control bg-light",
+                        placeholder = "",
+                        style = "border: none; background-color: #EAEAEA;"
+                    })
+                    @Html.ValidationMessageFor(m => m.ReviewToCreate.Description, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="d-flex flex-row gap-2">
+                    <button class="btn text-white w-100" style="background-color: #EB275F;">Разместить</button>
+                    <button type="button" onclick="location.href=`@ViewBag.ReturnUrl`" class="btn text-white w-100" style="background-color: #72C4E7;">Выйти</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+</div>

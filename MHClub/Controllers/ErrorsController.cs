@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MHClub.Controllers;
 
+[AllowAnonymous]
 [Controller]
 [Route("[controller]")]
 public class ErrorsController : BaseController

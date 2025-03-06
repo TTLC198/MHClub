@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace MHClub.Controllers;
 
-[Authorize]
+[AllowAnonymous]
 [Controller]
 [Route("[controller]")]
 public class ProfileController : BaseController
@@ -32,6 +32,7 @@ public class ProfileController : BaseController
         _passwordHasher = passwordHasher;
     }
     
+    [Authorize]
     [HttpGet]
     [Route("Edit")]
     public async Task<IActionResult> Edit(string? returnUrl = null)
@@ -41,6 +42,7 @@ public class ProfileController : BaseController
         var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
         if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
             return Unauthorized();
+        ViewBag.Id = userId;
         var user = await _dbContext.Users
             .Include(u => u.Medias)
             .FirstOrDefaultAsync(u => u.Id == userId);
@@ -54,6 +56,7 @@ public class ProfileController : BaseController
         return View(editedUser);
     }
 
+    [Authorize]
     [HttpPost]
     [Route("Edit")]
     public async Task<IActionResult> Edit([FromForm]UserEditDto inputUser, string? returnUrl = null)
@@ -76,6 +79,7 @@ public class ProfileController : BaseController
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
             if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
                 return Unauthorized();
+            ViewBag.Id = userId;
             var user = await _dbContext.Users
                 .Include(u => u.Medias)
                 .FirstOrDefaultAsync(u => u.Id == userId);
@@ -140,6 +144,7 @@ public class ProfileController : BaseController
         }
     }
 
+    [Authorize]
     [HttpGet]
     [Route("OwnProfile")]
     public IActionResult OwnProfile(string? returnUrl = null)
@@ -149,7 +154,7 @@ public class ProfileController : BaseController
         var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
         if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
             return Unauthorized();
-        
+        ViewBag.Id = userId;
         return RedirectToAction("Profile", "Profile", new { userId });
     }
 
@@ -163,8 +168,10 @@ public class ProfileController : BaseController
 
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
             if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userIdByClaim))
-                return Unauthorized();
-            
+                userIdByClaim = 0;
+            if (userIdByClaim != 0)
+                ViewBag.IsAuth = true;
+            ViewBag.Id = userId;
             var user = await _dbContext.Users
                 .Include(u => u.Medias)
                 .FirstOrDefaultAsync(u => u.Id == userId);
@@ -176,7 +183,7 @@ public class ProfileController : BaseController
 
             var ads = await _dbContext.Ads
                 .Include(a => a.Medias)
-                .Where(a => a.SellerId == user.Id)
+                .Where(a => a.SellerId == user.Id && a.Status)
                 .ToListAsync();
 
             ViewBag.Ads = ads.Select(ad => new AdsIndexViewModel(ad)
@@ -185,6 +192,12 @@ public class ProfileController : BaseController
             }).ToList();
             
             var photo = user.Medias?.FirstOrDefault();
+
+            ViewBag.Reviews = await _dbContext.Ads
+                .Include(a => a.Reviews)
+                .Where(a => a.SellerId == user.Id)
+                .SelectMany(a => a.Reviews)
+                .ToListAsync();
 
             return View(await GetUserProfileAsync(user, photo?.Path ?? ""));
         }
@@ -201,10 +214,7 @@ public class ProfileController : BaseController
         try
         {
             ViewBag.ReturnUrl = returnUrl ?? Request.Headers.Referer!;
-
-            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
-            if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userIdByClaim))
-                return Unauthorized();
+            ViewBag.Id = userId;
             var user = await _dbContext.Users
                 .Include(u => u.Medias)
                 .FirstOrDefaultAsync(u => u.Id == userId);
@@ -243,7 +253,10 @@ public class ProfileController : BaseController
 
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
             if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userIdByClaim))
-                return Unauthorized();
+                userIdByClaim = 0;
+            if (userIdByClaim != 0)
+                ViewBag.IsAuth = true;
+            ViewBag.Id = userId;
             var user = await _dbContext.Users
                 .Include(u => u.Medias)
                 .FirstOrDefaultAsync(u => u.Id == userId);

@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MHClub.Controllers;
 
-[Authorize]
+[AllowAnonymous]
 [Controller]
 [Route("[controller]")]
 public class AdsController : BaseController
@@ -33,6 +33,7 @@ public class AdsController : BaseController
 
     [HttpGet]
     [Route("")]
+    [Route("/")]
     [Route("Index")]
     public async Task<IActionResult> Index()
     {
@@ -40,10 +41,10 @@ public class AdsController : BaseController
         {
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
             if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
-                return Unauthorized();
+                userId = 0;
             
             var ads = await _dbContext.Ads
-                .Where(a => a.SellerId != userId)
+                .Where(a => a.SellerId != userId && a.Status)
                 .Include(a => a.Medias)
                 .AsNoTracking()
                 .ToListAsync();
@@ -72,19 +73,26 @@ public class AdsController : BaseController
     
     [HttpGet]
     [Route("Search")]
-    public async Task<IActionResult> Search()
+    public async Task<IActionResult> Search(AdsIndexDto model)
     {
         try
         {
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
             if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
-                return Unauthorized();
+                userId = 0;
             
             var ads = await _dbContext.Ads
-                .Where(a => a.SellerId != userId)
-                .Include(a => a.Medias)
                 .AsNoTracking()
+                .Where(a => a.SellerId != userId && a.Status)
+                .Include(a => a.Medias)
                 .ToListAsync();
+
+            if (!string.IsNullOrEmpty(model.AdsSearchViewModel.FilterText))
+            {
+                ads = ads
+                    .Where(a => (a.Description != null && a.Description.Contains(model.AdsSearchViewModel.FilterText, StringComparison.CurrentCultureIgnoreCase)) ||
+                                 a.Name.Contains(model.AdsSearchViewModel.FilterText, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            }
 
             ViewBag.Ads = ads.Select(ad => new AdsIndexViewModel(ad)
             {
@@ -98,8 +106,9 @@ public class AdsController : BaseController
                 .ToListAsync();
 
             ViewBag.Categories = categories;
+            ViewBag.IsAfterSearch = true;
 
-            return View(new AdsIndexDto());
+            return View("Index", model);
         }
         catch (Exception exception)
         {
@@ -117,10 +126,7 @@ public class AdsController : BaseController
 
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
             if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
-                return Unauthorized();
-            var user = await _dbContext.Users
-                .Include(u => u.Medias)
-                .FirstOrDefaultAsync(u => u.Id == userId);
+                userId = 0;
             
             var ad = await _dbContext.Ads
                 .AsNoTracking()
@@ -141,6 +147,7 @@ public class AdsController : BaseController
                 Images = ad.Medias?.Select(m => m.Path).ToList(),
                 IsFavourite = isFav,
                 IsOwn = isOwn,
+                IsArchived = !ad.Status,
                 UserProfileDto = await GetUserProfileAsync(ad.Seller!)
             });
         }
@@ -150,6 +157,7 @@ public class AdsController : BaseController
         }
     }
 
+    [Authorize]
     [HttpGet]
     [Route("Create")]
     public async Task<IActionResult> Create(string? returnUrl = null)
@@ -159,6 +167,12 @@ public class AdsController : BaseController
         {
             ViewBag.ReturnUrl = returnUrl ?? Request.Headers.Referer!;
             model.CountriesSelect = await _restCountriesService.GetAllForSelect();
+            model.CategoriesSelect = _dbContext.Categories
+                .AsNoTracking()
+                .ToList()
+                .Where(x => !string.IsNullOrEmpty(x.Name))
+                .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
+                .ToList();
             var conditions = await _dbContext.Conditions.ToListAsync();
             ViewBag.Conditions = conditions.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
         }
@@ -169,6 +183,7 @@ public class AdsController : BaseController
         return View(model);
     }
     
+    [Authorize]
     [HttpPost]
     [Route("Edit")]
     public async Task<IActionResult> Edit([FromForm]AdsCreateViewModel model, string? returnUrl = null)
@@ -177,6 +192,17 @@ public class AdsController : BaseController
         {
             ViewBag.ReturnUrl = returnUrl ?? Request.Headers.Referer!;
             model.CountriesSelect = await _restCountriesService.GetAllForSelect();
+            model.CategoriesSelect = _dbContext.Categories
+                .AsNoTracking()
+                .ToList()
+                .Where(x => !string.IsNullOrEmpty(x.Name))
+                .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
+                .ToList();
+            
+            var conditions = await _dbContext.Conditions
+                .Where(x => !string.IsNullOrEmpty(x.Name))
+                .ToListAsync();
+            ViewBag.Conditions = conditions.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
 
             model = model.TrimStringProperties();
             
@@ -218,15 +244,54 @@ public class AdsController : BaseController
         }
     }
     
+    [Authorize]
     [HttpGet]
-    [Route("Edit")]
-    public async Task<IActionResult> Edit(string? returnUrl = null)
+    [Route("Edit/{id}")]
+    public async Task<IActionResult> Edit(int id, string? returnUrl = null)
     {
         var model = new AdsCreateViewModel();
         try
         {
             ViewBag.ReturnUrl = returnUrl ?? Request.Headers.Referer!;
             model.CountriesSelect = await _restCountriesService.GetAllForSelect();
+            model.CategoriesSelect = _dbContext.Categories
+                .AsNoTracking()
+                .ToList()
+                .Where(x => !string.IsNullOrEmpty(x.Name))
+                .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
+                .ToList();
+            
+            var conditions = await _dbContext.Conditions
+                .Where(x => !string.IsNullOrEmpty(x.Name))
+                .ToListAsync();
+            ViewBag.Conditions = conditions.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
+            
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
+            if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
+                return Unauthorized();
+            var user = await _dbContext.Users
+                .Include(u => u.Medias)
+                .FirstOrDefaultAsync(u => u.Id == userId);
+            
+            var ad = await _dbContext.Ads
+                .AsNoTracking()
+                .Include(a => a.Medias)
+                .Include(a => a.Seller)
+                .FirstOrDefaultAsync(a => a.Id == id);
+
+            if (ad is null)
+                return RedirectToAction("Index", "Errors", new { error = "Объявление не найдено" });
+            
+            var isOwn = ad.SellerId == userId;
+            
+            if (!isOwn)
+                return RedirectToAction("Index", "Errors", new { error = "Вы не можете редактировать чужое объявление" });
+
+            return View(new AdsCreateViewModel(ad)
+            {
+                IsOwn = isOwn,
+                UserProfileDto = await GetUserProfileAsync(ad.Seller!)
+            });
         }
         catch (Exception exception)
         {
@@ -235,6 +300,7 @@ public class AdsController : BaseController
         return View(model);
     }
     
+    [Authorize]
     [HttpPost]
     [Route("Create")]
     public async Task<IActionResult> Create([FromForm]AdsCreateViewModel model, string? returnUrl = null)
@@ -243,6 +309,12 @@ public class AdsController : BaseController
         {
             ViewBag.ReturnUrl = returnUrl ?? Request.Headers.Referer!;
             model.CountriesSelect = await _restCountriesService.GetAllForSelect();
+            model.CategoriesSelect = _dbContext.Categories
+                .AsNoTracking()
+                .ToList()
+                .Where(x => !string.IsNullOrEmpty(x.Name))
+                .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
+                .ToList();
             
             model = model.TrimStringProperties();
             
@@ -263,6 +335,7 @@ public class AdsController : BaseController
 
             model.SellerId = userId;
             model.CreationDate = DateTime.Now;
+            model.Status = true;
             var adEntry = await _dbContext.Ads.AddAsync(model);
             await _dbContext.SaveChangesAsync();
 
@@ -282,6 +355,80 @@ public class AdsController : BaseController
         {
             ModelState.AddModelError(string.Empty, exception.Message);
             return View(model);
+        }
+    }
+    
+    [Authorize]
+    [HttpPost]
+    [Route("{id}/Restore")]
+    public async Task<IActionResult> Restore(int id, string? returnUrl = null)
+    {
+        try
+        {
+            ViewBag.ReturnUrl = returnUrl ?? Request.Headers.Referer!;
+
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
+            if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
+                return Unauthorized();
+            
+            var ad = await _dbContext.Ads
+                .Include(a => a.Medias)
+                .Include(a => a.Seller)
+                .FirstOrDefaultAsync(a => a.Id == id);
+
+            if (ad is null)
+                return RedirectToAction("Index", "Errors", new { error = "Объявление не найдено" });
+            
+            var isOwn = ad.SellerId == userId;
+            
+            if (!isOwn)
+                return RedirectToAction("Index", "Errors", new { error = "Вы не можете восстановить чужое объявление" });
+
+            ad.Status = true;
+            await _dbContext.SaveChangesAsync();
+            
+            return Redirect(ViewBag.ReturnUrl);
+        }
+        catch (Exception exception)
+        {
+            return RedirectToAction("Index", "Errors", new { error = exception.Message });
+        }
+    }
+    
+    [Authorize]
+    [HttpPost]
+    [Route("{id}/Delete")]
+    public async Task<IActionResult> Delete(int id, string? returnUrl = null)
+    {
+        try
+        {
+            ViewBag.ReturnUrl = returnUrl ?? Request.Headers.Referer!;
+
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
+            if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
+                return Unauthorized();
+            
+            var ad = await _dbContext.Ads
+                .Include(a => a.Medias)
+                .Include(a => a.Seller)
+                .FirstOrDefaultAsync(a => a.Id == id);
+
+            if (ad is null)
+                return RedirectToAction("Index", "Errors", new { error = "Объявление не найдено" });
+            
+            var isOwn = ad.SellerId == userId;
+            
+            if (!isOwn)
+                return RedirectToAction("Index", "Errors", new { error = "Вы не можете удалить чужое объявление" });
+
+            ad.Status = false;
+            await _dbContext.SaveChangesAsync();
+            
+            return Redirect(ViewBag.ReturnUrl);
+        }
+        catch (Exception exception)
+        {
+            return RedirectToAction("Index", "Errors", new { error = exception.Message });
         }
     }
     

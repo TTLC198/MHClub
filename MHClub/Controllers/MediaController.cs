@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MHClub.Controllers;
 
+[AllowAnonymous]
 [Controller]
 [Route("Media")]
 public class MediaController : BaseController

@@ -10,6 +10,7 @@ public class AdsIndexViewModel : Ad
     public bool? IsFavourite { get; set; }
     
     public bool? IsOwn { get; set; }
+    public bool? IsArchived { get; set; }
     
     public UserProfileDto? UserProfileDto { get; set; }
 
