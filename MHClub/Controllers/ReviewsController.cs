@@ -138,7 +138,7 @@ public class ReviewsController : BaseController
     
     private async Task<UserProfileDto> GetUserProfileAsync(User user, string userPhoto)
     {
-        var ads = _dbContext.Ads.Where(a => a.SellerId == user.Id);
+        var ads = _dbContext.Ads.Where(a => a.SellerId == user.Id && a.Status);
         var adsCount = await ads.CountAsync();
         var reviewsByAds = _dbContext.Reviews.Join(ads, r => r.AdId, r => r.Id, (r, ad) => r);
         var reviewsCount = await reviewsByAds.CountAsync();

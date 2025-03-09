@@ -111,8 +111,6 @@ public class AuthController : BaseController
                 return View(inputUser);
             }
 
-            var hasher = new PasswordHasher<User>();
-
             var user = new User()
             {
                 Id = null,
@@ -124,16 +122,18 @@ public class AuthController : BaseController
                 RoleId = 2, //User
             };
 
-            await _dbContext.Users.AddAsync(user);
-
-            switch (await _dbContext.SaveChangesAsync())
+            var createdUser = await _dbContext.Users.AddAsync(user);
+            await _dbContext.SaveChangesAsync();
+            
+            var authClaims = new List<Claim>
             {
-                case 0:
-                    ModelState.AddModelError(string.Empty, "Произошла ошибка");
-                    return View(inputUser);
-                default:
-                    return Redirect(returnUrl ?? "/");
-            }
+                new("id", Strings.Trim($"{createdUser.Entity.Id}")),
+                new(ClaimTypes.Role, Strings.Trim("User"))
+            };
+            var claimsIdentity = new ClaimsIdentity(authClaims, "Cookies");
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity));
+            return Redirect(returnUrl ?? "/");
         }
         catch (Exception exception)
         {

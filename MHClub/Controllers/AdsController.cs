@@ -1,3 +1,4 @@
+using System.Text.Json;
 using MHClub.Domain;
 using MHClub.Domain.Models;
 using MHClub.Models;
@@ -39,6 +40,19 @@ public class AdsController : BaseController
     {
         try
         {
+            var model = new AdsIndexDto
+            {
+                AdsSearchViewModel =
+                {
+                    Categories = _dbContext.Categories
+                        .AsNoTracking()
+                        .ToList()
+                        .Where(x => !string.IsNullOrEmpty(x.Name))
+                        .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
+                        .ToList()
+                }
+            };
+
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
             if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
                 userId = 0;
@@ -54,16 +68,7 @@ public class AdsController : BaseController
                 Images = ad.Medias.Select(m => m.Path).ToList()
             }).ToList();
 
-            var categories = await _dbContext.Categories
-                .AsNoTracking()
-                .Include(c => c.Children)
-                .ThenInclude(cc => cc.Children)
-                .Include(c => c.ParentCategory)
-                .ToListAsync();
-
-             ViewBag.Categories = categories;
-
-            return View(new AdsIndexDto());
+            return View(model);
         }
         catch (Exception exception)
         {
@@ -77,6 +82,13 @@ public class AdsController : BaseController
     {
         try
         {
+            model.AdsSearchViewModel.Categories = _dbContext.Categories
+                .AsNoTracking()
+                .ToList()
+                .Where(x => !string.IsNullOrEmpty(x.Name))
+                .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
+                .ToList();
+            
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
             if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
                 userId = 0;
@@ -94,18 +106,16 @@ public class AdsController : BaseController
                                  a.Name.Contains(model.AdsSearchViewModel.FilterText, StringComparison.CurrentCultureIgnoreCase)).ToList();
             }
 
+            if (model.AdsSearchViewModel.SelectedCategoryId is not null)
+            {
+                ads = ads.Where(a => a.CategoryId == model.AdsSearchViewModel.SelectedCategoryId).ToList();
+            }
+
             ViewBag.Ads = ads.Select(ad => new AdsIndexViewModel(ad)
             {
                 Images = ad.Medias.Select(m => m.Path).ToList()
             }).ToList();
 
-            var categories = await _dbContext.Categories
-                .AsNoTracking()
-                .Include(c => c.Children)
-                .Include(c => c.ParentCategory)
-                .ToListAsync();
-
-            ViewBag.Categories = categories;
             ViewBag.IsAfterSearch = true;
 
             return View("Index", model);
@@ -175,6 +185,8 @@ public class AdsController : BaseController
                 .ToList();
             var conditions = await _dbContext.Conditions.ToListAsync();
             ViewBag.Conditions = conditions.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
+            var tariffs = await _dbContext.Tariffs.ToListAsync();
+            ViewBag.Tariffs = tariffs.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
         }
         catch (Exception exception)
         {
@@ -185,11 +197,12 @@ public class AdsController : BaseController
     
     [Authorize]
     [HttpPost]
-    [Route("Edit")]
-    public async Task<IActionResult> Edit([FromForm]AdsCreateViewModel model, string? returnUrl = null)
+    [Route("Edit/{id}")]
+    public async Task<IActionResult> Edit(int id, [FromForm]AdsCreateViewModel model, string? returnUrl = null)
     {
         try
         {
+            model.Id = id;
             ViewBag.ReturnUrl = returnUrl ?? Request.Headers.Referer!;
             model.CountriesSelect = await _restCountriesService.GetAllForSelect();
             model.CategoriesSelect = _dbContext.Categories
@@ -198,13 +211,23 @@ public class AdsController : BaseController
                 .Where(x => !string.IsNullOrEmpty(x.Name))
                 .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
                 .ToList();
-            
-            var conditions = await _dbContext.Conditions
-                .Where(x => !string.IsNullOrEmpty(x.Name))
-                .ToListAsync();
+            var conditions = await _dbContext.Conditions.ToListAsync();
             ViewBag.Conditions = conditions.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
+            var tariffs = await _dbContext.Tariffs.ToListAsync();
+            ViewBag.Tariffs = tariffs.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
 
             model = model.TrimStringProperties();
+            
+            if (model.OurService)
+            {
+                ModelState.Remove("TariffId");
+            }
+            else
+            {
+                ModelState.Remove("CostDelivery");
+                ModelState.Remove("CustomDuty1");
+                ModelState.Remove("CustomDuty2");
+            }
             
             if (!ModelState.IsValid)
                 return View(model);
@@ -220,22 +243,36 @@ public class AdsController : BaseController
                 ModelState.AddModelError(string.Empty, "Пользователь не найден");
                 return View(model);
             }
-
-            model.SellerId = userId;
-            var adEntry = await _dbContext.Ads.AddAsync(model);
+            var adEntry = await _dbContext.Ads.FirstOrDefaultAsync(x => x.Id == model.Id);
+            
+            adEntry.TotalCost = model.TotalCost;
+            adEntry.Name = model.Name;
+            adEntry.Cost = model.Cost;
+            adEntry.ManufactureCountry = model.ManufactureCountry;
+            adEntry.Quantity = model.Quantity;
+            adEntry.Description = model.Description;
+            adEntry.StartCountry = model.StartCountry;
+            adEntry.CountryOfIntermediateArrival = model.CountryOfIntermediateArrival;
+            adEntry.CountryOfDelivery = model.CountryOfDelivery;
+            adEntry.Height = model.Height;
+            adEntry.Width = model.Width;
+            adEntry.Length = model.Length;
+            adEntry.Weight = model.Weight;
+            adEntry.Volume = model.Volume;
+            adEntry.SellerMargin = model.SellerMargin;
+            adEntry.OurService = model.OurService;
+            adEntry.CostOfDelivery = model.CostOfDelivery;
+            adEntry.CustomsDuty1 = model.CustomsDuty1;
+            adEntry.CustomsDuty2 = model.CustomsDuty2;
+            adEntry.BankCommission = model.BankCommission;
+            adEntry.CategoryId = model.CategoryId;
+            adEntry.TariffId = model.TariffId;
+            adEntry.ConditionId = model.ConditionId;
+            adEntry.CreationDate = model.CreationDate;
+            
             await _dbContext.SaveChangesAsync();
 
-            foreach (var imageFile in model.Images)
-            {
-                var mediaCreateDto = new MediaCreateDto()
-                {
-                    AdId = adEntry.Entity.Id,
-                    Image = imageFile
-                };
-                var uploadResult = await _mediaService.UploadImage(mediaCreateDto);
-            }
-
-            return RedirectToAction("Index");
+            return RedirectToAction("Single", new { id = model.Id});
         }
         catch (Exception exception)
         {
@@ -260,18 +297,14 @@ public class AdsController : BaseController
                 .Where(x => !string.IsNullOrEmpty(x.Name))
                 .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
                 .ToList();
-            
-            var conditions = await _dbContext.Conditions
-                .Where(x => !string.IsNullOrEmpty(x.Name))
-                .ToListAsync();
+            var conditions = await _dbContext.Conditions.ToListAsync();
             ViewBag.Conditions = conditions.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
+            var tariffs = await _dbContext.Tariffs.ToListAsync();
+            ViewBag.Tariffs = tariffs.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
             
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
             if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
                 return Unauthorized();
-            var user = await _dbContext.Users
-                .Include(u => u.Medias)
-                .FirstOrDefaultAsync(u => u.Id == userId);
             
             var ad = await _dbContext.Ads
                 .AsNoTracking()
@@ -290,6 +323,8 @@ public class AdsController : BaseController
             return View(new AdsCreateViewModel(ad)
             {
                 IsOwn = isOwn,
+                CountriesSelect = model.CountriesSelect,
+                CategoriesSelect = model.CategoriesSelect,
                 UserProfileDto = await GetUserProfileAsync(ad.Seller!)
             });
         }
@@ -315,8 +350,23 @@ public class AdsController : BaseController
                 .Where(x => !string.IsNullOrEmpty(x.Name))
                 .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
                 .ToList();
+            var conditions = await _dbContext.Conditions.ToListAsync();
+            ViewBag.Conditions = conditions.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
+            var tariffs = await _dbContext.Tariffs.ToListAsync();
+            ViewBag.Tariffs = tariffs.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
             
             model = model.TrimStringProperties();
+
+            if (model.OurService)
+            {
+                ModelState.Remove("TariffId");
+            }
+            else
+            {
+                ModelState.Remove("CostDelivery");
+                ModelState.Remove("CustomDuty1");
+                ModelState.Remove("CustomDuty2");
+            }
             
             if (!ModelState.IsValid)
                 return View(model);
@@ -333,10 +383,12 @@ public class AdsController : BaseController
                 return View(model);
             }
 
-            model.SellerId = userId;
-            model.CreationDate = DateTime.Now;
-            model.Status = true;
-            var adEntry = await _dbContext.Ads.AddAsync(model);
+            var ad = new Ad(model);
+            
+            ad.SellerId = userId;
+            ad.CreationDate = DateTime.Now;
+            ad.Status = true;
+            var adEntry = await _dbContext.Ads.AddAsync(ad);
             await _dbContext.SaveChangesAsync();
 
             foreach (var imageFile in model.Images)
@@ -349,7 +401,7 @@ public class AdsController : BaseController
                 var uploadResult = await _mediaService.UploadImage(mediaCreateDto);
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("OwnProfile", "Profile");
         }
         catch (Exception exception)
         {
@@ -431,10 +483,49 @@ public class AdsController : BaseController
             return RedirectToAction("Index", "Errors", new { error = exception.Message });
         }
     }
+
+    [HttpPost]
+    [Route("Calculate")]
+    public async Task<string> CalculatePrice([FromForm]AdsCreateViewModel model)
+    {
+        var totalPrice = 0d;
+
+        try
+        {
+
+            totalPrice += model.Cost * (model.Quantity ?? 1);
+            var sellerMargin = totalPrice / 100d * (model.SellerMargin ?? 0);
+            var bankCommission = totalPrice / 100d * (model.BankCommission ?? 0);
+            totalPrice += sellerMargin + bankCommission;
+
+            if (!model.OurService)
+            {
+                if (model.TariffId.HasValue)
+                {
+                    var currentTariff = await _dbContext.Tariffs.AsNoTracking()
+                        .FirstOrDefaultAsync(x => x.Id == model.TariffId);
+                    var deliveryCost =
+                        (model.Weight ?? 0) * (model.Quantity ?? 1) + (model.Volume ?? 0) * (model.Quantity ?? 1) *
+                        (currentTariff?.Cost ?? 10);
+                    totalPrice += deliveryCost;
+                }
+            }
+            else
+            {
+                totalPrice += (model.CustomsDuty1 ?? 0) + (model.CustomsDuty2 ?? 0) + (model.CostOfDelivery ?? 0);
+            }
+
+            return JsonSerializer.Serialize(totalPrice);
+        }
+        catch (Exception e)
+        {
+            return JsonSerializer.Serialize(0);
+        }
+    }
     
     private async Task<UserProfileDto> GetUserProfileAsync(User user)
     {
-        var ads = _dbContext.Ads.Where(a => a.SellerId == user.Id);
+        var ads = _dbContext.Ads.Where(a => a.SellerId == user.Id && a.Status);
         var adsCount = await ads.CountAsync();
         var reviewsByAds = _dbContext.Reviews.Join(ads, r => r.AdId, r => r.Id, (r, ad) => r);
         var reviewsCount = await reviewsByAds.CountAsync();

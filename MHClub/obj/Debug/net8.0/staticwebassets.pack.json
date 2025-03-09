@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets/MHClub.bundle.scp.css"
     },
     {
+      "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/contentImages/no_avatar.jpg",
+      "PackagePath": "staticwebassets/contentImages/no_avatar.jpg"
+    },
+    {
       "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/contentImages/no_content.png",
       "PackagePath": "staticwebassets/contentImages/no_content.png"
     },
@@ -17,8 +21,24 @@
       "PackagePath": "staticwebassets/favicon.ico"
     },
     {
+      "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/images/1656701570141_326b.jpg",
+      "PackagePath": "staticwebassets/images/1656701570141_326b.jpg"
+    },
+    {
+      "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/images/1656701570141_6bc5.jpg",
+      "PackagePath": "staticwebassets/images/1656701570141_6bc5.jpg"
+    },
+    {
+      "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/images/1656701570141_8d78.jpg",
+      "PackagePath": "staticwebassets/images/1656701570141_8d78.jpg"
+    },
+    {
       "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/images/1656701570141_f2fc.jpg",
       "PackagePath": "staticwebassets/images/1656701570141_f2fc.jpg"
+    },
+    {
+      "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/images/1_17fd.jpg",
+      "PackagePath": "staticwebassets/images/1_17fd.jpg"
     },
     {
       "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/images/5PUq_6a14.gif",
@@ -29,8 +49,16 @@
       "PackagePath": "staticwebassets/images/600000136888b0_5c81.webp"
     },
     {
+      "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/images/600000136888b0_da5e.webp",
+      "PackagePath": "staticwebassets/images/600000136888b0_da5e.webp"
+    },
+    {
       "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/images/arrow-left-s-line.png",
       "PackagePath": "staticwebassets/images/arrow-left-s-line.png"
+    },
+    {
+      "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/images/avatar_QjscbU6EUNTFSe46_8abe.jpg",
+      "PackagePath": "staticwebassets/images/avatar_QjscbU6EUNTFSe46_8abe.jpg"
     },
     {
       "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/images/avatar_QjscbU6EUNTFSe46_9b71.jpg",
@@ -45,8 +73,16 @@
       "PackagePath": "staticwebassets/images/images (1)_153a.jpeg"
     },
     {
+      "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/images/images (1)_9cb6.jpeg",
+      "PackagePath": "staticwebassets/images/images (1)_9cb6.jpeg"
+    },
+    {
       "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/images/images (2)_2a59.jpeg",
       "PackagePath": "staticwebassets/images/images (2)_2a59.jpeg"
+    },
+    {
+      "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/images/images (2)_c62e.jpeg",
+      "PackagePath": "staticwebassets/images/images (2)_c62e.jpeg"
     },
     {
       "Id": "/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/wwwroot/images/images_062a.jpeg",

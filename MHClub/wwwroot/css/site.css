@@ -35,6 +35,16 @@ body {
   transform: translate(-50%, -50%);
 }
 
+.form-profile {
+  background-color: #ffffff;
+  display: block;
+  min-width: 400px;
+  padding: 1rem;
+  max-width: 600px;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
 .form-title {
   font-size: 1.25rem;
   line-height: 1.75rem;
@@ -304,4 +314,8 @@ input {
 .star-rating label:hover~label,
 .star-rating input:checked~label {
   color: #ffc107;
+}
+
+.display-none {
+  display: none;
 }

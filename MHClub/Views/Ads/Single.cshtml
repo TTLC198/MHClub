@@ -63,7 +63,7 @@
                         {
                             var image = list[index];
                             <div class="col pe-2">
-                                <img class="ad-image img-mini w-100 h-50" data-index="@index" src="@Url.Action("Get", "Media", new { path = image.GetLocalPath() })" alt="/images/@image">
+                                <img class="img-mini ratio ratio-1x1 overflow-hidden shadow h-100" data-index="@index" src="@Url.Action("Get", "Media", new { path = image.GetLocalPath() })" alt="/images/@image">
                             </div>
                         }
                     </div>
@@ -77,14 +77,14 @@
                     class="d-block img-fluid"
                     alt="...">
             }
-            <div class="p-2" style="background-color: #EAEAEA; min-height: 120pt">
+            <div class="p-2 mt-4" style="background-color: #EAEAEA; min-height: 120pt">
                 <p class="text-break">@Model.Description</p>
             </div>
         </div>
         <div class="col-4">
             <div class="d-flex flex-column">
                 <div class="d-flex gap-1 flex-row align-items-center">
-                    <h3 class="gradient-text">@Model.Cost</h3>
+                    <h3 class="gradient-text">@Model.TotalCost</h3>
                     <h3>рублей</h3>
                     @if (Model.IsOwn != true)
                     {
@@ -114,9 +114,30 @@
                 <h3>Информация о публикаторе</h3>
                 <div class="d-flex flex-column">
                     <p>Имя: <a href="@Url.Action("Profile", "Profile", new { userId = Model?.SellerId })">@Model?.UserProfileDto?.Name</a></p>
-                    <p>Рейтинг: @Model?.UserProfileDto?.Rating</p>
-                    <p>Отзывы: <a href="@Url.Action("Reviews", "Profile", new { userId = Model?.SellerId })">@Model?.UserProfileDto?.ReviewsCount</a></p>
-                    <p>Кол-во объявлений: <a href="@Url.Action("Profile", "Profile", new { userId = Model?.SellerId })">@Model?.UserProfileDto?.AdsCount</a></p>
+                    @if (Model?.UserProfileDto?.Rating > 0)
+                    {
+                        <p>Рейтинг: @string.Format("0:C2", Model?.UserProfileDto?.Rating ?? 0)</p>
+                    }
+                    else
+                    {
+                        <p>Нет рейтинга</p>
+                    }
+                    @if (Model?.UserProfileDto?.ReviewsCount > 0)
+                    {
+                        <p>Отзывы: <a href="@Url.Action("Reviews", "Profile", new { userId = Model?.SellerId })">@Model.UserProfileDto?.ReviewsCount</a></p>
+                    }
+                    else
+                    {
+                        <p>Отзывов нет</p>
+                    }
+                    @if (Model?.UserProfileDto?.AdsCount > 0)
+                    {
+                        <p>Кол-во объявлений: <a href="@Url.Action("Profile", "Profile", new { userId = Model?.SellerId })">@Model.UserProfileDto?.AdsCount</a></p>
+                    }
+                    else
+                    {
+                        <p>Объявлений нет</p>
+                    }
                     <p>Зарегистрирован: @Model?.UserProfileDto?.DateOfRegistration</p>
                 </div>
 

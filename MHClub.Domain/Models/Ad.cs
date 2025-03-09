@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
@@ -7,110 +8,137 @@ namespace MHClub.Domain.Models;
 [Table("ad")]
 public class Ad
 {
-    public int Id { get; set; }
+    public virtual int Id { get; set; }
 
     [Display(Name = "Название объявления")]
-    [Required]
-    public string Name { get; set; } = string.Empty;
+    public virtual string Name { get; set; } = string.Empty;
 
-    [Display(Name = "Стоимость")]
-    [Required]
-    [Range(10, double.MaxValue)]
-    public float Cost { get; set; }
+    [Display(Name = "Стоимость товара в рублях")]
+    [Range(10, double.MaxValue, ErrorMessage = "Значение должно быть числом")]
+    public virtual float Cost { get; set; }
 
     [Display(Name = "Статус")]
-    [Required]
-    public bool Status { get; set; }
+    public virtual bool Status { get; set; }
 
     [Display(Name = "Страна производства")]
-    public string? ManufactureCountry { get; set; }
+    public virtual string? ManufactureCountry { get; set; }
 
     [Display(Name = "Количество")]
-    [Range(1, int.MaxValue)]
-    public int? Quantity { get; set; }
+    public virtual int? Quantity { get; set; }
 
     [Display(Name = "Описание")]
-    public string? Description { get; set; } = "";
+    public virtual string? Description { get; set; } = "";
 
     [Display(Name = "Страна промежуточного прибытия")]
-    public string? CountryOfIntermediateArrival { get; set; }
+    public virtual string? CountryOfIntermediateArrival { get; set; }
 
     [Display(Name = "Страна доставки")]
-    [Required]
-    public string CountryOfDelivery { get; set; } = string.Empty;
+    public virtual string CountryOfDelivery { get; set; } = string.Empty;
     
     [Display(Name = "Страна отправления")]
     [Column("startcountry")]
-    public string? StartCountry { get; set; }
+    public virtual string? StartCountry { get; set; }
 
     [Display(Name = "Высота")]
-    [Required]
-    [Range(0, int.MaxValue)]
-    public int Height { get; set; }
+    public virtual int Height { get; set; }
 
     [Display(Name = "Ширина")]
-    [Required]
-    [Range(0, int.MaxValue)]
-    public int Width { get; set; }
+    public virtual int Width { get; set; }
 
     [Display(Name = "Длина")]
-    [Required]
-    [Range(0, int.MaxValue)]
-    public int Length { get; set; }
+    public virtual int Length { get; set; }
+    
+    [Display(Name = "Объем (см\u00b3)")]
+    [Column("volume")]
+    public virtual int? Volume { get; set; }
+    
+    [Display(Name = "Приблизительный вес с упаковкой за единицу (г)")]
+    [Column("weight")]
+    public virtual int? Weight { get; set; }
 
-    [Display(Name = "Наценка продавца")]
-    [Required]
-    [Range(0, int.MaxValue)]
-    public int SellerMargin { get; set; }
+    [Display(Name = "Наценка продавца (в %)")]
+    public virtual int? SellerMargin { get; set; }
 
     [Display(Name = "Рассчет НЕ через наш сервис")]
-    [Required]
-    public bool OurService { get; set; }
+    public virtual bool OurService { get; set; } = true;
 
-    [Display(Name = "Стоимость доставки")]
-    [Range(10, int.MaxValue)]
-    public int? CostOfDelivery { get; set; }
+    [Display(Name = "Конечная стоимость доставки до покупателя")]
+    public virtual int? CostOfDelivery { get; set; }
 
-    [Display(Name = "Таможенная пошлина 1")]
-    [Range(0, int.MaxValue)]
-    public int? CustomsDuty1 { get; set; }
+    [Display(Name = "Таможенный сбор в стране отправки (с учетом веса)")]
+    public virtual int? CustomsDuty1 { get; set; }
 
-    [Display(Name = "Таможенная пошлина 2")]
-    [Range(0, int.MaxValue)]
-    public int? CustomsDuty2 { get; set; }
-
-    [Display(Name = "Банковская комиссия")]
-    [Range(0, int.MaxValue)]
-    public int? BankCommission { get; set; }
+    [Display(Name = "Таможенный сбор в стране приемки (с учетом веса)")]
+    public virtual int? CustomsDuty2 { get; set; }
+    
+    [Display(Name = "Банковская комиссия (в %)")]
+    public virtual int? BankCommission { get; set; }
 
     [Display(Name = "Категория")]
-    public int CategoryId { get; set; }
-
-    public Category Category { get; set; } = new Category();
+    public virtual int? CategoryId { get; set; }
+    public virtual Category? Category { get; set; }
 
     [Display(Name = "Тариф")]
-    public int? TariffId { get; set; }
+    public virtual int? TariffId { get; set; }
 
-    public Tariff? Tariff { get; set; }
+    public virtual Tariff? Tariff { get; set; }
 
     [Display(Name = "Состояние")]
-    public int ConditionId { get; set; }
+    public virtual int? ConditionId { get; set; }
 
     [ForeignKey("ConditionId")]
-    public Condition Condition { get; set; } = new Condition();
+    public virtual Condition? Condition { get; set; }
     
     [Column("sellerid")]
-    public int SellerId { get; set; }
+    public virtual int SellerId { get; set; }
 
     [ForeignKey("SellerId")]
-    public User? Seller { get; set; }
+    public virtual User? Seller { get; set; }
+    
+    [DisplayName("Итого")]
+    [Column("totalcost")]
+    public double? TotalCost { get; set; }
     
     [Column("creationdate")]
-    public DateTime CreationDate { get; set; }
+    public virtual DateTime CreationDate { get; set; }
 
     [JsonIgnore] public List<Media>? Medias { get; set; }
 
     [JsonIgnore] public List<Review>? Reviews { get; set; }
 
     [JsonIgnore] public List<Favourite>? Favourites { get; set; }
+
+    public Ad() {}
+    
+    public Ad(Ad ad)
+    {
+        Id = ad.Id;
+        TotalCost = ad.TotalCost;
+        Name = ad.Name;
+        Cost = ad.Cost;
+        Status = ad.Status;
+        ManufactureCountry = ad.ManufactureCountry;
+        Quantity = ad.Quantity;
+        Description = ad.Description;
+        StartCountry = ad.StartCountry;
+        CountryOfIntermediateArrival = ad.CountryOfIntermediateArrival;
+        CountryOfDelivery = ad.CountryOfDelivery;
+        Height = ad.Height;
+        Width = ad.Width;
+        Length = ad.Length;
+        Weight = ad.Weight;
+        Volume = ad.Volume;
+        SellerMargin = ad.SellerMargin;
+        OurService = ad.OurService;
+        CostOfDelivery = ad.CostOfDelivery;
+        CustomsDuty1 = ad.CustomsDuty1;
+        CustomsDuty2 = ad.CustomsDuty2;
+        BankCommission = ad.BankCommission;
+        CategoryId = ad.CategoryId;
+        TariffId = ad.TariffId;
+        Tariff = ad.Tariff;
+        ConditionId = ad.ConditionId;
+        SellerId = ad.SellerId;
+        CreationDate = ad.CreationDate;
+    }
 }

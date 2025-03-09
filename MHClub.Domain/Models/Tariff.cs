@@ -11,4 +11,8 @@ public class Tariff
     [Display(Name = "Название тарифа")]
     [Required]
     public string Name { get; set; } = string.Empty;
+    
+    [Display(Name = "Стоимость")]
+    [Column("cost")]
+    public int Cost { get; set; }
 }

@@ -10,36 +10,41 @@
 <div class="d-flex flex-column gap-3 w-100 mb-3">
     <!-- Поиск и фильтры -->
     <div class="d-flex gap-2 w-100 align-items-center">
-        @using (Html.BeginForm("Search", "Ads", FormMethod.Get))
+        @using (Html.BeginForm("Search", "Ads", FormMethod.Get, new
+                {
+                    @class = "w-100"
+                }))
         {
-            <div class="d-flex flex-row w-100">
+            <div class="row w-100">
                 <!-- Кнопка категорий -->
-                <div class="input-group flex-fill">
-                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#categoriesCollapse" aria-expanded="false" aria-controls="categoriesCollapse">
-                        <i class="bi-stack me-2"></i>
-                        Все категории
-                    </button>
+                <div class="col-3">
+                    <div class="input-group">
+                        @Html.DropDownListFor(m => m.AdsSearchViewModel.SelectedCategoryId, Model.AdsSearchViewModel.Categories ?? [],
+                            "-- Выберите категорию --", new { @class = "form-select bg-light", style = "border: none; background-color: #EAEAEA;" })
+                    </div>
                 </div>
 
                 <!-- Поле поиска -->
-                <div class="input-group flex-fill">
-                <span class="input-group-text bg-white border-end-0">
-                    <i class="bi-search"></i>
-                </span>
-                    @Html.TextBoxFor(m => m.AdsSearchViewModel.FilterText, new
-                    {
-                    type = "search",
-                    @class = "form-control border-start-0",
-                    placeholder = "Поиск...",
-                    style = "border: none; background-color: #EAEAEA;"
-                    })
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white border-end-0">
+                            <i class="bi-search"></i>
+                        </span>
+                        @Html.TextBoxFor(m => m.AdsSearchViewModel.FilterText, new
+                        {
+                            type = "search",
+                            @class = "form-control border-start-0",
+                            placeholder = "Поиск...",
+                            style = "border: none; background-color: #EAEAEA;"
+                        })
+                    </div>
                 </div>
                 <input type="submit" hidden/>
             </div>
         }
     </div>
 
-    <!-- Выпадающий список категорий -->
+    @*<!-- Выпадающий список категорий -->
     <div class="collapse bg-light p-3 rounded-3 shadow-sm" id="categoriesCollapse">
         <div class="row w-100">
             <!-- Первая группа категорий -->
@@ -108,14 +113,15 @@
                 </div>
             </div>
         </div>
-    </div>
-    
+    </div>*@
+
     @if (((List<AdsIndexViewModel>)ViewBag.Ads).Any())
     {
         @if (ViewBag.IsAfterSearch == true)
         {
             <h4>Объявления по вашему запросу</h4>
         }
+
         @await Html.PartialAsync("_AdsPartialView", (List<AdsIndexViewModel>)ViewBag.Ads)
     }
     else

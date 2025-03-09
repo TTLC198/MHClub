@@ -13,16 +13,47 @@
                 <label class="custom-file-upload">
                     <div id="img_container">
                         <div class="ratio ratio-1x1 rounded-circle overflow-hidden" style="width: 200px; height: 200px;">
-                            <img id="profile-image" src="@Url.Action("Get", "Media", new { path = Model.ImageUrl.GetLocalPath() })" class="card-img-top img-cover" alt="avatar">
-                        </div>
+                            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                            {
+                                <img id="profile-image" src="@Url.Action("Get", "Media", new { path = Model.ImageUrl.GetLocalPath() })" class="card-img-top img-cover" alt="avatar">
+                            }
+                            else
+                            {
+                                <img
+                                    src="~/contentImages/no_avatar.jpg"
+                                    class="card-img-top"
+                                    alt="...">
+                            }
+                            </div>
                     </div>
                 </label>
             </div>
             <h4>@Model.Name</h4>
             <div>
-                <p>Рейтинг: @Model.Rating</p>
-                <p>Отзывы: <a href="@Url.Action("Reviews", new { userId = ViewBag.Id })">@Model.ReviewsCount</a></p>
-                <p>Кол-во объявлений: <a href="@Url.Action("Profile", new { userId = ViewBag.Id })">@Model.AdsCount</a></p>
+                @if (Model?.Rating > 0)
+                {
+                    <p>Рейтинг: @string.Format("0:C2", Model?.Rating ?? 0)</p>
+                }
+                else
+                {
+                    <p>Нет рейтинга</p>
+                }
+                @if (Model?.ReviewsCount > 0)
+                {
+                    <p>Отзывы: <a href="@Url.Action("Reviews", new { userId = ViewBag.Id })">@Model.ReviewsCount</a></p>
+                }
+                else
+                {
+                    <p>Отзывов нет</p>
+                }
+                @if (Model?.AdsCount > 0)
+                {
+                    <p>Кол-во объявлений: <a href="@Url.Action("Profile", new { userId = ViewBag.Id })">@Model.AdsCount</a></p>
+                }
+                else
+                {
+                    <p>Объявлений нет</p>
+                }
                 <p>Зарегистрирован c @Model.DateOfRegistration</p>
                 <p>Телефон: @Model.Phone</p>
             </div>

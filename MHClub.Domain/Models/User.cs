@@ -28,6 +28,9 @@ public class User
 
     [Display(Name = "Пароль")]
     [Required(ErrorMessage = "Необходимо заполнить поле")]
+    [RegularExpression(@"^(?=.*[a-zа-яё])(?=.*[A-ZА-ЯЁ])(?=.*\d).{8,64}$",
+        ErrorMessage =
+            "Пароль должен содержать от 8 до 64 символов, включая как минимум одну заглавную букву, одну строчную букву и одну цифру")]
     [StringLength(50, MinimumLength = 8, ErrorMessage = "минимальная длина пароля - 8 символов")]
     public string? Password { get; set; }
 
