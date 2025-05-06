@@ -17,16 +17,16 @@ public class Media
     public string ContentType { get; set; }
 
     [Display(Name = "Объявление")]
-    [Column("adid")]
-    [ForeignKey("adid")]
-    public int? AdId { get; set; }
+    [Column("idad")]
+    [ForeignKey("idad")]
+    public int AdId { get; set; }
     
     public Ad? Ad { get; set; }
     
     [Display(Name = "Пользователь")]
-    [Column("userid")]
-    [ForeignKey("userid")]
-    public int? UserId { get; set; }
+    [Column("iduser")]
+    [ForeignKey("iduser")]
+    public int UserId { get; set; }
 
     public User? User { get; set; }
 }

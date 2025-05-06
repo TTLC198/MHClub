@@ -12,15 +12,17 @@ public class Review
     [Display(Name = "Оценка")]
     [Required]
     [Range(1, 5)]
+    [Column("estimation")]
     public int Estimation { get; set; }
 
     [Display(Name = "Оставьте письменный отзыв")]
     [Required]
+    [Column("description")]
     public string Description { get; set; } = string.Empty;
 
     [Display(Name = "Объявление")]
-    [Column("AdId")]
-    [ForeignKey("AdId")]
+    [Column("idad")]
+    [ForeignKey("idad")]
     [ValidateNever]
     public int AdId { get; set; }
 
@@ -28,6 +30,7 @@ public class Review
     public Ad? Ad { get; set; }
 
     [Display(Name = "Пользователь")]
+    [Column("iduser")]
     [ValidateNever]
     public int UserId { get; set; }
 
