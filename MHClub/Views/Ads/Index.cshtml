@@ -1,4 +1,5 @@
-﻿@using MHClub.Models.Ads
+﻿@using MHClub.Domain.Models.Enums
+@using MHClub.Models.Ads
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model MHClub.Models.Ads.AdsIndexDto
 
@@ -21,27 +22,36 @@
                 <input type="checkbox" class="form-check-input" id="highRating" name="HighRating">
             </div>
             <h6>Состояние</h6>
-            <div class="form-check">
-                <input type="radio" class="form-check-input" id="new" name="Condition" value="Новое">
-                <label class="form-check-label" for="new">Новое</label>
-            </div>
-            <div class="form-check">
-                <input type="radio" class="form-check-input" id="used" name="Condition" value="Б/у">
-                <label class="form-check-label" for="used">Б/у</label>
-            </div>
-            <div class="form-check">
-                <input type="radio" class="form-check-input" id="repair" name="Condition" value="Требует ремонта">
-                <label class="form-check-label" for="repair">Требует ремонта</label>
-            </div>
+            @foreach (ItemCondition condition in Enum.GetValues(typeof(ItemCondition)))
+            {
+                var conditionLabel = condition switch
+                {
+                    ItemCondition.New => "Новое",
+                    ItemCondition.Used => "Б/у",
+                    ItemCondition.NeedsRepair => "Требует ремонта",
+                    _ => "Неизвестное"
+                };
+
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="@condition" name="Condition" value="@condition">
+                    <label class="form-check-label" for="@condition">@conditionLabel</label>
+                </div>
+            }
             <h6>Тип</h6>
-            <div class="form-check">
-                <input type="radio" class="form-check-input" id="main" name="Type" value="Основное">
-                <label class="form-check-label" for="main">Основное</label>
-            </div>
-            <div class="form-check">
-                <input type="radio" class="form-check-input" id="decomposed" name="Type" value="Декомпозированное">
-                <label class="form-check-label" for="decomposed">Декомпозированное</label>
-            </div>
+            @foreach (ItemType type in Enum.GetValues(typeof(ItemType)))
+            {
+                var typeLabel = type switch
+                {
+                    ItemType.Main => "Основное",
+                    ItemType.Decomposed => "Декомпозированное",
+                    _ => "Неизвестное"
+                };
+
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="@type" name="Type" value="@type">
+                    <label class="form-check-label" for="@type">@typeLabel</label>
+                </div>
+            }
         </form>
     </div>
     <div class="ads-list">
@@ -60,95 +70,6 @@
         </div>
     </div>
 </div>
-
-@*
-<div>
-
-    <div class="sort-select">
-        @Html.DropDownListFor(m => m.AdsSearchViewModel.SortBy, new SelectList(new[] { "Популярные", "По цене", "По рейтингу" }), new { @class = "form-select" })
-    </div>
-    <div class="filter-tags">
-        @if (Model.AdsSearchViewModel.HighRating)
-        {
-            <div class="filter-tag">Высокий рейтинг
-                <button type="submit" name="removeFilter" value="HighRating">✖</button>
-            </div>
-        }
-        @if (Model.AdsSearchViewModel.Condition == "Новое" || Model.AdsSearchViewModel.Condition == "Б/у" || Model.AdsSearchViewModel.Condition == "Требует ремонта")
-        {
-            <div class="filter-tag">Состояние: @Model.AdsSearchViewModel.Condition <button type="submit" name="removeFilter"
-                                                                                           value="Condition">✖
-                </button>
-            </div>
-        }
-        @if (Model.AdsSearchViewModel.Type == "Основное" || Model.AdsSearchViewModel.Type == "Декомпозированное")
-        {
-            <div class="filter-tag">Тип: @Model.AdsSearchViewModel.Type <button type="submit" name="removeFilter"
-                                                                                value="Type">✖
-                </button>
-            </div>
-        }
-    </div>
-    <div class="filter-card">
-        <form method="post" action="/Filter/Apply">
-            <h6>Цена</h6>
-            <div class="d-flex gap-2">
-                @Html.TextBoxFor(m => m.AdsSearchViewModel.MinPrice, new { @class = "form-control price-input", placeholder = "384" })
-                @Html.TextBoxFor(m => m.AdsSearchViewModel.MaxPrice, new { @class = "form-control price-input", placeholder = "60255" })
-            </div>
-            <div class="divider"></div>
-            <div class="form-check form-switch">
-                @Html.CheckBoxFor(m => m.AdsSearchViewModel.HighRating, new { @class = "form-check-input", id = "highRating" })
-                <label class="form-check-label" for="highRating">Высокий рейтинг</label>
-            </div>
-            <div class="divider"></div>
-            <h6>Состояние:</h6>
-            <div class="form-check">
-                @Html.RadioButtonFor(m => m.AdsSearchViewModel.Condition, "Новое", new { @class = "form-check-input", id = "new" })
-                <label class="form-check-label" for="new">Новое</label>
-            </div>
-            <div class="form-check">
-                @Html.RadioButtonFor(m => m.AdsSearchViewModel.Condition, "Б/у", new { @class = "form-check-input", id = "used" })
-                <label class="form-check-label" for="used">Б/у</label>
-            </div>
-            <div class="form-check">
-                @Html.RadioButtonFor(m => m.AdsSearchViewModel.Condition, "Требует ремонта", new { @class = "form-check-input", id = "repair" })
-                <label class="form-check-label" for="repair">Требует ремонта</label>
-            </div>
-            <div class="divider"></div>
-            <h6>Тип:</h6>
-            <div class="form-check">
-                @Html.RadioButtonFor(m => m.AdsSearchViewModel.Type, "Основное", new { @class = "form-check-input", id = "main" })
-                <label class="form-check-label" for="main">Основное</label>
-            </div>
-            <div class="form-check">
-                @Html.RadioButtonFor(m => m.AdsSearchViewModel.Type, "Декомпозированное", new { @class = "form-check-input", id = "decomposed" })
-                <label class="form-check-label" for="decomposed">Декомпозированное</label>
-            </div>
-        </form>
-    </div>
-    
-    @if (((List<AdsIndexViewModel>)ViewBag.Ads).Any())
-    {
-        @if (ViewBag.IsAfterSearch == true)
-        {
-            <h4>Объявления по вашему запросу</h4>
-        }
-
-        @await Html.PartialAsync("_AdsPartialView", (List<AdsIndexViewModel>)ViewBag.Ads)
-    }
-    else
-    {
-        @if (ViewBag.IsAfterSearch == true)
-        {
-            <h4>Объявлений по вашему запросу не найдено</h4>
-        }
-        else
-        {
-            <h4>Не найдены объявления</h4>
-        }
-    }
-</div>*@
 
 @section Scripts
 {
@@ -175,34 +96,41 @@
                     .catch(error => console.error('Ошибка загрузки объявлений:', error));
             };
 
-            const loadAds = (filters, sort) => {
-                // Симуляция загрузки объявлений (можно заменить на реальный запрос)
-                adsContainer.innerHTML = `<div>Загружены объявления с фильтрами: ${JSON.stringify(filters)} и сортировкой: ${sort}</div>`;
-            };
-
             const updateFilterTags = (filters) => {
                 filterTags.innerHTML = '';
                 Object.entries(filters).forEach(([key, value]) => {
-                    if (value) {
-                        const tag = document.createElement('div');
-                        tag.classList.add('filter-tag');
-                        tag.textContent = `${key}: ${value}`;
-                        const removeButton = document.createElement('button');
-                        removeButton.textContent = '✖';
-                        removeButton.addEventListener('click', () => {
-                            if (key === 'HighRating') {
-                                document.getElementById('highRating').checked = false;
-                            } else if (key === 'Condition' || key === 'Type') {
-                                const inputs = filterForm.querySelectorAll(`input[name='${key}']`);
-                                inputs.forEach(input => input.checked = false);
-                            } else {
-                                filterForm.querySelector(`input[name='${key}']`).value = '';
-                            }
-                            updateAds();
-                        });
-                        tag.appendChild(removeButton);
-                        filterTags.appendChild(tag);
+                    if (key === 'Condition') {
+                        value = {
+                            New: 'Новое',
+                            Used: 'Б/у',
+                            NeedsRepair: 'Требует ремонта'
+                        }[value] || value;
+                    } else if (key === 'Type') {
+                        value = {
+                            Main: 'Основное',
+                            Decomposed: 'Декомпозированное'
+                        }[value] || value;
                     }
+
+                    const tag = document.createElement('div');
+                    tag.classList.add('filter-tag');
+                    tag.textContent = `${key}: ${value}`;
+
+                    const removeButton = document.createElement('button');
+                    removeButton.textContent = '✖';
+                    removeButton.addEventListener('click', () => {
+                        if (key === 'HighRating') {
+                            document.getElementById('highRating').checked = false;
+                        } else if (key === 'Condition' || key === 'Type') {
+                            const inputs = filterForm.querySelectorAll(`input[name='${key}']`);
+                            inputs.forEach(input => input.checked = false);
+                        } else {
+                            filterForm.querySelector(`input[name='${key}']`).value = '';
+                        }
+                        updateAds();
+                    });
+                    tag.appendChild(removeButton);
+                    filterTags.appendChild(tag);
                 });
             };
 

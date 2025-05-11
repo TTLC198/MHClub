@@ -475,3 +475,36 @@ body {
 .ads-list {
   flex-grow: 1;
 }
+.ad-card {
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+}
+.ad-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+.ad-card-image img {
+  width: calc(100% - 1rem);
+  height: 180px;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  margin: 0.5rem;
+}
+.ad-card-body {
+  padding: 0.5rem 1rem;
+}
+.ad-card-title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+.ad-card-price {
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+.ad-card-date {
+  font-size: 0.8rem;
+}

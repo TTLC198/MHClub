@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "agIJLIZk2W2vYhN2RV40o6DGXzM33bU6r0UfwXudmtw=",
+  "Hash": "POxVbS4ZCvOI+jit4WOrrBM/lKsQK9WCAQSokej1jDo=",
   "Source": "MHClub",
   "BasePath": "_content/MHClub",
   "Mode": "Default",
@@ -73,8 +73,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "p6p2gtu39m",
-      "Integrity": "/8/P+WYdw2WMCtCmfhholQ0tYMzo1bqkSEqLlJz3ldQ=",
+      "Fingerprint": "ctj1nnccbj",
+      "Integrity": "cPLFkus6XGHWuNVUblQ3yRIOTpnpbXBV+Lz7aoW4R8c=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -99,6 +99,48 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\avatar_1870.jpeg",
+      "SourceId": "MHClub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\",
+      "BasePath": "_content/MHClub",
+      "RelativePath": "images/avatar_1870#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "1fsbp5kcdt",
+      "Integrity": "Y27YXrPSAXiKLlPs2/eALwOFHSRlfgWQmNZNDN87mA0=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\avatar_1870.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\avatar_3e9f.jpeg",
+      "SourceId": "MHClub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\",
+      "BasePath": "_content/MHClub",
+      "RelativePath": "images/avatar_3e9f#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "1fsbp5kcdt",
+      "Integrity": "Y27YXrPSAXiKLlPs2/eALwOFHSRlfgWQmNZNDN87mA0=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\avatar_3e9f.jpeg"
     },
     {
       "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\images_1219.jpeg",
@@ -1352,7 +1394,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "8246"
+          "Value": "8907"
         },
         {
           "Name": "Content-Type",
@@ -1360,11 +1402,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"/8/P+WYdw2WMCtCmfhholQ0tYMzo1bqkSEqLlJz3ldQ=\""
+          "Value": "\"cPLFkus6XGHWuNVUblQ3yRIOTpnpbXBV+Lz7aoW4R8c=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 11 May 2025 17:27:25 GMT"
+          "Value": "Sun, 11 May 2025 19:53:59 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1374,12 +1416,12 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-/8/P+WYdw2WMCtCmfhholQ0tYMzo1bqkSEqLlJz3ldQ="
+          "Value": "sha256-cPLFkus6XGHWuNVUblQ3yRIOTpnpbXBV+Lz7aoW4R8c="
         }
       ]
     },
     {
-      "Route": "css/site.p6p2gtu39m.css",
+      "Route": "css/site.ctj1nnccbj.css",
       "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\css\\site.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -1389,7 +1431,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "8246"
+          "Value": "8907"
         },
         {
           "Name": "Content-Type",
@@ -1397,11 +1439,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"/8/P+WYdw2WMCtCmfhholQ0tYMzo1bqkSEqLlJz3ldQ=\""
+          "Value": "\"cPLFkus6XGHWuNVUblQ3yRIOTpnpbXBV+Lz7aoW4R8c=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 11 May 2025 17:27:25 GMT"
+          "Value": "Sun, 11 May 2025 19:53:59 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1411,7 +1453,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "p6p2gtu39m"
+          "Value": "ctj1nnccbj"
         },
         {
           "Name": "label",
@@ -1419,7 +1461,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-/8/P+WYdw2WMCtCmfhholQ0tYMzo1bqkSEqLlJz3ldQ="
+          "Value": "sha256-cPLFkus6XGHWuNVUblQ3yRIOTpnpbXBV+Lz7aoW4R8c="
         }
       ]
     },
@@ -1502,6 +1544,170 @@
         {
           "Name": "integrity",
           "Value": "sha256-Jtxf9L+5ITKRc1gIRl4VbUpGkRNfOBXjYTdhJD4facM="
+        }
+      ]
+    },
+    {
+      "Route": "images/avatar_1870.1fsbp5kcdt.jpeg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\avatar_1870.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "12050"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Y27YXrPSAXiKLlPs2/eALwOFHSRlfgWQmNZNDN87mA0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 11 May 2025 19:34:20 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "1fsbp5kcdt"
+        },
+        {
+          "Name": "label",
+          "Value": "images/avatar_1870.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Y27YXrPSAXiKLlPs2/eALwOFHSRlfgWQmNZNDN87mA0="
+        }
+      ]
+    },
+    {
+      "Route": "images/avatar_1870.jpeg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\avatar_1870.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "12050"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Y27YXrPSAXiKLlPs2/eALwOFHSRlfgWQmNZNDN87mA0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 11 May 2025 19:34:20 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Y27YXrPSAXiKLlPs2/eALwOFHSRlfgWQmNZNDN87mA0="
+        }
+      ]
+    },
+    {
+      "Route": "images/avatar_3e9f.1fsbp5kcdt.jpeg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\avatar_3e9f.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "12050"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Y27YXrPSAXiKLlPs2/eALwOFHSRlfgWQmNZNDN87mA0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 11 May 2025 19:44:20 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "1fsbp5kcdt"
+        },
+        {
+          "Name": "label",
+          "Value": "images/avatar_3e9f.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Y27YXrPSAXiKLlPs2/eALwOFHSRlfgWQmNZNDN87mA0="
+        }
+      ]
+    },
+    {
+      "Route": "images/avatar_3e9f.jpeg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\avatar_3e9f.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "12050"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Y27YXrPSAXiKLlPs2/eALwOFHSRlfgWQmNZNDN87mA0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 11 May 2025 19:44:20 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Y27YXrPSAXiKLlPs2/eALwOFHSRlfgWQmNZNDN87mA0="
         }
       ]
     },

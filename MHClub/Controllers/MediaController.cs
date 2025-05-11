@@ -56,7 +56,7 @@ public class MediaController : BaseController
         if (path is null or {Length: 0})
             return RedirectToAction("Index", "Errors", new { error = "Пустой путь" });
 
-        path = HttpUtility.UrlDecode(path);
+        path = HttpUtility.UrlDecode(path).Replace("\\", Path.DirectorySeparatorChar.ToString()).Replace("/", Path.DirectorySeparatorChar.ToString());
         
         _logger.LogDebug("Get image with filename = {Filename}", path);
 
@@ -67,7 +67,7 @@ public class MediaController : BaseController
                 i.ContentType
             })
             .ToList()
-            .FirstOrDefault(i => string.Join(Path.DirectorySeparatorChar, i.Path.Split(Path.DirectorySeparatorChar).SkipWhile(s => s != "wwwroot").Skip(1)) == path);
+            .FirstOrDefault(i => i.Path.GetLocalPath() == path);
         
         if (image is null)
             return RedirectToAction("Index", "Errors", new { error = "Не найдено изображение" });

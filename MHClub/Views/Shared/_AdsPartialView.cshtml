@@ -10,32 +10,24 @@
     @foreach (var ad in Model)
     {
         <div class="col pe-2 pb-2">
-            <div class="card h-auto" onclick="location.href = '@Url.Action("Single", "Ads", new { id = ad.Id })';">
+            <div class="card ad-card h-auto" onclick="location.href = '@Url.Action("Single", "Ads", new { id = ad.Id })';">
                 @{
                     var image = ad.Images?.FirstOrDefault();
                 }
-                <div class="h-auto">
+                <div class="ad-card-image">
                     @if (image is null)
                     {
-                        <img
-                            src="~/images/images_1219.jpeg" @*todo*@
-                            class="card-img-top"
-                            alt="...">
+                        <img src="~/images/images_1219.jpeg" class="card-img-top" alt="Без изображения">
                     }
                     else
                     {
-                        <img
-                            src="@Url.Action("Get", "Media", new { path = image?.GetLocalPath() })"
-                            class="card-img-top"
-                            alt="...">
+                        <img src="@Url.Action("Get", "Media", new { path = image?.GetLocalPath() })" class="card-img-top" alt="Изображение товара">
                     }
                 </div>
-                <div class="card-body h-auto">
-                    <h5 class="card-title text-truncate">@ad.Name</h5>
-                    <p class="card-text">@ad.Cost₽</p>
-                    <p class="card-text">
-                        <small class="text-muted">@ad.CreationDate.ToString("dd.MM.yy")</small>
-                    </p>
+                <div class="ad-card-body">
+                    <h5 class="ad-card-title text-truncate">@ad.Name</h5>
+                    <p class="ad-card-price">@ad.Cost₽</p>
+                    <p class="ad-card-date text-muted">@ad.CreationDate.ToString("dd.MM.yy")</p>
                 </div>
             </div>
         </div>

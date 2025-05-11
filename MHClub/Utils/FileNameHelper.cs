@@ -13,5 +13,5 @@ public static class FileNameHelper
     }
 
     public static string GetLocalPath(this string fileName) => 
-        string.Join(@"/", fileName.Split(Path.DirectorySeparatorChar).SkipWhile(s => s != "wwwroot").Skip(1));
+        string.Join(Path.DirectorySeparatorChar, fileName.Split(Path.DirectorySeparatorChar).SkipWhile(s => s != "images"));
 }

@@ -13,6 +13,14 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\avatar_1870.jpeg",
+      "PackagePath": "staticwebassets\\images\\avatar_1870.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\avatar_3e9f.jpeg",
+      "PackagePath": "staticwebassets\\images\\avatar_3e9f.jpeg"
+    },
+    {
       "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\images_1219.jpeg",
       "PackagePath": "staticwebassets\\images\\images_1219.jpeg"
     },

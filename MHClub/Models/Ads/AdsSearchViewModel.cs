@@ -1,16 +1,14 @@
+using MHClub.Domain.Models.Enums;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MHClub.Models.Ads;
 
 public class AdsSearchViewModel
 {
-    public string? FilterText { get; set; }
-    
-    public int MinPrice { get; set; } = 384;
-    public int MaxPrice { get; set; } = 60255;
-    public bool HighRating { get; set; } = false;
-    public string Condition { get; set; } = "Новое";
-    public string Type { get; set; } = "Основное";
-
-    public string SortBy { get; set; } = "";
+    public double? MinPrice { get; set; }
+    public double? MaxPrice { get; set; }
+    public bool HighRating { get; set; }
+    public ItemCondition? Condition { get; set; }
+    public ItemType? Type { get; set; }
+    public string SortBy { get; set; }
 }
