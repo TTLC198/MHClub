@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace MHClub.Domain.Models;
 
@@ -22,18 +21,15 @@ public class Review
 
     [Display(Name = "Объявление")]
     [Column("idad")]
-    [ForeignKey("idad")]
-    [ValidateNever]
     public int AdId { get; set; }
 
-    [ValidateNever]
+    [ForeignKey("AdId")]
     public Ad? Ad { get; set; }
 
     [Display(Name = "Пользователь")]
     [Column("iduser")]
-    [ValidateNever]
     public int UserId { get; set; }
 
-    [ValidateNever]
+    [ForeignKey("UserId")]
     public User? User { get; set; }
 }

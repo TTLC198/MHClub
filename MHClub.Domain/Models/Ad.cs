@@ -8,6 +8,7 @@ namespace MHClub.Domain.Models;
 [Table("ad")]
 public class Ad
 {
+    [Column("id")]
     public virtual int Id { get; set; }
 
     [Display(Name = "Название объявления")]
@@ -55,7 +56,7 @@ public class Ad
     public virtual Status? Status { get; set; }
 
     [Display(Name = "Продавец")]
-    [Column("iduser")]
+    [Column("id_user")]
     public virtual int SellerId { get; set; }
 
     [ForeignKey("SellerId")]

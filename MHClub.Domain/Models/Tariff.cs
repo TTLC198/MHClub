@@ -6,10 +6,12 @@ namespace MHClub.Domain.Models;
 [Table("tariff")]
 public class Tariff
 {
+    [Column("id")]
     public int Id { get; set; }
 
     [Display(Name = "Название тарифа")]
     [Required]
+    [Column("name")]
     public string Name { get; set; } = string.Empty;
     
     [Display(Name = "Стоимость")]

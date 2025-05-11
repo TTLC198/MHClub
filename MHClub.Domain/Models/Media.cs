@@ -6,6 +6,7 @@ namespace MHClub.Domain.Models;
 [Table("media")]
 public class Media
 {
+    [Column("id")]
     public int Id { get; set; }
 
     [Display(Name = "Путь к файлу")]
@@ -13,20 +14,20 @@ public class Media
     public string Path { get; set; }
     
     [Display(Name = "Тип контента")]
-    [Column("contenttype")]
+    [Column("content_type")]
     public string ContentType { get; set; }
 
     [Display(Name = "Объявление")]
     [Column("idad")]
-    [ForeignKey("idad")]
-    public int AdId { get; set; }
+    public int? AdId { get; set; }
     
+    [ForeignKey("AdId")]
     public Ad? Ad { get; set; }
     
     [Display(Name = "Пользователь")]
     [Column("iduser")]
-    [ForeignKey("iduser")]
-    public int UserId { get; set; }
-
+    public int? UserId { get; set; }
+    
+    [ForeignKey("UserId")]
     public User? User { get; set; }
 }

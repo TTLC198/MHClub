@@ -6,13 +6,14 @@ namespace MHClub.Domain.Models;
 [Table("category")]
 public class Category
 {
+    [Column("id")]
     public int Id { get; set; }
     
     [Display(Name = "Название категории")]
     [Column("category_name")]
     public string? Name { get; set; }
     
-    [Column("id_child_caterory")]
+    [Column("idchildcategory")]
     public int? ParentCategoryId { get; set; }
     
     [ForeignKey("ParentCategoryId")]

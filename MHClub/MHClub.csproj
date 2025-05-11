@@ -45,4 +45,18 @@
       <Folder Include="Models\Reviews\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Ads\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Ads\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Ads\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Ads\Single.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Favourites\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Profile\Ads.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Profile\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Profile\Profile.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Profile\Reviews.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Reviews\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Reviews\SelectAdForReview.cshtml" />
+    </ItemGroup>
+
 </Project>

@@ -9,6 +9,7 @@ public class User
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [Column("id")]
     public int Id { get; set; }
 
     [Display(Name = "Имя пользователя")]
@@ -39,7 +40,7 @@ public class User
     public string? Password { get; set; }
 
     [Display(Name = "Дата регистрации")]
-    [Column("dateofregistration")]
+    [Column("date_of_registration")]
     public DateOnly DateOfRegistration { get; set; }
 
     [Display(Name = "Роль")]

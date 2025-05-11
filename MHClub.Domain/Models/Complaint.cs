@@ -6,6 +6,7 @@ namespace MHClub.Domain.Models;
 [Table("complaint")]
 public class Complaint
 {
+    [Column("id")]
     public int Id { get; set; }
 
     [Display(Name = "Описание жалобы")]
@@ -23,6 +24,6 @@ public class Complaint
     [Column("idad")]
     public int AdId { get; set; }
 
-    [ForeignKey("idad")]
+    [ForeignKey("AdId")]
     public Ad Ad { get; set; } = new Ad();
 }

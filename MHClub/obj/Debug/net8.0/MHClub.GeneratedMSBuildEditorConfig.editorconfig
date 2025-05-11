@@ -9,107 +9,65 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = MHClub
 build_property.RootNamespace = MHClub
-build_property.ProjectDir = /Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/
+build_property.ProjectDir = C:\Users\yoreh\RiderProjects\MHClub\MHClub\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub
+build_property.MSBuildProjectDirectory = C:\Users\yoreh\RiderProjects\MHClub\MHClub
 build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
 
-[/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/Views/Ads/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRzL0NyZWF0ZS5jc2h0bWw=
+[C:/Users/yoreh/RiderProjects/MHClub/MHClub/Views/Auth/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/Views/Ads/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRzL0VkaXQuY3NodG1s
+[C:/Users/yoreh/RiderProjects/MHClub/MHClub/Views/Auth/Registration.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxSZWdpc3RyYXRpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/Views/Ads/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRzL0luZGV4LmNzaHRtbA==
+[C:/Users/yoreh/RiderProjects/MHClub/MHClub/Views/Errors/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JzXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/Views/Ads/Single.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRzL1NpbmdsZS5jc2h0bWw=
+[C:/Users/yoreh/RiderProjects/MHClub/MHClub/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/Views/Auth/Login.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9Mb2dpbi5jc2h0bWw=
+[C:/Users/yoreh/RiderProjects/MHClub/MHClub/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/Views/Auth/Registration.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9SZWdpc3RyYXRpb24uY3NodG1s
+[C:/Users/yoreh/RiderProjects/MHClub/MHClub/Views/Shared/_AdsPartialView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZHNQYXJ0aWFsVmlldy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/Views/Errors/Error.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXJyb3JzL0Vycm9yLmNzaHRtbA==
+[C:/Users/yoreh/RiderProjects/MHClub/MHClub/Views/Shared/_ImageUpload.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9JbWFnZVVwbG9hZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/Views/Favourites/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRmF2b3VyaXRlcy9JbmRleC5jc2h0bWw=
+[C:/Users/yoreh/RiderProjects/MHClub/MHClub/Views/Shared/_ProfileLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Qcm9maWxlTGF5b3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/Views/Home/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
+[C:/Users/yoreh/RiderProjects/MHClub/MHClub/Views/Shared/_ReviewsPartialView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9SZXZpZXdzUGFydGlhbFZpZXcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/Views/Profile/Ads.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvZmlsZS9BZHMuY3NodG1s
+[C:/Users/yoreh/RiderProjects/MHClub/MHClub/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/Views/Profile/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvZmlsZS9FZGl0LmNzaHRtbA==
+[C:/Users/yoreh/RiderProjects/MHClub/MHClub/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/Views/Profile/Profile.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvZmlsZS9Qcm9maWxlLmNzaHRtbA==
+[C:/Users/yoreh/RiderProjects/MHClub/MHClub/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/Views/Profile/Reviews.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvZmlsZS9SZXZpZXdzLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/Views/Reviews/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmV2aWV3cy9DcmVhdGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/Views/Reviews/SelectAdForReview.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmV2aWV3cy9TZWxlY3RBZEZvclJldmlldy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/Views/Shared/Error.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/Views/Shared/_AdsPartialView.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19BZHNQYXJ0aWFsVmlldy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/Views/Shared/_ImageUpload.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19JbWFnZVVwbG9hZC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/Views/Shared/_ProfileLayout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19Qcm9maWxlTGF5b3V0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/Views/Shared/_ReviewsPartialView.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19SZXZpZXdzUGFydGlhbFZpZXcuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/Views/Shared/_ValidationScriptsPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/Views/_ViewImports.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/Views/_ViewStart.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/ktlnan/Desktop/диплом/MHClub/MHClub/MHClub/Views/Shared/_Layout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = b-bjbiboa839
+[C:/Users/yoreh/RiderProjects/MHClub/MHClub/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-tl4x1t501n
