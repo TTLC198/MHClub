@@ -319,3 +319,159 @@ input {
 .display-none {
   display: none;
 }
+
+/*
+new style
+*/
+body {
+  font-family: 'Manrope', sans-serif;
+  background-color: #f8f9fa;
+  padding: 20px;
+}
+.filter-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+.filter-card h6 {
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.divider {
+  border-bottom: 1px solid #ddd;
+  margin: 20px 0;
+}
+.form-check-label {
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+.price-input {
+  margin-bottom: 12px;
+}
+.filter-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.filter-tag {
+  background-color: #333;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+.filter-tag button {
+  background: none;
+  border: none;
+  color: #fff;
+  margin-left: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.sort-select {
+  margin-bottom: 12px;
+}
+.catalog-button, .post-button {
+  background-color: #000;
+  color: #fff;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+}
+
+.catalog-button i {
+  margin-right: 8px;
+}
+
+.catalog-button:hover, .post-button:hover {
+  background-color: #333;
+}
+
+.search-bar {
+  flex-grow: 1;
+  max-width: 400px;
+  margin: 0 20px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  margin-right: 8px;
+}
+
+.nav-link {
+  color: #000;
+  margin-left: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 600;
+  text-align: center;
+}
+
+.nav-link i {
+  margin-bottom: 4px;
+}
+
+.navbar-brand {
+  font-family: 'Bagel Fat One', cursive;
+  font-size: 28px;
+  color: #000;
+}
+
+.container-main {
+  display: flex;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 20px auto;
+}
+.filter-card {
+  flex-basis: 250px;
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+.filter-tags, .sort-select {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 0 20px;
+}
+.filter-tag {
+  background-color: #333;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+.filter-tag button {
+  background: none;
+  border: none;
+  color: #fff;
+  margin-left: 8px;
+  cursor: pointer;
+}
+.ads-list {
+  flex-grow: 1;
+}

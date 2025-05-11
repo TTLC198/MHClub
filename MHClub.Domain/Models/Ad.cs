@@ -27,6 +27,10 @@ public class Ad
     [Display(Name = "Количество")]
     [Column("quantity")]
     public virtual int? Quantity { get; set; }
+    
+    [Display(Name = "Рейтинг")]
+    [Column("rating")]
+    public virtual int? Rating { get; set; }
 
     [Display(Name = "Описание")]
     [Column("description")]
@@ -56,14 +60,14 @@ public class Ad
     public virtual Status? Status { get; set; }
 
     [Display(Name = "Продавец")]
-    [Column("id_user")]
+    [Column("iduser")]
     public virtual int SellerId { get; set; }
 
     [ForeignKey("SellerId")]
     public virtual User? Seller { get; set; }
 
     [Display(Name = "Дочернее объявление")]
-    [Column("id_child_ad")]
+    [Column("idchildad")]
     public virtual int? ChildAdId { get; set; }
 
     [ForeignKey("ChildAdId")]

@@ -6,42 +6,38 @@
     ViewBag.ColumnsCount ??= 4;
 }
 
-@if (ViewBag.Ads != null)
-{
-    <div class="row row-cols-@ViewBag.ColumnsCount">
-        @foreach (var ad in Model)
-        {
-            <div class="col pe-2 pb-2">
-                <div class="card h-auto" onclick="location.href = '@Url.Action("Single", "Ads", new { id = ad.Id })';">
-                    @{
-                        var image = ad.Images?.FirstOrDefault();
+<div class="row row-cols-@ViewBag.ColumnsCount">
+    @foreach (var ad in Model)
+    {
+        <div class="col pe-2 pb-2">
+            <div class="card h-auto" onclick="location.href = '@Url.Action("Single", "Ads", new { id = ad.Id })';">
+                @{
+                    var image = ad.Images?.FirstOrDefault();
+                }
+                <div class="h-auto">
+                    @if (image is null)
+                    {
+                        <img
+                            src="~/images/images_1219.jpeg" @*todo*@
+                            class="card-img-top"
+                            alt="...">
                     }
-                    <div class="h-auto">
-                        @if (image is null)
-                        {
-                            <img
-                                src="~/contentImages/no_content.png"
-                                class="card-img-top"
-                                alt="...">
-                        }
-                        else
-                        {
-                            <img
-                                src="@Url.Action("Get", "Media", new { path = image?.GetLocalPath() })"
-                                class="card-img-top"
-                                alt="...">
-                        }
-                    </div>
-                    <div class="card-body h-auto">
-                        <h5 class="card-title text-truncate">@ad.Name</h5>
-                        @*todo*@
-                        @*<p class="card-text">@ad.TotalCost</p>*@
-                        <p class="card-text">
-                            <small class="text-muted">@ad.CreationDate.ToString("dd.MM.yy")</small>
-                        </p>
-                    </div>
+                    else
+                    {
+                        <img
+                            src="@Url.Action("Get", "Media", new { path = image?.GetLocalPath() })"
+                            class="card-img-top"
+                            alt="...">
+                    }
+                </div>
+                <div class="card-body h-auto">
+                    <h5 class="card-title text-truncate">@ad.Name</h5>
+                    <p class="card-text">@ad.Cost₽</p>
+                    <p class="card-text">
+                        <small class="text-muted">@ad.CreationDate.ToString("dd.MM.yy")</small>
+                    </p>
                 </div>
             </div>
-        }
-    </div>
-}
+        </div>
+    }
+</div>
