@@ -1,0 +1,21 @@
+@model MHClub.Models.User.UserProfileDto
+@{
+    Layout = "_ProfileLayout";
+    ViewData["Title"] = "Активные объявления — " + Model.Name;
+}
+
+<h2 class="mb-4">Активные объявления</h2>
+
+@{
+    var ads = ViewBag.Ads as List<MHClub.Models.Ads.AdsIndexViewModel> ?? new();
+}
+
+@if (ads.Any())
+{
+    ViewBag.ColumnsCount = 4;
+    @await Html.PartialAsync("_AdsPartialView", ads)
+}
+else
+{
+    <h5>Объявления не найдены</h5>
+}

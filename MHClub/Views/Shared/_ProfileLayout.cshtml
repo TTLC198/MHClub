@@ -1,120 +1,96 @@
-@using MHClub.Utils
-@using Microsoft.EntityFrameworkCore.Metadata.Internal
 @model MHClub.Models.User.UserProfileDto
-
+@using MHClub.Utils
 @{
-    Layout = "_Layout";
+  Layout = "_Layout";
 }
 
-<div class="container">
-    <div class="row justify-content-between">
-        <div class="col-md-auto">
-            <div class="d-flex justify-content-center">
-                <label class="custom-file-upload">
-                    <div id="img_container">
-                        <div class="ratio ratio-1x1 rounded-circle overflow-hidden" style="width: 200px; height: 200px;">
-                            @if (!string.IsNullOrEmpty(Model.ImageUrl))
-                            {
-                                <img id="profile-image" src="@Url.Action("Get", "Media", new { path = Model.ImageUrl.GetLocalPath() })" class="card-img-top img-cover" alt="avatar">
-                            }
-                            else
-                            {
-                                <img
-                                    src="~/contentImages/no_avatar.jpg"
-                                    class="card-img-top"
-                                    alt="...">
-                            }
-                            </div>
-                    </div>
-                </label>
-            </div>
-            <h4>@Model.Name</h4>
-            <div>
-                @if (Model?.Rating > 0)
-                {
-                    <p>Рейтинг: @string.Format("0:C2", Model?.Rating ?? 0)</p>
-                }
-                else
-                {
-                    <p>Нет рейтинга</p>
-                }
-                @if (Model?.ReviewsCount > 0)
-                {
-                    <p>Отзывы: <a href="@Url.Action("Reviews", new { userId = ViewBag.Id })">@Model.ReviewsCount</a></p>
-                }
-                else
-                {
-                    <p>Отзывов нет</p>
-                }
-                @if (Model?.AdsCount > 0)
-                {
-                    <p>Кол-во объявлений: <a href="@Url.Action("Profile", new { userId = ViewBag.Id })">@Model.AdsCount</a></p>
-                }
-                else
-                {
-                    <p>Объявлений нет</p>
-                }
-                <p>Зарегистрирован c @Model.DateOfRegistration</p>
-                <p>Телефон: @Model.Phone</p>
-            </div>
-            <div class="d-flex flex-column gap-2">
-                @if (ViewBag.IsOwn != true && ViewBag.IsAuth == true)
-                {
-                    <button
-                        onclick="location.href='@Url.Action("CreateReview", "Reviews", new { sellerId = ViewBag.Id})';"
-                        class="btn profile-button">
-                        Оставить отзыв
-                    </button>
-                }
-                @if (ViewBag.IsArchivedAds == true)
-                {
-                    <button
-                        onclick="location.href='@ViewBag.ReturnUrl';"
-                        class="btn profile-button">
-                        Назад
-                    </button>
-                }
-                else
-                {
-                    @if (ViewBag.IsOwn == true)
-                    {
-                        <button
-                            onclick="location.href='@Url.Action("Logout", "Auth")';"
-                            style="background: #EB275F !important;"
-                            class="btn profile-button">
-                            Выйти
-                        </button>
-                        <button
-                            onclick="location.href='@Url.Action("Edit", "Profile")';"
-                            class="btn profile-button">
-                            Редактировать
-                        </button>
-                    }
+<div class="container my-5">
+  <div class="row">
+    <!-- Левая колонка -->
+    <div class="col-md-3">
+      <div class="d-flex flex-column align-items-center">
+        <!-- Аватар -->
+        <div class="ratio ratio-1x1 rounded-3 overflow-hidden mb-4" style="width:240px; height:240px;">
+          @if (!string.IsNullOrEmpty(Model.ImageUrl))
+          {
+            <img src="@Url.Action("Get", "Media", new { path = Model.ImageUrl.GetLocalPath() })"
+                 class="img-cover"
+                 alt="avatar"/>
+          }
+          else
+          {
+            <img src="~/images/no-photo.png"
+                 class="img-cover"
+                 alt="no avatar"/>
+          }
+        </div>
+        <!-- Имя -->
+        <h3 class="mb-2">@Model.Name</h3>
+        <!-- Рейтинг -->
+        <p class="mb-3">Рейтинг: <strong>@(Model.Rating.HasValue ? Model.Rating.Value.ToString("0.00") : "–")</strong> (
+          @if (Model.ReviewsCount > 0)
+          {
+            <button type="button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#reviewsModal">
+              @Model.ReviewsCount отзывов
+            </button>
+          }
+          else
+          {
+            <a>отзывов нет</a>
+          }
+          )
+        </p>
+        <!-- Статистика -->
+        <p class="mb-2">Объявлений: <strong>@Model.AdsCount</strong></p>
+        <p class="mb-2">Зарегистрирован: <strong>@Model.DateOfRegistration.ToString("dd MMMM yyyy")</strong></p>
+        <p class="mb-4">Телефон: <strong>@Model.Phone</strong></p>
+        <!-- Кнопки -->
+        <div class="d-grid gap-2 w-100">
+          @* Кнопки с логикой согласно ViewBag *@
+          @if (ViewBag.IsOwn != true && ViewBag.IsAuth == true)
+          {
+            <button onclick="location.href='@Url.Action("CreateReview", "Reviews", new { sellerId = ViewBag.Id })';"
+                    class="btn btn-dark rounded-2 py-2">
+              Оставить отзыв
+            </button>
+          }
+          @if (ViewBag.IsArchivedAds == true)
+          {
+            <button onclick="location.href='@ViewBag.ReturnUrl';"
+                    class="btn btn-outline-dark rounded-2 py-2">
+              Назад
+            </button>
+          }
+          else
+          {
+            @if (ViewBag.IsOwn == true)
+            {
+              <button onclick="location.href='@Url.Action("Logout", "Auth")';"
+                      class="btn btn-dark rounded-2 py-2">
+                Выйти
+              </button>
+              <button onclick="location.href='@Url.Action("Edit", "Profile")';"
+                      class="btn btn-outline-dark rounded-2 py-2">
+                Редактировать
+              </button>
+            }
 
-                    <button
-                        onclick="location.href='/Profile/@ViewBag?.Id/ArchivedAds';"
-                        class="btn profile-button">
-                        Показать архивные объявления
-                    </button>
-                }
-            </div>
+            <button onclick="location.href='/Profile/@ViewBag.Id/ArchivedAds';"
+                    class="btn btn-outline-dark rounded-2 py-2">
+              Показать архивные объявления
+            </button>
+          }
         </div>
-        <div class="col-md-8 justify-content-center">
-            @RenderBody()
-        </div>
+      </div>
     </div>
-</div>
 
-@section Scripts
-{
-<script>
-    document.querySelectorAll('.star-rating:not(.readonly) label').forEach(star => {
-        star.addEventListener('click', function() {
-            this.style.transform = 'scale(1.2)';
-            setTimeout(() => {
-                this.style.transform = 'scale(1)';
-            }, 200);
-        });
-    });
-</script>
-}
+    <!-- Правая колонка -->
+    <div class="col-md-9 ps-5">
+      @RenderBody()
+    </div>
+  </div>
+
+  @await Html.PartialAsync("_ReviewsPartialView")
+</div>

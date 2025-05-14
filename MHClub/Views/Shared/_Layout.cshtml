@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+<!DOCTYPE html>
 <html lang="en" class="h-100">
 <head>
     <meta charset="utf-8"/>
@@ -7,121 +8,101 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Manrope:wght@400;600&display=swap"
           rel="stylesheet">
-
-    <style>
-        body {
-            font-family: 'Manrope', sans-serif;
-            background-color: #f8f9fa;
-        }
-
-        .navbar-brand {
-            font-family: 'Bagel Fat One', cursive;
-            font-size: 28px;
-            color: #000;
-        }
-
-        .catalog-button, .post-button {
-            background-color: #000;
-            color: #fff;
-            font-weight: 600;
-            padding: 8px 16px;
-            border-radius: 8px;
-            border: none;
-            transition: background-color 0.3s;
-            display: flex;
-            align-items: center;
-        }
-
-        .catalog-button i {
-            margin-right: 8px;
-        }
-
-        .catalog-button:hover, .post-button:hover {
-            background-color: #333;
-        }
-
-        .search-bar {
-            flex-grow: 1;
-            max-width: 400px;
-            margin: 0 20px;
-            border-radius: 8px;
-            background-color: #f8f9fa;
-            border: 1px solid #ccc;
-            padding: 8px 16px;
-            display: flex;
-            align-items: center;
-        }
-
-        .search-input {
-            flex-grow: 1;
-            border: none;
-            outline: none;
-            font-size: 16px;
-            margin-right: 8px;
-        }
-
-        .nav-link {
-            color: #000;
-            margin-left: 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-weight: 600;
-            text-align: center;
-        }
-
-        .nav-link i {
-            margin-bottom: 4px;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
 </head>
 <body class="d-flex flex-column h-100">
 <header>
-    <nav class="navbar">
+    <nav class="navbar bg-white shadow-sm">
         <div class="container d-flex align-items-center" style="max-width: 1200px;">
-            <a class="navbar-brand" href="/">MH CLUB</a>
-            <button class="catalog-button me-4">
-                <span class="iconify" data-icon="mdi:view-grid-outline" style="font-size: 20px;"></span> Каталог
-            </button>
-            <div class="search-bar">
-                <input type="text" class="search-input" placeholder="Поиск">
-                <span class="iconify" data-icon="mdi:magnify" style="font-size: 20px;"></span>
-            </div>
-            <a href="/favorites" class="nav-link">
-                <span class="iconify" data-icon="mdi:heart-outline" style="font-size: 20px;"></span> Избранное
-            </a>
-            <a href="/profile" class="nav-link">
-                <span class="iconify" data-icon="mdi:account-circle-outline" style="font-size: 20px;"></span> Екатерина
-            </a>
-            <button class="post-button ms-4">Разместить</button>
+            <!-- Бренд -->
+            <a class="navbar-brand me-3" href="/">MH CLUB</a>
+
+            <!-- Кнопка Каталог только на /Ads/Index -->
+            @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Ads"
+                 && ViewContext.RouteData.Values["action"]?.ToString() == "Index")
+            {
+                <button id="toggleFilterBtn" class="catalog-button me-3">
+                    <span class="iconify" data-icon="mdi:view-grid-outline" style="font-size: 20px;"></span>
+                    Каталог
+                </button>
+            }
+
+            @if (ViewContext.RouteData.Values["action"]?.ToString() != "Login" || ViewContext.RouteData.Values["action"]?.ToString() != "Registration")
+            {
+                <!-- Поиск растягивается на всю оставшуюся ширину -->
+                <div class="search-bar flex-grow-1 me-3">
+                    <input type="text" class="search-input" placeholder="Поиск"/>
+                    <span class="iconify" data-icon="mdi:magnify" style="font-size: 20px;"></span>
+                </div>
+            }
+            
+            <!-- Навигационные иконки -->
+            @{
+                var userId = User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
+                var userName = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value ?? "Неизвестный пользователь";
+            }
+
+            <!-- Кнопка Разместить видна всем, кто аутентифицирован -->
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <a href="@Url.Action("Index", "Favourites")" class="nav-link">
+                    <span class="iconify" data-icon="mdi:heart-outline" style="font-size: 20px;"></span>Избранное
+                </a>
+                <a href="@Url.Action("Profile", "Profile", new { userId = userId })" class="nav-link">
+                    <span class="iconify" data-icon="mdi:account-circle-outline" style="font-size: 20px;"></span>
+                    @userName
+                </a>
+                <button class="post-button ms-3">Разместить</button>
+            }
+            @* Если не аутентифицированы, показываем кнопку Назад *@
+            @if (User.Identity?.IsAuthenticated == false)
+            {
+                @if (ViewContext.RouteData.Values["action"]?.ToString() == "Login" || ViewContext.RouteData.Values["action"]?.ToString() == "Registration")
+                {
+                    <button class="btn btn-dark rounded-2 ms-3" onclick="location.href='@ViewBag.ReturnUrl';">Назад</button>
+                }
+                else
+                {
+                    <button class="post-button ms-3" onclick="location.href='@Url.Action("Login", "Auth", new { returnUrl = ViewBag.ReturnUrl })';">Войти</button>
+                }
+            }
         </div>
     </nav>
 </header>
-<div class="container">
+
+<div class="container my-4">
     <main role="main" class="pb-3">
         @RenderBody()
     </main>
 </div>
 
-<footer class="border-top footer text-muted mt-auto">
-    <div class="container">
-        <p class="text-center text-body-secondary">© 2025 MHClub</p>
+<footer class="border-top footer text-muted mt-auto py-3">
+    <div class="container text-center">
+        © 2025 MHClub
     </div>
 </footer>
+
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
+
+@* Скрипт для кнопки фильтрации на странице Ads.Index *@
+@if (ViewContext.RouteData.Values["controller"]?.ToString() == "Ads"
+     && ViewContext.RouteData.Values["action"]?.ToString() == "Index")
+{
+    <script>
+        document.getElementById('toggleFilterBtn').addEventListener('click', function () {
+            var sidebar = document.querySelector('.filter-card');
+            if (sidebar) sidebar.classList.toggle('d-none');
+        });
+    </script>
+}
+
 @await RenderSectionAsync("Scripts", false)
 </body>
 </html>

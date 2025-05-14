@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace MHClub.Domain.Models;
 
-[Table("User")]
+[Table("user")]
 public class User
 {
     [Key]

@@ -1,25 +1,45 @@
-@model List<MHClub.Domain.Models.Review>
-
-@if (ViewBag.Reviews is not null)
-{
-    <div class="col">
-        @foreach (var review in ViewBag.Reviews)
-        {
-            <div class="row pe-2 pb-2">
-                <div class="card" style="background-color: #D9D9D9">
-                    <div class="card-body">
-                        <div class="d-inline-flex gap-2">
-                            @for (var i = 0; i < review.Estimation; i++)
-                            {
-                                <i class="bi-star-fill"></i>
-                            }
-                        </div>
-                        <blockquote class="blockquote mb-0">
-                            <p>@review.Description</p>
-                        </blockquote>
-                    </div>
-                </div>
+<div class="modal fade" id="reviewsModal" tabindex="-1"
+     aria-labelledby="reviewsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content" style="border-radius: var(--radius-base); box-shadow: var(--shadow-strong);">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reviewsModalLabel">Отзывы о пользователе</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
             </div>
-        }
+            <div class="modal-body">
+                @* Здесь рендерим ваш PartialView *@
+                @if (ViewBag.Reviews is not null)
+                {
+                    <div class="d-flex flex-column gap-3">
+                        @foreach (var review in ViewBag.Reviews)
+                        {
+                            <div class="card" style="background-color: #fff; border-radius: var(--radius-base); box-shadow: var(--shadow-light);">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        @for (var i = 0; i < review.Estimation; i++)
+                                        {
+                                            <i class="bi bi-star-fill" style="color: #ffc107;"></i>
+                                        }
+                                        @for (var i = review.Estimation; i < 5; i++)
+                                        {
+                                            <i class="bi bi-star" style="color: #ddd;"></i>
+                                        }
+                                    </div>
+                                    <blockquote class="blockquote mb-0">
+                                        <p class="mb-0" style="font-size: var(--font-size-base);">
+                                            @review.Description
+                                        </p>
+                                    </blockquote>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p>Нет отзывов</p>
+                }
+            </div>
+        </div>
     </div>
-}
+</div>

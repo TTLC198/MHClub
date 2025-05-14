@@ -1,0 +1,169 @@
+@using MHClub.Utils
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model MHClub.Models.Ads.AdsIndexViewModel
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = Model.Name + (Model.IsArchived == true ? " (Архивное)" : "");
+}
+
+<div class="container my-5">
+    <div class="row">
+        <!-- Галерея и главное изображение -->
+        <div class="col-md-6 d-flex">
+            <!-- Мини-превью -->
+            <div class="d-flex flex-column gap-3 me-4">
+                @foreach (var img in Model.Images ?? Enumerable.Empty<string>())
+                {
+                    var thumbUrl = Url.Action("Get", "Media", new { path = img.GetLocalPath() });
+                    <img src="@thumbUrl"
+                         class="thumb-img rounded-2 shadow-sm"
+                         style="width: 64px; height: 64px; object-fit: cover; cursor: pointer;"
+                         data-src="@thumbUrl" />
+                }
+            </div>
+            <!-- Главное изображение с контролами -->
+            <div class="flex-grow-1 position-relative" style="height: fit-content;">
+                @{
+                    var first = Model.Images?.FirstOrDefault();
+                    var firstUrl = first != null
+                        ? Url.Action("Get", "Media", new { path = first.GetLocalPath() })
+                        : Url.Content("~/images/no-photo.png");
+                }
+                <img id="currentImage"
+                     src="@firstUrl"
+                     class="w-100 rounded-3 shadow-sm"
+                     style="object-fit: cover; cursor: zoom-in;" />
+                <button id="prevBtn" type="button"
+                        class="btn btn-light rounded-circle position-absolute top-50 start-0 translate-middle-y shadow-sm">
+                    <i class="bi-chevron-left"></i>
+                </button>
+                <button id="nextBtn" type="button"
+                        class="btn btn-light rounded-circle position-absolute top-50 end-0 translate-middle-y shadow-sm">
+                    <i class="bi-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Детали объявления -->
+        <div class="col-md-6">
+            <h2 class="fw-bold mb-3">
+                @Model.Name
+                @if (Model.IsArchived == true)
+                {
+                    <span class="text-muted fs-5">(Архивное)</span>
+                    <i class="bi-star-fill ms-2 text-warning"></i>
+                }
+            </h2>
+
+            <div class="d-flex gap-2 mb-4">
+                <a href="@Url.Action("Edit", "Ads", new { id = Model.Id })"
+                   class="btn btn-outline-dark rounded-2">
+                    Редактировать
+                </a>
+                @if (Model.IsArchived == true)
+                {
+                    <form asp-action="Restore" asp-controller="Ads" asp-route-id="@Model.Id" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-dark rounded-2">Восстановить объявление</button>
+                    </form>
+                }
+            </div>
+
+            <h5 class="mb-2">Описание:</h5>
+            <p class="mb-4 text-break">@Model.Description</p>
+
+            <h5 class="mb-2">Характеристики:</h5>
+            <dl class="row">
+                <dt class="col-sm-4">Страна производителя:</dt>
+                <dd class="col-sm-8">@Model.ManufactureCountry</dd>
+                <dt class="col-sm-4">Количество:</dt>
+                <dd class="col-sm-8">@Model.Quantity</dd>
+                <dt class="col-sm-4">Состояние:</dt>
+                <dd class="col-sm-8">@Model.Condition</dd>
+                <dt class="col-sm-4">Дата публикации:</dt>
+                <dd class="col-sm-8">@Model.CreationDate.ToString("dd MMMM yyyy")</dd>
+            </dl>
+
+            <!-- Информация о публикаторе -->
+            <h5 class="mb-2">Информация о публикаторе:</h5>
+            <div class="card p-3 rounded-2 shadow-sm mb-4">
+                <div class="d-flex align-items-center">
+                    @if (!string.IsNullOrEmpty(Model.UserProfileDto?.ImageUrl))
+                    {
+                        <img src="@Url.Action("Get", "Media", new { path = Model.UserProfileDto.ImageUrl.GetLocalPath() })"
+                             class="rounded-circle me-3"
+                             style="width:48px; height:48px; object-fit:cover;" alt="Avatar" />
+                    }
+                    <div>
+                        <a href="@Url.Action("Profile", "Profile", new { userId = Model.UserProfileDto.Id })"
+                           class="text-dark fw-semibold mb-1 d-block">
+                            @Model.UserProfileDto.Name
+                        </a>
+                        <p class="mb-1">
+                            Рейтинг: <strong class="fw-semibold">@Model.UserProfileDto.Rating?.ToString("0.00")</strong>
+                            (@Model.UserProfileDto.ReviewsCount отзывов)
+                        </p>
+                    </div>
+                </div>
+                <p class="mb-1">Кол-во объявлений: @Model.UserProfileDto.AdsCount</p>
+                <p class="mb-1">Зарегистрирован: @Model.UserProfileDto.DateOfRegistration.ToString("dd MMMM yyyy")</p>
+                <p class="mb-0">Телефон: @Model.UserProfileDto.Phone</p>
+            </div>
+
+            <!-- Пожаловаться на объявление -->
+            <button type="button" class="btn btn-outline-dark rounded-2 w-100 mb-3">
+                Пожаловаться на объявление
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Оверлей для масштабирования -->
+<div id="imgOverlay" class="position-fixed top-0 start-0 w-100 h-100 d-none justify-content-center align-items-center"
+     style="background: rgba(0,0,0,0.8); z-index: 1050;">
+    <img id="overlayImage" src="" class="rounded shadow-sm" style="max-width:90%; max-height:90%; cursor: zoom-out;" />
+</div>
+
+@section Scripts
+{
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const thumbs = Array.from(document.querySelectorAll('.thumb-img'));
+            const mainImg = document.getElementById('currentImage');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const overlay = document.getElementById('imgOverlay');
+            const overlayImg = document.getElementById('overlayImage');
+
+            function updateMain(src) {
+                mainImg.src = src;
+            }
+
+            thumbs.forEach(thumb => thumb.addEventListener('click', () => {
+                updateMain(thumb.dataset.src);
+            }));
+
+            prevBtn.addEventListener('click', () => {
+                const idx = thumbs.findIndex(t => t.dataset.src === mainImg.src);
+                const prevIdx = (idx - 1 + thumbs.length) % thumbs.length;
+                updateMain(thumbs[prevIdx].dataset.src);
+            });
+            nextBtn.addEventListener('click', () => {
+                const idx = thumbs.findIndex(t => t.dataset.src === mainImg.src);
+                const nextIdx = (idx + 1) % thumbs.length;
+                updateMain(thumbs[nextIdx].dataset.src);
+            });
+
+            // Масштабирование по центру через оверлей
+            mainImg.addEventListener('click', () => {
+                overlayImg.src = mainImg.src;
+                overlay.classList.remove('d-none');
+                overlay.classList.add('d-flex');
+            });
+            overlay.addEventListener('click', () => {
+                overlay.classList.remove('d-flex');
+                overlay.classList.add('d-none');
+            });
+        });
+    </script>
+}

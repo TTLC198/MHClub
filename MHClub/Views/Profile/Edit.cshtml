@@ -1,0 +1,79 @@
+@model MHClub.Models.User.UserEditDto
+@using MHClub.Utils
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Редактирование профиля";
+}
+
+<div class="d-flex justify-content-center my-5">
+  <div class="card rounded-3 shadow-sm p-4" style="max-width: 500px; width:100%">
+    <h2 class="text-center mb-4">Редактировать профиль</h2>
+    @using (Html.BeginForm("Edit", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+      @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+
+      <div class="d-flex justify-content-center mb-4">
+        <label class="cursor-pointer">
+          @Html.TextBoxFor(m => m.Avatar, new { type = "file", onchange = "upload(this)", accept = "image/*", style = "display:none" })
+          <div class="ratio ratio-1x1 rounded-circle overflow-hidden shadow" style="width:120px; height:120px;">
+            <img id="profile-image" src="@Url.Action("Get", "Media", new { path = Model.ImageUrl.GetLocalPath() })" class="img-cover" alt="avatar" />
+          </div>
+        </label>
+      </div>
+
+      <div class="mb-3">
+        <label asp-for="Name" class="form-label">Имя</label>
+        <input asp-for="Name" class="form-control rounded-2 bg-light border-0 p-3" placeholder="Введите имя" />
+        <span asp-validation-for="Name" class="text-danger small"></span>
+      </div>
+
+      <div class="mb-3">
+        <label asp-for="Email" class="form-label">Email</label>
+        <input asp-for="Email" type="email" class="form-control rounded-2 bg-light border-0 p-3" placeholder="Введите почту" />
+        <span asp-validation-for="Email" class="text-danger small"></span>
+      </div>
+
+      <div class="mb-3">
+        <label asp-for="Phone" class="form-label">Телефон</label>
+        <input asp-for="Phone" class="form-control rounded-2 bg-light border-0 p-3" placeholder="Введите телефон" />
+        <span asp-validation-for="Phone" class="text-danger small"></span>
+      </div>
+
+      <div class="mb-3">
+        <label asp-for="OldPassword" class="form-label">Старый пароль</label>
+        <input asp-for="OldPassword" type="password" class="form-control rounded-2 bg-light border-0 p-3" placeholder="Введите старый пароль" />
+        <span asp-validation-for="OldPassword" class="text-danger small"></span>
+      </div>
+
+      <div class="mb-3">
+        <label asp-for="Password" class="form-label">Новый пароль</label>
+        <input asp-for="Password" type="password" class="form-control rounded-2 bg-light border-0 p-3" placeholder="Введите новый пароль" />
+        <span asp-validation-for="Password" class="text-danger small"></span>
+      </div>
+
+      <div class="mb-4">
+        <label asp-for="RepeatPassword" class="form-label">Повторите пароль</label>
+        <input asp-for="RepeatPassword" type="password" class="form-control rounded-2 bg-light border-0 p-3" placeholder="Повторите пароль" />
+        <span asp-validation-for="RepeatPassword" class="text-danger small"></span>
+      </div>
+
+      <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-outline-dark flex-grow-1 rounded-2 py-2">Сохранить</button>
+        <a href="@ViewBag.ReturnUrl" class="btn btn-light flex-grow-1 rounded-2 py-2">Отменить</a>
+      </div>
+    }
+  </div>
+</div>
+
+@section Scripts {
+  <script>
+    function upload(input) {
+      const file = input.files[0];
+      if (!file || !file.type.startsWith('image/')) return;
+      if (file.size > 10_000_000) { alert('Максимум 10МБ'); return; }
+      const reader = new FileReader();
+      reader.onload = e => document.getElementById('profile-image').src = e.target.result;
+      reader.readAsDataURL(file);
+    }
+  </script>
+}

@@ -111,13 +111,39 @@
                             Decomposed: 'Декомпозированное'
                         }[value] || value;
                     }
+                    
+                    let friendlyName = ``;
+                    switch (key) {
+                        case 'Condition':
+                            friendlyName = 'Состояние';
+                            break;
+                        case 'Type':
+                            friendlyName = 'Тип';
+                            break;
+                        case 'HighRating':
+                            friendlyName = 'Высокий рейтинг';
+                            break;
+                        case 'MinPrice':
+                            friendlyName = 'Мин. цена';
+                            break;
+                        case 'MaxPrice':
+                            friendlyName = 'Макс. цена';
+                            break;
+                        case 'SortBy':
+                            friendlyName = 'Сортировка по';
+                            break;
+                        default :
+                            friendlyName = key;
+                            break;
+                    }
 
                     const tag = document.createElement('div');
                     tag.classList.add('filter-tag');
-                    tag.textContent = `${key}: ${value}`;
+                    tag.textContent = `${friendlyName}: ${value}`;
 
                     const removeButton = document.createElement('button');
-                    removeButton.textContent = '✖';
+                    // в JS при создании тега
+                    removeButton.innerHTML = '<span class="iconify" data-icon="mdi:close" style="font-size: 2em;"></span>';
                     removeButton.addEventListener('click', () => {
                         if (key === 'HighRating') {
                             document.getElementById('highRating').checked = false;

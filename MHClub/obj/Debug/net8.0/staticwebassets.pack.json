@@ -25,6 +25,10 @@
       "PackagePath": "staticwebassets\\images\\images_1219.jpeg"
     },
     {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\no-photo.png",
+      "PackagePath": "staticwebassets\\images\\no-photo.png"
+    },
+    {
       "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
