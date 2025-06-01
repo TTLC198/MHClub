@@ -32,7 +32,7 @@
                 </button>
             }
 
-            @if (ViewContext.RouteData.Values["action"]?.ToString() != "Login" || ViewContext.RouteData.Values["action"]?.ToString() != "Registration")
+            @if (ViewContext.RouteData.Values["action"]?.ToString() != "Login" && ViewContext.RouteData.Values["action"]?.ToString() != "Registration")
             {
                 <!-- Поиск растягивается на всю оставшуюся ширину -->
                 <div class="search-bar flex-grow-1 me-3">
@@ -57,7 +57,7 @@
                     <span class="iconify" data-icon="mdi:account-circle-outline" style="font-size: 20px;"></span>
                     @userName
                 </a>
-                <button class="post-button ms-3">Разместить</button>
+                <button class="post-button ms-3" onclick="window.location.href='@Url.Action("Create", "Ads")'">Разместить</button>
             }
             @* Если не аутентифицированы, показываем кнопку Назад *@
             @if (User.Identity?.IsAuthenticated == false)

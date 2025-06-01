@@ -1,0 +1,140 @@
+﻿@model MHClub.Models.Ads.AdsCreateViewModel
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Новое объявление";
+}
+
+@using (Html.BeginForm("Create", "Ads", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="container mt-4">
+        <div class="card shadow-sm p-4">
+            <div class="d-flex align-items-center mb-3">
+                <i class="bi-chevron-left fs-4 me-2" style="cursor:pointer;" onclick="location.href='@ViewBag.ReturnUrl';"></i>
+                <h4 class="mb-0">@ViewData["Title"]</h4>
+            </div>
+
+            <div class="row g-4">
+                <!-- Название -->
+                <div class="col-12">
+                    <label class="form-label fw-bold">Название объявления</label>
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control bg-light", placeholder = "Например: Коллекционная монета 1905 г.", style = "border: none; background-color: #EAEAEA;" })
+                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- Состояние -->
+                <div class="col-12">
+                    <label class="form-label fw-bold me-3">Состояние</label>
+                    <div class="btn-group" role="group" aria-label="Состояние" id="state-group">
+                        @foreach(var cond in (List<SelectListItem>)ViewBag.Conditions)
+                        {
+                            var isSelected = Model.ConditionId.HasValue && Model.ConditionId.Value.ToString() == cond.Value;
+                            string inputId = "Condition_" + cond.Value;
+                            <input type="radio" id="@inputId" name="ConditionId" value="@cond.Value" class="d-none" @(isSelected ? "checked" : "") />
+                            <label for="@inputId" class="btn @(isSelected ? "bg-secondary text-white" : "bg-light text-muted") rounded-pill me-2 state-btn" style="border:none; cursor:pointer;">
+                                @cond.Text
+                                @if(isSelected)
+                                {
+                                    <i class="bi-check-lg ms-1"></i>
+                                }
+                            </label>
+                        }
+                    </div>
+                    @Html.ValidationMessageFor(m => m.ConditionId, "", new { @class = "text-danger" })
+                </div>
+
+                <input type="hidden" id="CategoryId" name="CategoryId" value="@Model.CategoryId" />
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Category, new { @class = "form-label fw-bold" })
+                    @Html.TextBox("Category", Model.Category?.Name ?? "Категория не выбрана!", new {
+                        @class = "form-control bg-light rounded-2",
+                        placeholder = "Введите категорию",
+                        style = "border: none; background-color: #EAEAEA !important;",
+                        disabled="disabled"
+                    })
+                    @Html.ValidationMessageFor(m => m.Category, "", new { @class = "text-danger small" })
+                </div>
+
+                <!-- Цена -->
+                <div class="col-12">
+                    <label class="form-label fw-bold">Стоимость</label>
+                    @Html.TextBoxFor(m => m.Cost, new { @class = "form-control bg-light", placeholder = "Введите стоимость вашего товара", style = "border: none; background-color: #EAEAEA;" })
+                    @Html.ValidationMessageFor(m => m.Cost, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- Остальные поля... -->
+                <div class="col-12">
+                    <label class="form-label fw-bold">Описание</label>
+                    @Html.TextAreaFor(m => m.Description, new { @class = "form-control bg-light", placeholder = "Расскажите о вашем предмете", style = "border: none; background-color: #EAEAEA;", rows = 4 })
+                    @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- Фотографии -->
+                <div class="col-12">
+                    <label class="form-label fw-bold">Фотографии</label>
+                    <input type="file" id="imageUpload" name="Images" multiple class="form-control bg-light" accept="image/*" style="border: none; background-color: #EAEAEA;">
+                    <div id="imagePreview" class="mt-2 d-flex flex-wrap"></div>
+                </div>
+
+                <!-- Кнопка Разместить -->
+                <div class="col-12">
+                    <button type="submit" class="btn btn-dark w-100">Разместить объявление</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        document.querySelectorAll('.state-btn').forEach(label => {
+            label.addEventListener('click', (e) => {
+                // Установить checked на связанный input
+                const inputId = label.getAttribute('for');
+                document.getElementById(inputId).checked = true;
+
+                // Убрать класс у всех кнопок
+                document.querySelectorAll('.state-btn').forEach(lb => {
+                    lb.classList.remove('bg-secondary', 'text-white');
+                    lb.classList.add('bg-light', 'text-muted');
+                    // Удалить значок галочки
+                    const icon = lb.querySelector('i.bi-check-lg');
+                    if(icon) icon.remove();
+                });
+
+                // Добавить класс к выбранной
+                label.classList.remove('bg-light', 'text-muted');
+                label.classList.add('bg-secondary', 'text-white');
+                // Добавить иконку галочки
+                const checkIcon = document.createElement('i');
+                checkIcon.className = 'bi-check-lg ms-1';
+                label.appendChild(checkIcon);
+            });
+        });
+        
+        document.getElementById('imageUpload').addEventListener('change', function(event) {
+            const previewContainer = document.getElementById('imagePreview');
+            previewContainer.innerHTML = '';
+            Array.from(event.target.files).forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imgWrapper = document.createElement('div');
+                    imgWrapper.className = 'position-relative m-1';
+                    imgWrapper.innerHTML = `
+                        <img src="${e.target.result}" class="rounded" style="width: 100px; height: 100px; object-fit: cover;">
+                        <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0" onclick="removeImage(this)">&times;</button>
+                    `;
+                    previewContainer.appendChild(imgWrapper);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        function removeImage(btn) {
+            btn.closest('div').remove();
+        }
+    
+    </script>
+}

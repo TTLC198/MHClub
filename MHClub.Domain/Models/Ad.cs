@@ -43,6 +43,7 @@ public class Ad
     [Display(Name = "Категория")]
     [Column("idcategory")]
     public virtual int CategoryId { get; set; }
+    [Display(Name = "Выбранная категория")]
     public virtual Category? Category { get; set; }
 
     [Display(Name = "Состояние")]
@@ -99,4 +100,6 @@ public class Ad
         SellerId = ad.SellerId;
         ChildAdId = ad.ChildAdId;
     }
+
+    public override string ToString() => Name;
 }

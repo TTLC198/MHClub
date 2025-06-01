@@ -1,0 +1,107 @@
+﻿@using System.Text.Json
+@using System.Text.Json.Serialization
+@using MHClub.Domain.Models
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model List<MHClub.Domain.Models.Category>
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Новое объявление - Выбор категории";
+    var allCategories = ViewBag.AllCategories as List<Category> ?? [];
+    var categoriesJson = JsonSerializer.Serialize(allCategories, new JsonSerializerOptions() { MaxDepth = 0, ReferenceHandler = ReferenceHandler.IgnoreCycles });
+}
+
+<style>
+    .cat-selected {
+        background-color: #E2E2E2 !important;
+        color: #000 !important;
+    }
+</style>
+
+<div class="container mt-4">
+    <!-- Заголовок страницы -->
+    <div class="d-flex align-items-center mb-4">
+        <i class="bi-chevron-left fs-4 me-2" style="cursor:pointer;" onclick="location.href='@Url.Action("Index", "Ads")';"></i>
+        <h4 class="mb-0">Новое объявление</h4>
+    </div>
+    <h5 class="mb-3">Выберите категорию объявления</h5>
+
+    <div class="d-flex gap-3">
+        <!-- Первый уровень категорий -->
+        <div class="flex-fill">
+            <div class="list-group bg-white rounded var-shadow-light" id="cat-level-1">
+                <!-- Заполняется через JS -->
+            </div>
+        </div>
+        <!-- Второй уровень категорий -->
+        <div class="flex-fill">
+            <div class="list-group bg-white rounded var-shadow-light" id="cat-level-2">
+                <!-- Заполняется через JS -->
+            </div>
+        </div>
+        <!-- Третий уровень категорий -->
+        <div class="flex-fill">
+            <div class="list-group bg-white rounded var-shadow-light" id="cat-level-3">
+                <!-- Заполняется через JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Скрытое поле для выбранной категории -->
+    <form id="categoryForm" method="post" action="@Url.Action("CreateWithCategories", "Ads")">
+        <input type="hidden" id="SelectedCategoryId" name="CategoryId" />
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        const allCategories = @Html.Raw(categoriesJson);
+
+        function populateLevel(level, parentId) {
+            const container = document.getElementById(`cat-level-${level}`);
+            container.innerHTML = '';
+            const items = allCategories.filter(cat => cat.ParentCategoryId === parentId);
+            items.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'list-group-item list-group-item-action bg-white mb-2 rounded d-flex justify-content-between align-items-center';
+                btn.style = 'border: none; color: #000;';
+                btn.textContent = cat.Name;
+                const hasChildren = allCategories.some(c => c.ParentCategoryId === cat.Id);
+                if (hasChildren) {
+                    const arrow = document.createElement('i');
+                    arrow.className = 'bi-chevron-right';
+                    arrow.style.color = '#333';
+                    btn.appendChild(arrow);
+                }
+                btn.onmouseenter = () => btn.style.boxShadow = 'var(--shadow-light)';
+                btn.onmouseleave = () => btn.style.boxShadow = 'none';
+                btn.onclick = () => onCategoryClick(level, cat.Id, event);
+                container.appendChild(btn);
+            });
+        }
+
+        function onCategoryClick(level, categoryId, event) {
+            const levelContainer = document.getElementById(`cat-level-${level}`);
+            Array.from(levelContainer.children).forEach(ch => ch.classList.remove('cat-selected', 'active'));
+            const clicked = event.currentTarget;
+            clicked.classList.add('cat-selected');
+            clicked.classList.add('active');
+
+            for (let lv = level + 1; lv <= 3; lv++) {
+                document.getElementById(`cat-level-${lv}`).innerHTML = '';
+            }
+            if (level < 3) {
+                populateLevel(level + 1, categoryId);
+            } else {
+                document.getElementById('SelectedCategoryId').value = categoryId;
+                document.getElementById('categoryForm').submit();
+            }
+        }
+
+        // Инициализация при загрузке
+        document.addEventListener('DOMContentLoaded', () => {
+            populateLevel(1, null);
+        });
+    </script>
+}

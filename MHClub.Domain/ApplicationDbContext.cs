@@ -9,14 +9,14 @@ public sealed class ApplicationDbContext : DbContext
     public ApplicationDbContext()
     {
         //Database.EnsureDeleted();
-        Database.EnsureCreated();
+        //Database.EnsureCreated();
     }
     
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
         //Database.EnsureDeleted();
-        Database.EnsureCreated();
+        //Database.EnsureCreated();
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -37,14 +37,10 @@ public sealed class ApplicationDbContext : DbContext
     public DbSet<Complaint> Complaints { get; set; }
     public DbSet<Review> Reviews { get; set; }
     public DbSet<Media> Media { get; set; }
+    public DbSet<Status> Statuses { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        /*modelBuilder.Entity<Category>()
-            .HasMany(c => c.Children)
-            .WithOne(c => c.ParentCategory)
-            .HasForeignKey(fk => fk.ParentCategoryId);*/
-
         modelBuilder.Entity<Category>()
             .HasOne(c => c.ParentCategory)
             .WithMany(c => c.Children)
