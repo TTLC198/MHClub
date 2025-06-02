@@ -18,14 +18,16 @@ public class AdsCreateViewModel : AdsIndexViewModel
     public float Cost { get; set; }
 
     [Display(Name = "Страна производства")]
-    public  string? ManufactureCountry { get; set; }
+    [Required(ErrorMessage = "Значение не может быть пустым")]
+    public string ManufactureCountry { get; set; }
 
     [Display(Name = "Количество")]
     [Range(1, int.MaxValue, ErrorMessage = "Значение должно быть числом больше одного")]
     public  int? Quantity { get; set; }
 
-    [Display(Name = "Описание")] 
-    public string? Description { get; set; } = "";
+    [Display(Name = "Описание")]
+    [Required(ErrorMessage = "Значение не может быть пустым")]
+    public string Description { get; set; }
 
     [Display(Name = "Категория")]
     [Required(ErrorMessage = "Значение не может быть пустым")]
@@ -36,6 +38,8 @@ public class AdsCreateViewModel : AdsIndexViewModel
     public  int? ConditionId { get; set; }
 
     public List<SelectListItem> CountriesSelect { get; set; } = new();
+    
+    public List<SelectListItem> CategoriesSelect { get; set; } = new();
     
     public AdsCreateViewModel() {}
     

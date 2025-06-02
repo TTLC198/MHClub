@@ -36,7 +36,7 @@
             {
                 <!-- Поиск растягивается на всю оставшуюся ширину -->
                 <div class="search-bar flex-grow-1 me-3">
-                    <input type="text" class="search-input" placeholder="Поиск"/>
+                    <input type="text" id="searchInput" class="search-input" placeholder="Поиск" value="@ViewBag.SearchText"/>
                     <span class="iconify" data-icon="mdi:magnify" style="font-size: 20px;"></span>
                 </div>
             }
@@ -102,6 +102,25 @@
         });
     </script>
 }
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+        if (!searchInput) return;
+
+        searchInput.addEventListener('keydown', function(e) {
+            // если нажата клавиша Enter
+            if (e.key === 'Enter' || e.keyCode === 13) {
+                e.preventDefault();
+                const query = this.value.trim();
+                // если query не пустая, можно формировать URL с query
+                // Предположим, что AdsController.Index умеет принимать параметр "search"
+                const url = '@Url.Action("Index", "Ads")' + (query ? '?Search=' + encodeURIComponent(query) : '');
+                window.location.href = url;
+            }
+        });
+    });
+</script>
 
 @await RenderSectionAsync("Scripts", false)
 </body>

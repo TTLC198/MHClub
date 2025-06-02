@@ -236,7 +236,7 @@ public class ProfileController : BaseController
 
             var photo = user.Medias?.FirstOrDefault();
 
-            return View("Ads", await GetUserProfileAsync(user, photo?.Path ?? ""));
+            return View("Profile", await GetUserProfileAsync(user, photo?.Path ?? ""));
         }
         catch (Exception exception)
         {

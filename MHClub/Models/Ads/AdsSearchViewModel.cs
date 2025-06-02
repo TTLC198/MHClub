@@ -11,4 +11,5 @@ public class AdsSearchViewModel
     public ItemCondition? Condition { get; set; }
     public ItemType? Type { get; set; }
     public string SortBy { get; set; }
+    public string? SearchText { get; set; }
 }

@@ -1,7 +1,5 @@
-@using MHClub.Utils
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model MHClub.Models.Ads.AdsIndexViewModel
-
+@using MHClub.Utils
 @{
     Layout = "_Layout";
     ViewData["Title"] = Model.Name + (Model.IsArchived == true ? " (Архивное)" : "");
@@ -47,25 +45,60 @@
 
         <!-- Детали объявления -->
         <div class="col-md-6">
-            <h2 class="fw-bold mb-3">
-                @Model.Name
+            <h2 class="fw-bold mb-3 d-flex align-items-center">
+                <span>@Model.Name</span>
                 @if (Model.IsArchived == true)
                 {
-                    <span class="text-muted fs-5">(Архивное)</span>
-                    <i class="bi-star-fill ms-2 text-warning"></i>
+                    <span class="text-muted fs-5 ms-2">(Архивное)</span>
+                }
+                @if (Model.IsOwn != true)
+                {
+                    <!-- Кнопка избранное: просто звездочка без рамки -->
+                    <button id="fav-button"
+                            type="button"
+                            class="btn btn-link p-0 ms-3 text-dark"
+                            data-fav="@(!Model.IsFavourite)"
+                            style="font-size: 1.25rem; line-height: 1;">
+                        @if (Model.IsFavourite == true)
+                        {
+                            <span class="iconify" data-icon="mdi:star" style="font-size: 1.25rem;"></span>
+                        }
+                        else
+                        {
+                            <span class="iconify" data-icon="mdi:star-outline" style="font-size: 1.25rem;"></span>
+                        }
+                    </button>
                 }
             </h2>
 
             <div class="d-flex gap-2 mb-4">
-                <a href="@Url.Action("Edit", "Ads", new { id = Model.Id })"
-                   class="btn btn-outline-dark rounded-2">
-                    Редактировать
-                </a>
-                @if (Model.IsArchived == true)
+                @if (Model.IsOwn == true)
                 {
-                    <form asp-action="Restore" asp-controller="Ads" asp-route-id="@Model.Id" method="post" class="d-inline">
-                        <button type="submit" class="btn btn-dark rounded-2">Восстановить объявление</button>
-                    </form>
+                    <a href="@Url.Action("Edit", "Ads", new { id = Model.Id })"
+                       class="btn btn-outline-dark rounded-2">
+                        Редактировать
+                    </a>
+
+                    @if (Model.IsArchived == true)
+                    {
+                        <button
+                            data-bs-toggle="modal"
+                            data-bs-target="#restoreStaticBackdrop"
+                            type="button"
+                            class="btn btn-dark rounded-2">
+                            Восстановить объявление
+                        </button>
+                    }
+                    else
+                    {
+                        <button
+                            data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop"
+                            type="button"
+                            class="btn btn-outline-dark rounded-2">
+                            Удалить
+                        </button>
+                    }
                 }
             </div>
 
@@ -100,7 +133,10 @@
                             @Model.UserProfileDto.Name
                         </a>
                         <p class="mb-1">
-                            Рейтинг: <strong class="fw-semibold">@Model.UserProfileDto.Rating?.ToString("0.00")</strong>
+                            Рейтинг:
+                            <strong class="fw-semibold">
+                                @(Model.UserProfileDto.Rating.HasValue ? Model.UserProfileDto.Rating.Value.ToString("0.00") : "–")
+                            </strong>
                             (@Model.UserProfileDto.ReviewsCount отзывов)
                         </p>
                     </div>
@@ -110,18 +146,101 @@
                 <p class="mb-0">Телефон: @Model.UserProfileDto.Phone</p>
             </div>
 
-            <!-- Пожаловаться на объявление -->
-            <button type="button" class="btn btn-outline-dark rounded-2 w-100 mb-3">
-                Пожаловаться на объявление
-            </button>
+            @if (Model.IsOwn != true)
+            {
+                <!-- Пожаловаться на объявление -->
+                <button
+                    id="openComplaintBtn"
+                    type="button"
+                    class="btn btn-outline-dark rounded-2 w-100 mb-3">
+                    Пожаловаться на объявление
+                </button>
+            }
         </div>
     </div>
 </div>
 
 <!-- Оверлей для масштабирования -->
-<div id="imgOverlay" class="position-fixed top-0 start-0 w-100 h-100 d-none justify-content-center align-items-center"
-     style="background: rgba(0,0,0,0.8); z-index: 1050;">
-    <img id="overlayImage" src="" class="rounded shadow-sm" style="max-width:90%; max-height:90%; cursor: zoom-out;" />
+<div class="modal fade" id="photoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-3 shadow-sm">
+            <div class="modal-body p-0">
+                <img id="modalImage" class="w-100" style="object-fit: contain; max-height:80vh;" />
+            </div>
+            <div class="modal-footer border-0 justify-content-center">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальные окна удаления/восстановления -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Вы действительно хотите удалить объявление?</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет</button>
+                @using (Html.BeginForm("Delete", "Ads", new { Model.Id }, FormMethod.Post))
+                {
+                    <button type="submit" class="btn btn-primary">Да</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="restoreStaticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="restoreStaticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="restoreStaticBackdropLabel">Вы действительно хотите восстановить объявление?</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет</button>
+                @using (Html.BeginForm("Restore", "Ads", new { Model.Id }, FormMethod.Post))
+                {
+                    <button type="submit" class="btn btn-primary">Да</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно для жалобы -->
+<div class="modal fade" id="complaintModal" tabindex="-1" aria-labelledby="complaintModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-3 shadow-sm">
+            <div class="modal-header">
+                <h5 class="modal-title" id="complaintModalLabel">Оставить жалобу</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label class="form-label">Ваша претензия</label>
+                <textarea id="complaintText"
+                          class="form-control"
+                          rows="4"
+                          placeholder="Расскажите, что вам не понравилось"
+                          required></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button"
+                        class="btn btn-outline-dark rounded-2"
+                        data-bs-dismiss="modal">
+                    Закрыть
+                </button>
+                <button id="submitComplaintBtn"
+                        type="button"
+                        class="btn btn-dark rounded-2">
+                    Оставить
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts
@@ -132,8 +251,6 @@
             const mainImg = document.getElementById('currentImage');
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
-            const overlay = document.getElementById('imgOverlay');
-            const overlayImg = document.getElementById('overlayImage');
 
             function updateMain(src) {
                 mainImg.src = src;
@@ -154,15 +271,74 @@
                 updateMain(thumbs[nextIdx].dataset.src);
             });
 
-            // Масштабирование по центру через оверлей
+            // Масштабирование через Bootstrap Modal
             mainImg.addEventListener('click', () => {
-                overlayImg.src = mainImg.src;
-                overlay.classList.remove('d-none');
-                overlay.classList.add('d-flex');
+                document.getElementById('modalImage').src = mainImg.src;
+                const bsPhotoModal = new bootstrap.Modal(document.getElementById('photoModal'));
+                bsPhotoModal.show();
             });
-            overlay.addEventListener('click', () => {
-                overlay.classList.remove('d-flex');
-                overlay.classList.add('d-none');
+
+            // Показать окно жалобы
+            const openComplaintBtn = document.getElementById("openComplaintBtn");
+            openComplaintBtn?.addEventListener("click", () => {
+                const complaintModal = new bootstrap.Modal(document.getElementById("complaintModal"));
+                complaintModal.show();
+            });
+
+            // Обработка отправки жалобы через AJAX
+            const submitComplaintBtn = document.getElementById("submitComplaintBtn");
+            submitComplaintBtn?.addEventListener("click", () => {
+                const description = document.getElementById("complaintText").value.trim();
+                if (!description) {
+                    alert("Пожалуйста, введите текст жалобы.");
+                    return;
+                }
+
+                const complaintDto = {
+                    AdId: @Model.Id,
+                    Description: description
+                };
+
+                fetch('@Url.Action("Create", "Complaints")', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(complaintDto)
+                })
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result === true) {
+                            // Закрываем модалку и выводим уведомление
+                            const bsModal = bootstrap.Modal.getInstance(document.getElementById("complaintModal"));
+                            bsModal.hide();
+                            alert("Жалоба успешно отправлена.");
+                        } else {
+                            alert("Не удалось отправить жалобу.");
+                        }
+                    })
+                    .catch(() => {
+                        alert("Произошла ошибка при отправке жалобы.");
+                    });
+            });
+
+            // Обработка кнопки "Избранное"
+            $("#fav-button").click(function () {
+                const isFav = $(this).data("fav");
+                $.ajax({
+                    url: '/Favourites?adId=@Model.Id&isFavourite=' + isFav,
+                    type: 'POST',
+                    cache: false,
+                    async: true,
+                })
+                    .done(function(result) {
+                        $("#fav-button").data("fav", !isFav);
+                        if (!isFav) {
+                            $("#fav-button").html('<span class="iconify" data-icon="mdi:star" style="font-size: 1.25rem;"></span>');
+                        } else {
+                            $("#fav-button").html('<span class="iconify" data-icon="mdi:star-outline" style="font-size: 1.25rem;"></span>');
+                        }
+                    });
             });
         });
     </script>

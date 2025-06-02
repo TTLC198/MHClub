@@ -20,6 +20,7 @@ public class UserProfileDto : Domain.Models.User
     
     public UserProfileDto(Domain.Models.User user, double? rating, int? reviewsCount, int? adsCount, string imageUrl)
     {
+        Id = user.Id;
         Email = user.Email;
         Name = user.Name;
         Phone = user.Phone;

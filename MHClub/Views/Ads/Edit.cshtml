@@ -2,7 +2,7 @@
 
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "Новое объявление";
+    ViewData["Title"] = "Редактирование объявления - " + Model.Name;
     var showSuccessPopup = ViewBag.Success != null && (bool)ViewBag.Success;
 }
 
@@ -68,6 +68,7 @@
                         disabled="disabled"
                     })
                     @Html.ValidationMessageFor(m => m.Category, "", new { @class = "text-danger small" })
+                    <div class="form-text text-muted mt-1">Нельзя редактировать категорию активного объявления</div>
                 </div>
 
                 <div class="mb-3">
@@ -118,7 +119,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
             </div>
             <div class="modal-body text-center py-4">
-                <p class="mb-3">Ваше объявление успешно размещено.</p>
+                <p class="mb-3">Ваше объявление успешно <изменено></изменено>.</p>
                 <button type="button" class="btn btn-dark px-4" data-bs-dismiss="modal"
                         onclick="location.href='@Url.Action("Index", "Ads")';">
                     Хорошо
@@ -292,4 +293,3 @@
         }
     </script>
 }
-
