@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "lTl01ueFyiotokbNJfx17EIHLIe0ozFjliv4eCjoNAE=",
+  "Hash": "1gsWDiU6IYL+kbyBUq4EFdMunfB7q+a4IZV5zDSFzLc=",
   "Source": "MHClub",
   "BasePath": "_content/MHClub",
   "Mode": "Default",
@@ -73,8 +73,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "gkldx9kklr",
-      "Integrity": "cHMCmEWmQ1sfm4Y0+Xgfc0rbgEpDfYZzNLcrZL07Bzk=",
+      "Fingerprint": "rn5mdckgxi",
+      "Integrity": "J+Pmx6S6MfBwzF2y8K+aqYyLgrLmSLY9Wynu1Va6fXg=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -99,6 +99,69 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\12381563381.d5313cb45a884ac38d29314b0166f04c_71d2.jpg",
+      "SourceId": "MHClub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\",
+      "BasePath": "_content/MHClub",
+      "RelativePath": "images/12381563381.d5313cb45a884ac38d29314b0166f04c_71d2#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "ghoa5ieq89",
+      "Integrity": "dKdIgQlFvC4D9zuvSmaz4XC67JkvTplLyKzEgtli3+A=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\12381563381.d5313cb45a884ac38d29314b0166f04c_71d2.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\74b1_0414.png",
+      "SourceId": "MHClub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\",
+      "BasePath": "_content/MHClub",
+      "RelativePath": "images/74b1_0414#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "iz2f3pv636",
+      "Integrity": "Iuw6xZR/KGWketety/uuZ2OsglsjJo2DR0R4twtmkFI=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\74b1_0414.png"
+    },
+    {
+      "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\74b1_fa3d.png",
+      "SourceId": "MHClub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\",
+      "BasePath": "_content/MHClub",
+      "RelativePath": "images/74b1_fa3d#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "iz2f3pv636",
+      "Integrity": "Iuw6xZR/KGWketety/uuZ2OsglsjJo2DR0R4twtmkFI=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\74b1_fa3d.png"
     },
     {
       "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\Отзывы о пользователе_3100.png",
@@ -1877,7 +1940,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "6633"
+          "Value": "14320"
         },
         {
           "Name": "Content-Type",
@@ -1885,11 +1948,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"cHMCmEWmQ1sfm4Y0+Xgfc0rbgEpDfYZzNLcrZL07Bzk=\""
+          "Value": "\"J+Pmx6S6MfBwzF2y8K+aqYyLgrLmSLY9Wynu1Va6fXg=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 01 Jun 2025 21:07:37 GMT"
+          "Value": "Tue, 03 Jun 2025 15:56:09 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1899,12 +1962,12 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-cHMCmEWmQ1sfm4Y0+Xgfc0rbgEpDfYZzNLcrZL07Bzk="
+          "Value": "sha256-J+Pmx6S6MfBwzF2y8K+aqYyLgrLmSLY9Wynu1Va6fXg="
         }
       ]
     },
     {
-      "Route": "css/site.gkldx9kklr.css",
+      "Route": "css/site.rn5mdckgxi.css",
       "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\css\\site.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -1914,7 +1977,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "6633"
+          "Value": "14320"
         },
         {
           "Name": "Content-Type",
@@ -1922,11 +1985,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"cHMCmEWmQ1sfm4Y0+Xgfc0rbgEpDfYZzNLcrZL07Bzk=\""
+          "Value": "\"J+Pmx6S6MfBwzF2y8K+aqYyLgrLmSLY9Wynu1Va6fXg=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 01 Jun 2025 21:07:37 GMT"
+          "Value": "Tue, 03 Jun 2025 15:56:09 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1936,7 +1999,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "gkldx9kklr"
+          "Value": "rn5mdckgxi"
         },
         {
           "Name": "label",
@@ -1944,7 +2007,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-cHMCmEWmQ1sfm4Y0+Xgfc0rbgEpDfYZzNLcrZL07Bzk="
+          "Value": "sha256-J+Pmx6S6MfBwzF2y8K+aqYyLgrLmSLY9Wynu1Va6fXg="
         }
       ]
     },
@@ -2027,6 +2090,252 @@
         {
           "Name": "integrity",
           "Value": "sha256-Jtxf9L+5ITKRc1gIRl4VbUpGkRNfOBXjYTdhJD4facM="
+        }
+      ]
+    },
+    {
+      "Route": "images/12381563381.d5313cb45a884ac38d29314b0166f04c_71d2.ghoa5ieq89.jpg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\12381563381.d5313cb45a884ac38d29314b0166f04c_71d2.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "77357"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"dKdIgQlFvC4D9zuvSmaz4XC67JkvTplLyKzEgtli3+A=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Jun 2025 11:22:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ghoa5ieq89"
+        },
+        {
+          "Name": "label",
+          "Value": "images/12381563381.d5313cb45a884ac38d29314b0166f04c_71d2.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-dKdIgQlFvC4D9zuvSmaz4XC67JkvTplLyKzEgtli3+A="
+        }
+      ]
+    },
+    {
+      "Route": "images/12381563381.d5313cb45a884ac38d29314b0166f04c_71d2.jpg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\12381563381.d5313cb45a884ac38d29314b0166f04c_71d2.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "77357"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"dKdIgQlFvC4D9zuvSmaz4XC67JkvTplLyKzEgtli3+A=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Jun 2025 11:22:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-dKdIgQlFvC4D9zuvSmaz4XC67JkvTplLyKzEgtli3+A="
+        }
+      ]
+    },
+    {
+      "Route": "images/74b1_0414.iz2f3pv636.png",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\74b1_0414.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "39652"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Iuw6xZR/KGWketety/uuZ2OsglsjJo2DR0R4twtmkFI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Jun 2025 11:45:20 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "iz2f3pv636"
+        },
+        {
+          "Name": "label",
+          "Value": "images/74b1_0414.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Iuw6xZR/KGWketety/uuZ2OsglsjJo2DR0R4twtmkFI="
+        }
+      ]
+    },
+    {
+      "Route": "images/74b1_0414.png",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\74b1_0414.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "39652"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Iuw6xZR/KGWketety/uuZ2OsglsjJo2DR0R4twtmkFI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Jun 2025 11:45:20 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Iuw6xZR/KGWketety/uuZ2OsglsjJo2DR0R4twtmkFI="
+        }
+      ]
+    },
+    {
+      "Route": "images/74b1_fa3d.iz2f3pv636.png",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\74b1_fa3d.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "39652"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Iuw6xZR/KGWketety/uuZ2OsglsjJo2DR0R4twtmkFI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Jun 2025 07:40:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "iz2f3pv636"
+        },
+        {
+          "Name": "label",
+          "Value": "images/74b1_fa3d.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Iuw6xZR/KGWketety/uuZ2OsglsjJo2DR0R4twtmkFI="
+        }
+      ]
+    },
+    {
+      "Route": "images/74b1_fa3d.png",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\74b1_fa3d.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "39652"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Iuw6xZR/KGWketety/uuZ2OsglsjJo2DR0R4twtmkFI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Jun 2025 07:40:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Iuw6xZR/KGWketety/uuZ2OsglsjJo2DR0R4twtmkFI="
         }
       ]
     },

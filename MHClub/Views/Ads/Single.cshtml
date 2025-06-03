@@ -17,7 +17,7 @@
                     <img src="@thumbUrl"
                          class="thumb-img rounded-2 shadow-sm"
                          style="width: 64px; height: 64px; object-fit: cover; cursor: pointer;"
-                         data-src="@thumbUrl" />
+                         data-src="@thumbUrl"/>
                 }
             </div>
             <!-- Главное изображение с контролами -->
@@ -31,7 +31,7 @@
                 <img id="currentImage"
                      src="@firstUrl"
                      class="w-100 rounded-3 shadow-sm"
-                     style="object-fit: cover; cursor: zoom-in;" />
+                     style="object-fit: cover; cursor: zoom-in;"/>
                 <button id="prevBtn" type="button"
                         class="btn btn-light rounded-circle position-absolute top-50 start-0 translate-middle-y shadow-sm">
                     <i class="bi-chevron-left"></i>
@@ -57,15 +57,15 @@
                     <button id="fav-button"
                             type="button"
                             class="btn btn-link p-0 ms-3 text-dark"
-                            data-fav="@(!Model.IsFavourite)"
+                            data-fav="@(Model.IsFavourite)"
                             style="font-size: 1.25rem; line-height: 1;">
-                        @if (Model.IsFavourite == true)
+                        @if (Model.IsFavourite == false)
                         {
-                            <span class="iconify" data-icon="mdi:star" style="font-size: 1.25rem;"></span>
+                            <span class="iconify" data-icon="mdi:star-outline" style="font-size: 1.25rem;"></span>
                         }
                         else
                         {
-                            <span class="iconify" data-icon="mdi:star-outline" style="font-size: 1.25rem;"></span>
+                            <span class="iconify" data-icon="mdi:star" style="font-size: 1.25rem;"></span>
                         }
                     </button>
                 }
@@ -107,15 +107,41 @@
 
             <h5 class="mb-2">Характеристики:</h5>
             <dl class="row">
-                <dt class="col-sm-4">Страна производителя:</dt>
-                <dd class="col-sm-8">@Model.ManufactureCountry</dd>
-                <dt class="col-sm-4">Количество:</dt>
-                <dd class="col-sm-8">@Model.Quantity</dd>
-                <dt class="col-sm-4">Состояние:</dt>
-                <dd class="col-sm-8">@Model.Condition</dd>
-                <dt class="col-sm-4">Дата публикации:</dt>
-                <dd class="col-sm-8">@Model.CreationDate.ToString("dd MMMM yyyy")</dd>
+                <dt class="col-sm-6">Страна производителя:</dt>
+                <dd class="col-sm-6">@Model.ManufactureCountry</dd>
+                <dt class="col-sm-6">Количество:</dt>
+                <dd class="col-sm-6">@Model.Quantity</dd>
+                <dt class="col-sm-6">Состояние:</dt>
+                @{
+                    var condition = Model.Condition?.Name ?? "Неизвестно";
+                }
+                <dd class="col-sm-6">@condition</dd>
+                <dt class="col-sm-6">Дата публикации:</dt>
+                <dd class="col-sm-6">@Model.CreationDate.ToString("dd MMMM yyyy")</dd>
             </dl>
+
+            @if (Model.ChildrenAds != null && Model.ChildrenAds.Any())
+            {
+                <div class="decomposition-section">
+                    <h2 class="section-title">Декомпозиции:</h2>
+                    <div class="decomposition-list">
+                        @foreach (var child in Model.ChildrenAds)
+                        {
+                            <div class="item-card">
+                                <div class="item-card__image-container">
+                                    <img
+                                        src="@Url.Action("Get", "Media", new { path = child.Images?.FirstOrDefault()?.GetLocalPath() })"
+                                        alt=""/>
+                                </div>
+                                <div class="item-card__content">
+                                    <h3 class="item-card__title">@child.Name</h3>
+                                    <p class="item-card__subtitle">@child.Description</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
 
             <!-- Информация о публикаторе -->
             <h5 class="mb-2">Информация о публикаторе:</h5>
@@ -123,9 +149,10 @@
                 <div class="d-flex align-items-center">
                     @if (!string.IsNullOrEmpty(Model.UserProfileDto?.ImageUrl))
                     {
-                        <img src="@Url.Action("Get", "Media", new { path = Model.UserProfileDto.ImageUrl.GetLocalPath() })"
-                             class="rounded-circle me-3"
-                             style="width:48px; height:48px; object-fit:cover;" alt="Avatar" />
+                        <img
+                            src="@Url.Action("Get", "Media", new { path = Model.UserProfileDto.ImageUrl.GetLocalPath() })"
+                            class="rounded-circle me-3"
+                            style="width:48px; height:48px; object-fit:cover;" alt="Avatar"/>
                     }
                     <div>
                         <a href="@Url.Action("Profile", "Profile", new { userId = Model.UserProfileDto.Id })"
@@ -146,7 +173,7 @@
                 <p class="mb-0">Телефон: @Model.UserProfileDto.Phone</p>
             </div>
 
-            @if (Model.IsOwn != true)
+            @if (Model.IsOwn != true && User.Identity?.IsAuthenticated == true)
             {
                 <!-- Пожаловаться на объявление -->
                 <button
@@ -165,7 +192,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content rounded-3 shadow-sm">
             <div class="modal-body p-0">
-                <img id="modalImage" class="w-100" style="object-fit: contain; max-height:80vh;" />
+                <img id="modalImage" class="w-100" style="object-fit: contain; max-height:80vh;"/>
             </div>
             <div class="modal-footer border-0 justify-content-center">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
@@ -175,7 +202,8 @@
 </div>
 
 <!-- Модальные окна удаления/восстановления -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -193,11 +221,13 @@
     </div>
 </div>
 
-<div class="modal fade" id="restoreStaticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="restoreStaticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="restoreStaticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="restoreStaticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="restoreStaticBackdropLabel">Вы действительно хотите восстановить объявление?</h1>
+                <h1 class="modal-title fs-5" id="restoreStaticBackdropLabel">Вы действительно хотите восстановить
+                    объявление?</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-footer">
@@ -246,7 +276,7 @@
 @section Scripts
 {
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const thumbs = Array.from(document.querySelectorAll('.thumb-img'));
             const mainImg = document.getElementById('currentImage');
             const prevBtn = document.getElementById('prevBtn');
@@ -325,13 +355,14 @@
             // Обработка кнопки "Избранное"
             $("#fav-button").click(function () {
                 const isFav = $(this).data("fav");
+                console.log(isFav);
                 $.ajax({
-                    url: '/Favourites?adId=@Model.Id&isFavourite=' + isFav,
+                    url: '/Favourites?adId=@Model.Id&isFavourite=' + !isFav,
                     type: 'POST',
                     cache: false,
                     async: true,
                 })
-                    .done(function(result) {
+                    .done(function (result) {
                         $("#fav-button").data("fav", !isFav);
                         if (!isFav) {
                             $("#fav-button").html('<span class="iconify" data-icon="mdi:star" style="font-size: 1.25rem;"></span>');

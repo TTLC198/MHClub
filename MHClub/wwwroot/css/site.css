@@ -1,264 +1,521 @@
-.star-rating {
-  direction: rtl;
-  display: inline-block;
-  cursor: pointer;
-}
+/* =======================================================
+   Полностью обновлённый site.css для страницы просмотра объявления
+   ======================================================= */
 
-.star-rating input {
-  display: none;
-}
-
-.star-rating label {
-  color: #ddd;
-  font-size: 24px;
-  padding: 0 2px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.star-rating label:hover,
-.star-rating label:hover~label,
-.star-rating input:checked~label {
-  color: #ffc107;
-}
-
-.display-none {
-  display: none;
-}
-
-/*
-new style
-*/
+/* -------------------------------------------------------
+   1. Объявляем CSS-переменные для базовых токенов
+   ------------------------------------------------------- */
 :root {
-  /* Базовые токены */
-  --spacing-unit: 8px;          /* базовый шаг */
-  --radius-base: 8px;           /* радиус скругления */
-  --font-size-base: 16px;       /* основной размер шрифта */
-  --shadow-light: 0 4px 20px rgba(0,0,0,0.05);
-  --shadow-strong: 0 8px 24px rgba(0,0,0,0.1);
+  --spacing-unit: 8px;           /* базовый шаг */
+  --radius-base: 8px;            /* радиус скругления */
+  --font-size-base: 16px;        /* основной размер шрифта */
+  --color-bg: #f8f9fa;           /* фон страницы */
+  --color-white: #ffffff;        /* белый цвет */
+  --color-black: #000000;        /* чёрный цвет */
+  --color-gray-light: #e9ecef;   /* светло-серый фон для полей */
+  --color-gray-medium: #adb5bd;  /* средний серый (для вспомогательного текста) */
+  --color-gray-dark: #495057;    /* тёмно-серый (для второстепенного текста) */
+  --shadow-light: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --shadow-strong: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
-/* Сброс padding у body: теперь отступ — 2 шага */
+/* -------------------------------------------------------
+   2. Сброс и базовая стилизация
+   ------------------------------------------------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
 body {
   font-family: 'Manrope', sans-serif;
-  background-color: #f8f9fa;
-  padding: calc(var(--spacing-unit) * 2);
-}
-
-/* Карточка фильтра */
-.filter-card {
-  background: #fff;
-  border-radius: var(--radius-base);
-  padding: calc(var(--spacing-unit) * 2);
-  box-shadow: var(--shadow-strong);
-  flex-basis: 250px;
-}
-
-/* Заголовки внутри карточки */
-.filter-card h6 {
-  font-weight: 600;
   font-size: var(--font-size-base);
-  margin-bottom: calc(var(--spacing-unit) * 1.5);
+  background-color: var(--color-bg);
+  color: var(--color-black);
+  line-height: 1.5;
+  padding: calc(var(--spacing-unit) * 2);
 }
 
-/* Разделитель секций */
-.divider {
-  border-bottom: 1px solid #ddd;
-  margin: calc(var(--spacing-unit) * 2) 0;
+/* Убираем стандартные отступы Bootstrap-контейнера (если используется) */
+.container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0;
+  padding-right: 0;
 }
 
-/* Обёртка для тегов-фильтров */
-.filter-tags, .sort-select {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-unit);
-  margin-bottom: calc(var(--spacing-unit) * 2);
-  padding: 0 calc(var(--spacing-unit) * 2);
-}
-
-/* Тег-фильтр */
-.filter-tag {
-  background: #333;
-  color: #fff;
-  padding: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 1.5);
-  border-radius: calc(var(--radius-base) * 1.25);
-  font-size: 0.875rem;
-  font-weight: 600;
+/* -------------------------------------------------------
+   3. Навбар (указывать в _Layout.cshtml)
+   ------------------------------------------------------- */
+.navbar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 2);
+  background-color: var(--color-white);
+  border-radius: var(--radius-base);
+  box-shadow: var(--shadow-strong);
 }
 
-/* Кнопка закрытия тега */
-.filter-tag button {
-  background: none;
-  border: none;
-  color: #fff;
-  margin-left: var(--spacing-unit);
-  cursor: pointer;
-  font-size: 1em;
+/* Логотип "MH CLUB" */
+.navbar-brand {
+  font-family: 'Bagel Fat One', cursive;
+  font-size: 1.75rem; /* около 28px */
+  color: var(--color-black);
+  text-decoration: none;
 }
 
-/* Секция списка объявлений */
-.ads-list {
-  flex-grow: 1;
-}
-
-/* Карточка объявления */
-.ad-card {
-  border-radius: calc(var(--radius-base) * 2);
-  box-shadow: var(--shadow-light);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  overflow: hidden;
-}
-.ad-card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-}
-
-/* Изображение внутри карточки */
-.ad-card-image img {
-  width: calc(100% - var(--spacing-unit));
-  height: calc(var(--spacing-unit) * 22.5); /* 180px = 8px * 22.5 */
-  object-fit: cover;
-  border-radius: calc(var(--radius-base) * 1.25);
-  margin: calc(var(--spacing-unit) / 2);
-}
-
-/* Тело карточки */
-.ad-card-body {
-  padding: calc(var(--spacing-unit) / 2) var(--spacing-unit);
-}
-.ad-card-title {
-  font-weight: 600;
-  font-size: 1rem;
-  margin-bottom: calc(var(--spacing-unit) / 2);
-}
-.ad-card-price {
-  color: #333;
-  font-weight: bold;
-  margin-bottom: calc(var(--spacing-unit) / 2);
-}
-.ad-card-date {
-  font-size: 0.8rem;
-}
-
-/* Кнопки и элементы навбара */
-.catalog-button, .post-button {
-  background-color: #000;
-  color: #fff;
+/* Кнопка "Каталог" */
+.catalog-button {
+  background-color: var(--color-black);
+  color: var(--color-white);
   font-weight: 600;
   padding: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 2);
   border-radius: var(--radius-base);
   border: none;
-  transition: background-color 0.3s;
   display: flex;
   align-items: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
 }
-.catalog-button:hover, .post-button:hover {
-  background-color: #333;
+.catalog-button:hover {
+  background-color: #333333;
 }
 .catalog-button i {
   margin-right: var(--spacing-unit);
 }
 
+/* Строка поиска */
 .search-bar {
+  flex: 1 1 auto;
   display: flex;
   align-items: center;
-  flex: 1 1 auto;      /* растягиваем и даём сжиматься */
-  min-width: 0;        /* нужно для корректной работы flex-shrink */
   margin: 0 calc(var(--spacing-unit) * 2);
-  border-radius: var(--radius-base);
-  background-color: #f8f9fa;
+  background-color: var(--color-bg);
   border: 1px solid #ccc;
+  border-radius: var(--radius-base);
   padding: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 2);
-  /* удалили max-width: 400px; */
+  min-width: 0; /* чтобы flex-shrink работал правильно */
 }
 
 .search-input {
-  flex: 1 1 auto;      /* растягиваем и даём сжиматься */
-  min-width: 0;        /* без этого инпут может вылезать за границы */
+  flex: 1 1 auto;
+  min-width: 0;
   border: none;
   outline: none;
   font-size: var(--font-size-base);
-  margin-right: var(--spacing-unit);
-  width: 100%;         /* на всякий случай для старых браузеров */
+  background: transparent;
+  color: var(--color-black);
 }
 
+/* Ссылки-иконки (Избранное, Личный кабинет) */
 .nav-link {
-  color: #000;
+  color: var(--color-black);
   margin-left: calc(var(--spacing-unit) * 2);
   display: flex;
   flex-direction: column;
   align-items: center;
   font-weight: 600;
-  text-align: center;
+  text-decoration: none;
+  font-size: 0.875rem;
 }
 .nav-link i {
+  font-size: 1.25rem;
   margin-bottom: calc(var(--spacing-unit) / 2);
 }
 
-.navbar-brand {
-  font-family: 'Bagel Fat One', cursive;
-  font-size: 1.75rem; /* ≈28px */
-  color: #000;
+/* Кнопка "Разместить" */
+.post-button {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  font-weight: 600;
+  padding: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 2);
+  border-radius: var(--radius-base);
+  border: none;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+.post-button:hover {
+  background-color: #333333;
 }
 
+/* -------------------------------------------------------
+   4. Основной контейнер страницы просмотра объявления
+   ------------------------------------------------------- */
 .container-main {
   display: flex;
+  flex-wrap: wrap; /* для мобильных */
   gap: calc(var(--spacing-unit) * 2);
   max-width: 1200px;
   margin: calc(var(--spacing-unit) * 2) auto;
 }
 
-/* чтобы карточка не прилипала к фону */
-.card.shadow-sm {
-  /*box-shadow: 0 4px 20px rgba(0,0,0,0.05) !important;*/
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1) !important;
+/* Левая колонка: галерея + главное изображение */
+.left-column {
+  flex: 0 0 55%;
+  display: flex;
+  gap: calc(var(--spacing-unit) * 2);
 }
 
-/* обязательные формы полей */
-.form-control.bg-light {
-  background-color: #e0e0e0 !important;
+/* Колонки на мобильных */
+@media (max-width: 768px) {
+  .left-column, .right-column {
+    flex: 0 0 100%;
+  }
 }
 
-/* убираем outline при фокусе */
-.form-control:focus {
-  box-shadow: none;
-  outline: none;
+/* Список мини-превью (колонка слева внутри левой колонки) */
+.thumbs-list {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing-unit) * 1.5);
 }
 
-.modal-body {
-  max-height: 60vh;
-  overflow-y: auto;
-  padding: calc(var(--spacing-unit) * 2);
-}
-
-#prevBtn, #nextBtn {
-  transform-origin: center center;
+/* Стили для каждой мини-превью */
+.thumb-img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: calc(var(--radius-base) * 0.5);
+  box-shadow: var(--shadow-light);
+  cursor: pointer;
   transition: transform 0.2s ease;
 }
-
-/* 3a. Растём при наведении на саму кнопку */
-#prevBtn:hover,
-#nextBtn:hover {
-  transform: scale(1.2);
+.thumb-img:hover {
+  transform: scale(1.05);
 }
 
-/*  или 3b. Растём при наведении на контейнер с картинкой */
-.position-relative:hover #prevBtn,
-.position-relative:hover #nextBtn {
-  transform: scale(1.2);
+/* Главное большое изображение */
+.main-image-container {
+  position: relative;
+  flex: 1;
 }
 
+#currentImage {
+  width: 100%;
+  border-radius: calc(var(--radius-base) * 1.5);
+  box-shadow: var(--shadow-light);
+  object-fit: cover;
+  cursor: zoom-in;
+  display: block;
+}
+
+/* Кнопки переключения изображения */
 #prevBtn, #nextBtn {
-  transform-origin: center center;
-  transform: scale(0);
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) scale(0);
   opacity: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-white);
+  border: none;
+  box-shadow: var(--shadow-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  cursor: pointer;
 }
 
-.position-relative:hover #prevBtn,
-.position-relative:hover #nextBtn {
-  transform: scale(1);
+#prevBtn i, #nextBtn i {
+  font-size: 1.25rem;
+  color: var(--color-gray-dark);
+}
+
+/* При наведении на контейнер с изображением показываем кнопки */
+.main-image-container:hover #prevBtn,
+.main-image-container:hover #nextBtn {
+  transform: translateY(-50%) scale(1);
   opacity: 1;
+}
+
+/* Расположение кнопок */
+#prevBtn {
+  left: 10px;
+}
+#nextBtn {
+  right: 10px;
+}
+
+/* -------------------------------------------------------
+   5. Правая колонка: детали объявления
+   ------------------------------------------------------- */
+.right-column {
+  flex: 0 0 40%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Заголовок и звезда "Избранное" */
+.ad-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: calc(var(--spacing-unit) * 1.5);
+}
+
+.ad-title {
+  font-size: 1.5rem; /* примерно 24px */
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-black);
+}
+
+.ad-title .archived-label {
+  margin-left: calc(var(--spacing-unit) / 2);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-gray-medium);
+}
+
+#fav-button {
+  margin-left: calc(var(--spacing-unit) * 1.5);
+  font-size: 1.5rem;
+  color: var(--color-black);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+#fav-button:hover {
+  color: #ffc107; /* золотистый при наведении */
+}
+
+/* Цена */
+.ad-price {
+  font-size: 2rem; /* примерно 32px */
+  font-weight: 700;
+  color: var(--color-black);
+  margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+/* Секция описания */
+.section-title {
+  font-size: 1.125rem; /* ≈18px */
+  font-weight: 600;
+  color: var(--color-black);
+  margin-bottom: calc(var(--spacing-unit) * 0.75);
+}
+
+.ad-description {
+  font-size: 1rem;
+  color: var(--color-gray-dark);
+  margin-bottom: calc(var(--spacing-unit) * 2);
+  word-break: break-word;
+  line-height: 1.6;
+}
+
+/* Характеристики (список dt/dd) */
+.characteristics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 2);
+  margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+.characteristics dt {
+  font-weight: 600;
+  color: var(--color-black);
+}
+
+.characteristics dd {
+  margin: 0;
+  color: var(--color-gray-dark);
+}
+
+/* -------------------------------------------------------
+   6. Декомпозиция (детские объявления) 
+   ------------------------------------------------------- */
+.decomposition-section {
+  margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+.decomposition-list {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing-unit) * 1.5);
+}
+
+/* Карточка дочернего объявления */
+.item-card {
+  display: flex;
+  align-items: center;
+  background-color: var(--color-white);
+  border-radius: var(--radius-base);
+  padding: calc(var(--spacing-unit) * 2);
+  box-shadow: var(--shadow-strong);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.item-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Блок с изображением в карточке дочернего объявления */
+.item-card__image-container {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: calc(var(--radius-base) * 0.5);
+  overflow: hidden;
+  background-color: #e9ecef;
+}
+
+/* Если внутри <img>, то растягиваем */
+.item-card__image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Блок с текстом в карточке */
+.item-card__content {
+  display: flex;
+  flex-direction: column;
+  margin-left: calc(var(--spacing-unit) * 2);
+  flex-grow: 1;
+}
+
+/* Заголовок в карточке */
+.item-card__title {
+  font-size: 1rem;   /* 16px */
+  font-weight: 600;
+  color: var(--color-black);
+  margin: 0 0 calc(var(--spacing-unit) * 0.5) 0;
+  line-height: 1.2;
+}
+
+/* Подпись в карточке */
+.item-card__subtitle {
+  font-size: 0.875rem;  /* 14px */
+  font-weight: 400;
+  color: var(--color-gray-dark);
+  line-height: 1.4;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* -------------------------------------------------------
+   7. Информация о публикаторе 
+   ------------------------------------------------------- */
+.publisher-section {
+  margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+.publisher-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-base);
+  padding: calc(var(--spacing-unit) * 2);
+  box-shadow: var(--shadow-strong);
+}
+
+.publisher-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: calc(var(--spacing-unit) * 1.5);
+}
+
+/* Аватарка */
+.publisher-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: calc(var(--spacing-unit) * 1.5);
+}
+
+/* Имя и рейтинг */
+.publisher-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.publisher-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-black);
+  text-decoration: none;
+}
+.publisher-name:hover {
+  text-decoration: underline;
+}
+.publisher-rating {
+  font-size: 0.875rem;
+  color: var(--color-gray-dark);
+  margin-top: calc(var(--spacing-unit) * 0.25);
+}
+.publisher-details {
+  font-size: 0.875rem;
+  color: var(--color-gray-dark);
+  margin-bottom: calc(var(--spacing-unit) * 0.25);
+}
+
+/* -------------------------------------------------------
+   8. Кнопка "Пожаловаться на объявление"
+   ------------------------------------------------------- */
+.report-button {
+  background-color: transparent;
+  color: var(--color-black);
+  font-weight: 600;
+  padding: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 2);
+  border: 2px solid var(--color-black);
+  border-radius: var(--radius-base);
+  width: 100%;
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.report-button:hover {
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+
+/* -------------------------------------------------------
+   9. Мобильные правки (если нужно)
+   ------------------------------------------------------- */
+@media (max-width: 992px) {
+  .ad-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: calc(var(--spacing-unit) * 1);
+  }
+  #fav-button {
+    margin-left: 0;
+  }
+  .ad-price {
+    margin-bottom: calc(var(--spacing-unit) * 1.5);
+  }
+  .characteristics {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* -------------------------------------------------------
+   10. Дополнительные утилитарные классы 
+   ------------------------------------------------------- */
+/* Скрытие элемента */
+.display-none {
+  display: none !important;
+}
+
+/* Для добавления тени к Bootstrap-картам при необходимости */
+.card.shadow-sm {
+  box-shadow: var(--shadow-light) !important;
+}
+
+/* Убираем outline у полей при фокусе */
+.form-control:focus {
+  box-shadow: none !important;
+  outline: none !important;
 }

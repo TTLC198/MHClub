@@ -1,4 +1,6 @@
-﻿@model MHClub.Models.Ads.AdsCreateViewModel
+﻿@using System.Text.Json
+@using MHClub.Utils
+@model MHClub.Models.Ads.AdsCreateViewModel
 
 @{
     Layout = "_Layout";
@@ -14,7 +16,7 @@
 </style>
 
 
-@using (Html.BeginForm("Create", "Ads", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Edit", "Ads", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -40,12 +42,12 @@
                     <div class="btn-group" role="group" aria-label="Состояние" id="state-group">
                         @foreach (var cond in (List<SelectListItem>)ViewBag.Conditions)
                         {
-                            var isSelected = Model.ConditionId.HasValue && Model.ConditionId.Value.ToString() == cond.Value;
-                            string inputId = "Condition_" + cond.Value;
+                            var isSelected = Model.ConditionId.ToString() == cond.Value;
+                            var inputId = "Condition_" + cond.Value;
                             <input type="radio" id="@inputId" name="ConditionId" value="@cond.Value" class="d-none"
                                    @(isSelected ? "checked" : "")/>
                             <label for="@inputId"
-                                   class="btn @(isSelected ? "bg-secondary text-white" : "bg-light text-muted") rounded-pill me-2 state-btn"
+                                   class="btn @(isSelected ? "condition-selected text-white" : "bg-light text-muted") rounded-pill me-2 state-btn"
                                    style="border: none; cursor: pointer;">
                                 @cond.Text
                                 @if (isSelected)
@@ -58,14 +60,15 @@
                     @Html.ValidationMessageFor(m => m.ConditionId, "", new { @class = "text-danger" })
                 </div>
 
-                <input type="hidden" id="CategoryId" name="CategoryId" value="@Model.CategoryId" />
+                <input type="hidden" id="CategoryId" name="CategoryId" value="@Model.CategoryId"/>
                 <div class="mb-3">
                     @Html.LabelFor(m => m.Category, new { @class = "form-label fw-bold" })
-                    @Html.TextBox("Category", Model.Category?.Name ?? "Категория не выбрана!", new {
+                    @Html.TextBox("Category", Model.Category?.Name ?? "Категория не выбрана!", new
+                    {
                         @class = "form-control bg-light rounded-2",
                         placeholder = "Введите категорию",
                         style = "border: none; background-color: #EAEAEA !important;",
-                        disabled="disabled"
+                        disabled = "disabled"
                     })
                     @Html.ValidationMessageFor(m => m.Category, "", new { @class = "text-danger small" })
                     <div class="form-text text-muted mt-1">Нельзя редактировать категорию активного объявления</div>
@@ -76,6 +79,14 @@
                     @Html.DropDownListFor(m => m.ManufactureCountry, Model.CountriesSelect ?? [],
                         "Выберите страну-производитель", new { @class = "form-select bg-light", style = "border: none; background-color: #EAEAEA !important;" })
                     @Html.ValidationMessageFor(m => m.ManufactureCountry, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Quantity, new { @class = "form-label fw-bold" })
+                    @Html.DropDownListFor(m => m.Quantity, Enumerable.Range(0, 20)
+                            .Select(i => new SelectListItem($"{i} шт.", i.ToString())).ToList(),
+                        "Выберите количество", new { @class = "form-select bg-light input-field", style = "border: none; background-color: #EAEAEA !important;" })
+                    @Html.ValidationMessageFor(m => m.Quantity, "", new { @class = "text-danger" })
                 </div>
 
                 <!-- Описание -->
@@ -89,6 +100,32 @@
                 <div class="col-12">
                     <label class="form-label fw-bold mb-1">Фотографии</label>
                     <div id="photoContainer" class="d-flex flex-wrap gap-2">
+                        <div id="existingImages" class="d-flex align-items-center gap-2">
+                            @* Выводим уже загруженные фотографии из БД *@
+                            @if (Model.ExistingMedia?.Any() == true)
+                            {
+                                foreach (var image in Model.ExistingMedia)
+                                {
+                                    var thumbUrl = Url.Action("Get", "Media", new { path = image.Url.GetLocalPath() });
+                                    <div id="image-@image.Id" class="photo-slot position-relative" style="width: 100px; height: 100px;">
+                                        <div class="position-relative" style="width: 100%; height: 100%; border-radius: 8px; overflow: hidden;">
+                                            <img src="@thumbUrl"
+                                                 class="img-thumbnail rounded"
+                                                 style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;"
+                                                 onclick="document.getElementById('modalImage').src = e.target.result;const bsModal = new bootstrap.Modal(document.getElementById('photoModal'));bsModal.show();"/>
+                                            <button type="button"
+                                                    class="btn btn-danger btn-sm position-absolute top-0 end-0"
+                                                    style="padding: 2px 6px; font-size: 0.75rem;"
+                                                    onclick="removeImage(@image.Id);">
+                                                &times;
+                                            </button>
+                                            @* Скрытое поле, чтобы передать в модель при посте *@
+                                            <input type="hidden" name="ExistingPaths" value="@image"/>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
                         <!-- Сюда динамически добавляются слоты -->
                     </div>
                     <div class="form-text text-muted mt-1">Максимум 7 фотографий</div>
@@ -103,7 +140,7 @@
 
                 <!-- Кнопка Разместить -->
                 <div class="col-12 mt-3">
-                    <button type="submit" class="btn btn-dark w-100">Разместить объявление</button>
+                    <button type="submit" class="btn btn-dark w-100">Сохранить изменения</button>
                 </div>
             </div>
         </div>
@@ -119,9 +156,12 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
             </div>
             <div class="modal-body text-center py-4">
-                <p class="mb-3">Ваше объявление успешно <изменено></изменено>.</p>
+                <p class="mb-3">Ваше объявление успешно
+                    <изменено></изменено>
+                    .
+                </p>
                 <button type="button" class="btn btn-dark px-4" data-bs-dismiss="modal"
-                        onclick="location.href='@Url.Action("Index", "Ads")';">
+                        onclick="location.href='@Url.Action("Single", "Ads", new { id = Model.Id })';">
                     Хорошо
                 </button>
             </div>
@@ -133,7 +173,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content rounded-3 shadow-sm">
             <div class="modal-body p-0">
-                <img id="modalImage" class="w-100" style="object-fit: contain; max-height:80vh;" />
+                <img id="modalImage" class="w-100" style="object-fit: contain; max-height:80vh;"/>
             </div>
             <div class="modal-footer border-0 justify-content-center">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
@@ -144,6 +184,32 @@
 
 @section Scripts {
     <script>
+        function removeImage(imageId) {
+            const url = `/Media/${imageId}`;
+
+            fetch(url, {
+                method: 'DELETE',
+            })
+                .then(response => {
+                    if (response.ok) {
+                        const slotDiv = document.getElementById(`image-${imageId}`);
+                        if (slotDiv) {
+                            slotDiv.remove();
+                        }
+                        refreshPhotoSlots();
+                    } else {
+                        response.text().then(errMsg => {
+                            console.error(`Не удалось удалить изображение (status ${response.status}): ${errMsg}`);
+                            alert('Ошибка при удалении изображения: ' + errMsg);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка при отправке запроса на удаление:', error);
+                    alert('Не удалось связаться с сервером для удаления изображения.');
+                });
+        }
+        
         // Логика выбора состояния: переключаем классы у меток
         document.querySelectorAll('.state-btn').forEach(label => {
             label.addEventListener('click', function (e) {
@@ -291,5 +357,6 @@
                 addPhotoSlot();
             }
         }
+    
     </script>
 }

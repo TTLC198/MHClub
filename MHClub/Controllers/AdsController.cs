@@ -118,7 +118,13 @@ public class AdsController : BaseController
         .AsNoTracking()
         .Include(a => a.Medias)
         .Include(a => a.Seller)
+        .ThenInclude(s => s!.Medias)
+        .Include(a => a.Condition)
         .Include(ad => ad.Status)
+        .Include(ad => ad.ChildrenAds)!
+        .ThenInclude(ad => ad.Medias)
+        .Include(ad => ad.ParentAd)!
+        .ThenInclude(ads => ads.Medias)
         .FirstOrDefaultAsync(a => a.Id == id);
 
       if (ad is null)
@@ -129,13 +135,24 @@ public class AdsController : BaseController
 
       var isOwn = ad.SellerId == userId;
 
+      var childrenAds = ad.ChildrenAds?.Select(a => new AdsIndexViewModel(a)
+      {
+        Images = a.Medias?.Select(m => m.Path).ToList(),
+      }).ToList();
+      
+      var childrenAds = ad.ChildrenAds?.Select(a => new AdsIndexViewModel(a)
+      {
+        Images = a.Medias?.Select(m => m.Path).ToList(),
+      }).ToList();
+
       return View(new AdsIndexViewModel(ad)
       {
         Images = ad.Medias?.Select(m => m.Path).ToList(),
         IsFavourite = isFav,
         IsOwn = isOwn,
         IsArchived = ad.Status?.Id == 2, //todo
-        UserProfileDto = await GetUserProfileAsync(ad.Seller!)
+        UserProfileDto = await GetUserProfileAsync(ad.Seller!),
+        ChildrenAds = childrenAds
       });
     }
     catch (Exception exception)
@@ -240,8 +257,8 @@ public class AdsController : BaseController
       var ad = new Ad()
       {
         Cost = model.Cost,
-        CategoryId = model.CategoryId ?? 0,
-        ConditionId = model.ConditionId ?? 0,
+        CategoryId = model.CategoryId,
+        ConditionId = model.ConditionId,
         Quantity = model.Quantity,
         Name = model.Name,
         ManufactureCountry = model.ManufactureCountry,
@@ -339,6 +356,7 @@ public class AdsController : BaseController
                 .AsNoTracking()
                 .Include(a => a.Medias)
                 .Include(a => a.Seller)
+                .Include(a => a.Category)
                 .FirstOrDefaultAsync(a => a.Id == id);
 
             if (ad is null)
@@ -348,7 +366,7 @@ public class AdsController : BaseController
             
             if (!isOwn)
                 return RedirectToAction("Index", "Errors", new { error = "Вы не можете редактировать чужое объявление" });
-
+            
             return View(new AdsCreateViewModel(ad)
             {
                 IsOwn = isOwn,
@@ -414,13 +432,23 @@ public class AdsController : BaseController
             adEntry.ManufactureCountry = model.ManufactureCountry;
             adEntry.Quantity = model.Quantity;
             adEntry.Description = model.Description;
-            adEntry.CategoryId = model.CategoryId ?? 0;
-            adEntry.ConditionId = model.ConditionId ?? 0;
+            adEntry.CategoryId = model.CategoryId;
+            adEntry.ConditionId = model.ConditionId;
             adEntry.CreationDate = model.CreationDate;
+            
+            foreach (var mediaCreateDto in model.Images.Select(imageFile => new MediaCreateDto()
+                     {
+                       AdId = adEntry.Id,
+                       Image = imageFile
+                     }))
+            {
+              var uploadResult = await _mediaService.UploadImage(mediaCreateDto);
+            }
             
             await _dbContext.SaveChangesAsync();
 
-            return RedirectToAction("Single", new { id = model.Id});
+            ViewBag.Success = true;
+            return View(model);
         }
         catch (Exception exception)
         {
@@ -474,6 +502,9 @@ public class AdsController : BaseController
     var reviewsCount = await reviewsByAds.CountAsync();
     var ratings = reviewsByAds?.Select(x => x.Estimation);
     double? rating = ratings?.Any() == true ? ratings.Average() : null;
-    return new UserProfileDto(user, rating, reviewsCount, adsCount, "");
+    
+    var photo = user.Medias?.FirstOrDefault();
+    
+    return new UserProfileDto(user, rating, reviewsCount, adsCount, photo?.Path ?? "");
   }
 }

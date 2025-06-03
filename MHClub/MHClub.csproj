@@ -42,10 +42,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Models\Reviews\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <_ContentIncludedByDefault Remove="Views\Ads\Create.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Ads\Edit.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Ads\Index.cshtml" />

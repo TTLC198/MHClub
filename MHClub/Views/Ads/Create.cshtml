@@ -40,12 +40,12 @@
                     <div class="btn-group" role="group" aria-label="Состояние" id="state-group">
                         @foreach (var cond in (List<SelectListItem>)ViewBag.Conditions)
                         {
-                            var isSelected = Model.ConditionId.HasValue && Model.ConditionId.Value.ToString() == cond.Value;
-                            string inputId = "Condition_" + cond.Value;
+                            var isSelected = Model.ConditionId.ToString() == cond.Value;
+                            var inputId = "Condition_" + cond.Value;
                             <input type="radio" id="@inputId" name="ConditionId" value="@cond.Value" class="d-none"
                                    @(isSelected ? "checked" : "")/>
                             <label for="@inputId"
-                                   class="btn @(isSelected ? "bg-secondary text-white" : "bg-light text-muted") rounded-pill me-2 state-btn"
+                                   class="btn @(isSelected ? "condition-selected text-white" : "bg-light text-muted") rounded-pill me-2 state-btn"
                                    style="border: none; cursor: pointer;">
                                 @cond.Text
                                 @if (isSelected)
@@ -77,6 +77,14 @@
                     @Html.ValidationMessageFor(m => m.ManufactureCountry, "", new { @class = "text-danger" })
                 </div>
 
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Quantity, new { @class = "form-label fw-bold" })
+                    @Html.DropDownListFor(m => m.Quantity, Enumerable.Range(0, 20)
+                            .Select(i => new SelectListItem($"{i} шт.", i.ToString())).ToList(),
+                        "Выберите количество", new { @class = "form-select bg-light input-field", style = "border: none; background-color: #EAEAEA !important;" })
+                    @Html.ValidationMessageFor(m => m.Quantity, "", new { @class = "text-danger" })
+                </div>
+
                 <!-- Описание -->
                 <div class="col-12">
                     <label class="form-label fw-bold mb-1">Описание</label>
@@ -97,6 +105,12 @@
                 <div class="col-12">
                     <label class="form-label fw-bold mb-1">Стоимость</label>
                     @Html.TextBoxFor(m => m.Cost, new { @class = "form-control bg-light", placeholder = "Введите стоимость вашего товара", style = "border: none; background-color: #EAEAEA;" })
+                    @Html.ValidationMessageFor(m => m.Cost, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label fw-bold mb-1">Использовать как основной товар</label>
+                    @Html.CheckBoxFor(m => m.IsMainAd, new { @class = "toggle-checkbox", style = "border: none; background-color: #EAEAEA;" })
                     @Html.ValidationMessageFor(m => m.Cost, "", new { @class = "text-danger" })
                 </div>
 

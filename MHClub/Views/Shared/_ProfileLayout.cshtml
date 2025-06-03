@@ -30,11 +30,12 @@
         <p class="mb-3">Рейтинг: <strong>@(Model.Rating.HasValue ? Model.Rating.Value.ToString("0.00") : "–")</strong> (
           @if (Model.ReviewsCount > 0)
           {
-            <button type="button"
-                    data-bs-toggle="modal"
-                    data-bs-target="#reviewsModal">
+            <a href="#"
+               class="text-dark text-decoration-underline"
+               data-bs-toggle="modal"
+               data-bs-target="#reviewsModal">
               @Model.ReviewsCount отзывов
-            </button>
+            </a>
           }
           else
           {
@@ -51,8 +52,11 @@
           @* Кнопки с логикой согласно ViewBag *@
           @if (ViewBag.IsOwn != true && ViewBag.IsAuth == true)
           {
-            <button onclick="location.href='@Url.Action("CreateReview", "Reviews", new { sellerId = ViewBag.Id })';"
-                    class="btn btn-dark rounded-2 py-2">
+            <button
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#createReviewModal"
+              class="btn btn-dark rounded-2 py-2">
               Оставить отзыв
             </button>
           }
@@ -93,4 +97,5 @@
   </div>
 
   @await Html.PartialAsync("_ReviewsPartialView")
+  @await Html.PartialAsync("_CreateReviewPartialView")
 </div>

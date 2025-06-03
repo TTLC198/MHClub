@@ -1,45 +1,90 @@
-<div class="modal fade" id="reviewsModal" tabindex="-1"
-     aria-labelledby="reviewsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content" style="border-radius: var(--radius-base); box-shadow: var(--shadow-strong);">
-            <div class="modal-header">
-                <h5 class="modal-title" id="reviewsModalLabel">Отзывы о пользователе</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-            </div>
-            <div class="modal-body">
-                @* Здесь рендерим ваш PartialView *@
-                @if (ViewBag.Reviews is not null)
-                {
-                    <div class="d-flex flex-column gap-3">
-                        @foreach (var review in ViewBag.Reviews)
-                        {
-                            <div class="card" style="background-color: #fff; border-radius: var(--radius-base); box-shadow: var(--shadow-light);">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center gap-2 mb-2">
-                                        @for (var i = 0; i < review.Estimation; i++)
-                                        {
-                                            <i class="bi bi-star-fill" style="color: #ffc107;"></i>
-                                        }
-                                        @for (var i = review.Estimation; i < 5; i++)
-                                        {
-                                            <i class="bi bi-star" style="color: #ddd;"></i>
-                                        }
-                                    </div>
-                                    <blockquote class="blockquote mb-0">
-                                        <p class="mb-0" style="font-size: var(--font-size-base);">
-                                            @review.Description
-                                        </p>
-                                    </blockquote>
-                                </div>
-                            </div>
-                        }
+@using MHClub.Domain.Models
+@using MHClub.Utils
+@{
+    // Из ViewBag.Reviews ожидаем IEnumerable<Review>
+    var reviews = ViewBag.Reviews as List<Review>;
+}
+
+<div class="modal fade" id="reviewsModal" tabindex="-1" aria-labelledby="reviewsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content rounded-2" style="box-shadow: var(--shadow-strong);">
+      
+      <!-- Заголовок модального окна -->
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="reviewsModalLabel"
+            style="font-size: var(--font-size-base); font-weight: 600;">
+          Отзывы о пользователе
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+      </div>
+
+      <!-- Тело модального окна -->
+      <div class="modal-body">
+        @if (reviews != null && reviews.Any())
+        {
+          <div class="d-flex flex-column gap-4">
+            @foreach (var review in reviews)
+            {
+              <div class="filter-card">
+                <div class="d-flex align-items-start">
+                  
+                  @* === АВАТАР ПОЛЬЗОВАТЕЛЯ === *@
+                  <div class="me-3">
+                    @{
+                      var user = review.User;
+                      string? avatarPath = user?.Medias?.FirstOrDefault()?.Path;
+                    }
+                    @if (!string.IsNullOrEmpty(avatarPath))
+                    {
+                      <img src="@Url.Action("Get", "Media", new { path = avatarPath.GetLocalPath() })"
+                           class="rounded-circle"
+                           style="width: calc(var(--spacing-unit) * 7.5); 
+                                  height: calc(var(--spacing-unit) * 7.5);
+                                  object-fit: cover;"
+                           alt="avatar" />
+                    }
+                    else
+                    {
+                      <img src="~/images/no-photo.png"
+                           class="rounded-circle"
+                           style="width: calc(var(--spacing-unit) * 7.5); 
+                                  height: calc(var(--spacing-unit) * 7.5);
+                                  object-fit: cover;"
+                           alt="no avatar" />
+                    }
+                  </div>
+
+                  <div class="flex-grow-1">
+                    @* === ИМЯ ПОЛЬЗОВАТЕЛЯ === *@
+                    <h6 style="font-size: var(--font-size-base); font-weight: 600; margin: 0;">
+                      @(review.User?.Name ?? "Без имени")
+                    </h6>
+
+                    @* === ЗВЁЗДОЧКИ (чёрные) === *@
+                    <div class="mb-2">
+                      @for (int i = 1; i <= review.Estimation; i++)
+                      {
+                        <span style="color: #000; font-size: 24px; margin-right: 2px;">&#9733;</span>
+                      }
                     </div>
-                }
-                else
-                {
-                    <p>Нет отзывов</p>
-                }
-            </div>
-        </div>
+
+                    @* === ТЕКСТ ОТЗЫВА === *@
+                    <p class="mb-0" style="font-size: 0.95rem; color: #555;">
+                      @review.Description
+                    </p>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        }
+        else
+        {
+          <p class="text-center" style="color: #777; font-size: var(--font-size-base);">
+            У этого пользователя пока нет отзывов.
+          </p>
+        }
+      </div>
     </div>
+  </div>
 </div>

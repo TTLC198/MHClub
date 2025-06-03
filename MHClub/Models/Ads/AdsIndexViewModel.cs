@@ -13,6 +13,10 @@ public class AdsIndexViewModel : Ad
     public bool? IsArchived { get; set; }
     
     public UserProfileDto? UserProfileDto { get; set; }
+    
+    public List<AdsIndexViewModel>? ChildrenAds { get; set; }
+    
+    public AdsIndexViewModel? ParentAd { get; set; }
 
     public AdsIndexViewModel()
     {

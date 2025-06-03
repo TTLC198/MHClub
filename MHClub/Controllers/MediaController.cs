@@ -92,6 +92,32 @@ public class MediaController : BaseController
     }
     
     [Authorize]
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        try
+        {
+            if (id <= 0)
+                return RedirectToAction("Index", "Errors", new { error = "Id must be greater than 0" });
+
+            _logger.LogDebug("Get image with id = {Id}", id);
+
+            var image = await _dbContext.Media.FirstOrDefaultAsync(i => i.Id == id);
+
+            if (image is null)
+                return RedirectToAction("Index", "Errors", new { error = "Не найдено" });
+
+            await _mediaService.Delete(id);
+            
+            return Ok();
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
+    
+    [Authorize]
     [HttpGet]
     [Route("upload")]
     public ActionResult GetUploadForm()

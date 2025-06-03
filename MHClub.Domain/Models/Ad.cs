@@ -69,10 +69,12 @@ public class Ad
 
     [Display(Name = "Дочернее объявление")]
     [Column("idchildad")]
-    public virtual int? ChildAdId { get; set; }
+    public virtual int? ParentAdId { get; set; }
 
-    [ForeignKey("ChildAdId")]
-    public virtual Ad? ChildAd { get; set; }
+    [ForeignKey("ParentAdId")]
+    public virtual Ad? ParentAd { get; set; }
+    
+    public virtual List<Ad>? ChildrenAds { get; set; }
 
     [JsonIgnore] 
     public List<Media>? Medias { get; set; }
@@ -95,10 +97,12 @@ public class Ad
         Description = ad.Description;
         CreationDate = ad.CreationDate;
         CategoryId = ad.CategoryId;
+        Category = ad.Category;
         ConditionId = ad.ConditionId;
+        Condition = ad.Condition;
         StatusId = ad.StatusId;
         SellerId = ad.SellerId;
-        ChildAdId = ad.ChildAdId;
+        ParentAdId = ad.ParentAdId;
     }
 
     public override string ToString() => Name;

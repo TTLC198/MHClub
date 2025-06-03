@@ -10,6 +10,7 @@ using MHClub.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
@@ -191,16 +192,22 @@ public class ProfileController : BaseController
             {
                 Images = ad.Medias.Select(m => m.Path).ToList()
             }).ToList();
-            
-            var photo = user.Medias?.FirstOrDefault();
 
             ViewBag.Reviews = await _dbContext.Ads
-                .Include(a => a.Reviews)
+                .Include(a => a.Reviews)!
+                .ThenInclude(r => r.User)
                 .Where(a => a.SellerId == user.Id)
                 .SelectMany(a => a.Reviews)
                 .ToListAsync();
+            
+            var archivedAds = await _dbContext.Ads
+                .Include(a => a.Medias)
+                .Where(a => a.SellerId == user.Id && a.StatusId == (int)StatusType.Archived)
+                .ToListAsync();
+            
+            ViewBag.UserAds = archivedAds.Select(a => new SelectListItem(a.Name, a.Id.ToString())).ToList();
 
-            return View(await GetUserProfileAsync(user, photo?.Path ?? ""));
+            return View(await GetUserProfileAsync(user));
         }
         catch (Exception exception)
         {
@@ -225,7 +232,7 @@ public class ProfileController : BaseController
             ViewBag.IsArchivedAds = true;
 
             var ads = await _dbContext.Ads
-                .Where(a => a.SellerId == user.Id && a.StatusId == (int)StatusType.Default)
+                .Where(a => a.SellerId == user.Id && a.StatusId == (int)StatusType.Archived)
                 .Include(ad => ad.Medias)
                 .ToListAsync();
 
@@ -234,48 +241,7 @@ public class ProfileController : BaseController
                 Images = ad.Medias.Select(m => m.Path).ToList()
             }).ToList();
 
-            var photo = user.Medias?.FirstOrDefault();
-
-            return View("Profile", await GetUserProfileAsync(user, photo?.Path ?? ""));
-        }
-        catch (Exception exception)
-        {
-            return RedirectToAction("Index", "Errors", new { error = exception.Message });
-        }
-    }
-    
-    [HttpGet]
-    [Route("{userId:int}/Reviews")]
-    public async Task<IActionResult> Reviews(int userId, string? returnUrl = null)
-    {
-        try
-        {
-            ViewBag.ReturnUrl = returnUrl ?? Request.Headers.Referer!;
-
-            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
-            if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userIdByClaim))
-                userIdByClaim = 0;
-            if (userIdByClaim != 0)
-                ViewBag.IsAuth = true;
-            ViewBag.Id = userId;
-            var user = await _dbContext.Users
-                .Include(u => u.Medias)
-                .FirstOrDefaultAsync(u => u.Id == userId);
-            if (user is null)
-                return NotFound();
-            
-            if (userIdByClaim == userId)
-                ViewBag.IsOwn = true;
-
-            var ads = _dbContext.Ads
-                .Include(a => a.Reviews)
-                .Where(a => a.SellerId == user.Id);
-
-            ViewBag.Reviews = await ads.SelectMany(a => a.Reviews).ToListAsync();
-
-            var photo = user.Medias?.FirstOrDefault();
-
-            return View(await GetUserProfileAsync(user, photo?.Path ?? ""));
+            return View("Profile", await GetUserProfileAsync(user));
         }
         catch (Exception exception)
         {
@@ -283,15 +249,17 @@ public class ProfileController : BaseController
         }
     }
 
-    private async Task<UserProfileDto> GetUserProfileAsync(User user, string userPhoto)
+    private async Task<UserProfileDto> GetUserProfileAsync(User user)
     {
-        var ads = _dbContext.Ads.Where(a => a.SellerId == user.Id && a.StatusId == (int)StatusType.Default);
+        var ads = _dbContext.Ads.Where(a => a.SellerId == user.Id);
         var adsCount = await ads.CountAsync();
         var reviewsByAds = _dbContext.Reviews.Join(ads, r => r.AdId, r => r.Id, (r, ad) => r);
         var reviewsCount = await reviewsByAds.CountAsync();
         var ratings = reviewsByAds?.Select(x => x.Estimation);
         double? rating = ratings?.Any() == true ? ratings.Average() : null;
-        
-        return new UserProfileDto(user, rating, reviewsCount, adsCount, userPhoto);
+    
+        var photo = user.Medias?.FirstOrDefault();
+    
+        return new UserProfileDto(user, rating, reviewsCount, adsCount, photo?.Path ?? "");
     }
 }

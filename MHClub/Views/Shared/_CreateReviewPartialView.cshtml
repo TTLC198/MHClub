@@ -1,0 +1,204 @@
+
+@{
+  var userAds = ViewBag.UserAds as IEnumerable<SelectListItem> ?? [];
+  var reviewUserId = ViewBag.Id as int? ?? 0;
+}
+
+<div class="modal fade" tabindex="-1" aria-labelledby="createReviewModalLabel" id="createReviewModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="max-width: 600px;">
+    <div class="modal-content rounded-2" style="box-shadow: var(--shadow-strong);">
+
+      <!-- Заголовок модального окна -->
+      <div class="modal-header border-0">
+        <h5 class="modal-title">Оставить отзыв</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
+      </div>
+
+      <!-- Тело формы -->
+      <div class="modal-body">
+        <div id="reviewErrors" class="text-danger mb-3" style="display: none;"></div>
+
+        <form id="createReviewForm">
+          @* Скрытые данные *@
+          <input type="hidden" name="UserId" value="@reviewUserId" />
+
+          <!-- Выпадающий список: объявления пользователя -->
+          <div class="mb-3">
+            <label for="AdId" class="form-label fw-bold">Ваше объявление</label>
+            <select id="AdId" name="AdId" class="form-select">
+              <option value="">Выберите объявление</option>
+              @foreach (var ad in userAds)
+              {
+                <option value="@ad.Value">@ad.Text</option>
+              }
+            </select>
+            <div class="text-danger field-error" data-for="AdId" style="display: none;"></div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Оцените продавца:</label>
+            <div class="d-flex align-items-center">
+              @* Контейнер для звёздочек с обёртками-спанами *@
+              <div id="starRatingContainer" class="star-rating d-flex me-2">
+                @for (int val = 1; val <= 5; val++)
+                {
+                  <span class="star-wrapper mx-1" data-value="@val">
+                    <i class="bi bi-star-outline fs-3 text-dark"></i>
+                </span>
+                }
+              </div>
+              @* Скрытое поле для отправки оценки на сервер *@
+              @*<input type="hidden" id="Estimation" name="Estimation" value="0" />*@
+            </div>
+            <div class="text-danger field-error" data-for="Estimation" style="display: none;"></div>
+          </div>
+
+          <!-- Текстовый отзыв -->
+          <div class="mb-3">
+            <label for="Description" class="form-label fw-bold">Ваша претензия</label>
+            <textarea id="Description"
+                      name="Description"
+                      class="form-control bg-light"
+                      placeholder="Расскажите, что вам не понравилось"
+                      style="border: none; background-color: #EAEAEA; border-radius: var(--radius-base);"
+                      rows="4"></textarea>
+            <div class="text-danger field-error" data-for="Description" style="display: none;"></div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Футер с кнопками -->
+      <div class="modal-footer border-0">
+        <button type="button"
+                class="post-button w-100"
+                id="submitReviewButton">
+          Оставить
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@* ==== Стили для чёрных звёздочек ==== *@
+<style>
+  .star-rating {
+    direction: rtl;
+    display: inline-block;
+  }
+  .star-rating .star {
+    font-size: 24px;
+    color: #000;
+    cursor: pointer;
+    padding: 0 2px;
+    transition: color 0.2s;
+  }
+</style>
+
+@* ==== JavaScript для AJAX-отправки и управления звёздами ==== *@
+<script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const starContainer = document.getElementById("starRatingContainer");
+        const stars = starContainer.querySelectorAll(".star-icon");
+        const estimationInput = document.getElementById("Estimation");
+        const form = document.getElementById("createReviewForm");
+        const submitBtn = document.getElementById("submitReviewButton");
+        const errorSummary = document.getElementById("reviewErrors");
+
+        function updateStars(selectedValue) {
+          starContainer.querySelectorAll(".star-wrapper").forEach(wrapper => {
+            const val = parseInt(wrapper.getAttribute("data-value"));
+            const iconEl = wrapper.querySelector("i");
+            if (val <= selectedValue) {
+              // Заполненная звезда, класс bi-star-fill
+              iconEl.classList.remove("bi-star-outline");
+              iconEl.classList.add("bi-star-fill");
+              // Цвет оставляем text-dark (чёрный)
+              iconEl.classList.add("text-dark");
+            } else {
+              // Контур (outline)
+              iconEl.classList.remove("bi-star-fill");
+              iconEl.classList.add("bi-star-outline");
+              iconEl.classList.add("text-dark");
+            }
+          });
+        }
+
+        function clearFieldError(fieldName) {
+          const elem = document.querySelector(`.field-error[data-for='${fieldName}']`);
+          if (elem) {
+            elem.style.display = "none";
+            elem.innerText = "";
+          }
+        }
+
+        // Обработчики для звёздочек
+        stars.forEach(star => {
+          star.addEventListener("click", function() {
+            const wrapper = event.target.closest(".star-wrapper");
+            if (!wrapper) return;
+            const val = parseInt(wrapper.getAttribute("data-value"));
+            estimationInput.value = val;
+            updateStars(val);
+            clearFieldError("Estimation");
+          });
+        });
+
+        // Обработчик клика по “Оставить”
+        submitBtn.addEventListener("click", function() {
+          // Сброс всех ошибок
+          errorSummary.style.display = "none";
+          errorSummary.innerText = "";
+          clearFieldError("AdId");
+          clearFieldError("Estimation");
+          clearFieldError("Description");
+
+          const formData = new FormData(form);
+
+          // Валидация на клиенте
+          let hasError = false;
+          if (!formData.get("AdId")) {
+            const err = document.querySelector(".field-error[data-for='AdId']");
+            err.style.display = "block";
+            err.innerText = "Выберите объявление";
+            hasError = true;
+          }
+          if (!formData.get("Estimation") || formData.get("Estimation") === "0") {
+            const err = document.querySelector(".field-error[data-for='Estimation']");
+            err.style.display = "block";
+            err.innerText = "Пожалуйста, оцените продавца";
+            hasError = true;
+          }
+          if (!formData.get("Description").trim()) {
+            const err = document.querySelector(".field-error[data-for='Description']");
+            err.style.display = "block";
+            err.innerText = "Введите текст отзыва";
+            hasError = true;
+          }
+          if (hasError) return;
+
+          // AJAX-отправка на метод Create(Review model)
+          fetch("@Url.Action("Create", "Reviews")", {
+            method: "POST",
+            body: formData
+          })
+          .then(response => {
+            if (response.ok) {
+              window.location.reload();
+            } else if (response.status === 400) {
+              return response.text().then(text => {
+                errorSummary.style.display = "block";
+                errorSummary.innerText = text || "Ошибка при отправке данных";
+              });
+            } else {
+              errorSummary.style.display = "block";
+              errorSummary.innerText = "Не удалось отправить отзыв. Попробуйте позже.";
+            }
+          })
+          .catch(err => {
+            console.error(err);
+            errorSummary.style.display = "block";
+            errorSummary.innerText = "Сетевая ошибка при отправке запроса";
+          });
+        });
+      });
+</script>
