@@ -69,22 +69,29 @@
           }
           else
           {
-            @if (ViewBag.IsOwn == true)
-            {
-              <button onclick="location.href='@Url.Action("Logout", "Auth")';"
-                      class="btn btn-dark rounded-2 py-2">
-                Выйти
-              </button>
-              <button onclick="location.href='@Url.Action("Edit", "Profile")';"
-                      class="btn btn-outline-dark rounded-2 py-2">
-                Редактировать
-              </button>
-            }
-
-            <button onclick="location.href='/Profile/@ViewBag.Id/ArchivedAds';"
-                    class="btn btn-outline-dark rounded-2 py-2">
-              Показать архивные объявления
-            </button>
+            <div class="d-flex flex-column vh-100">
+              <div class="d-grid gap-2 w-100">
+                @if (ViewBag.IsOwn == true)
+                {
+                  <button onclick="location.href='@Url.Action("Edit", "Profile")';"
+                          class="btn btn-outline-dark rounded-2 py-2">
+                    Редактировать
+                  </button>
+                }
+                <button onclick="location.href='/Profile/@ViewBag.Id/ArchivedAds';"
+                        class="btn btn-outline-dark rounded-2 py-2">
+                  Показать архивные объявления
+                </button>
+              </div>
+              @if (ViewBag.IsOwn == true)
+              {
+                <div class="mt-auto d-grid w-100">
+                  <button onclick="location.href='@Url.Action("Logout", "Auth")';" class="btn btn-outline-danger rounded-2 py-2">
+                    Выйти
+                  </button>
+                </div>
+              }
+            </div>
           }
         </div>
       </div>

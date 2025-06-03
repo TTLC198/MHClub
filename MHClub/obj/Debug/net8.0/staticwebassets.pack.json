@@ -145,6 +145,14 @@
       "PackagePath": "staticwebassets\\images\\Создание объявления - Успешное размещение объявления_24da.png"
     },
     {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\френки1.jpeg",
+      "PackagePath": "staticwebassets\\images\\френки1.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\френки1_fe5b.jpeg",
+      "PackagePath": "staticwebassets\\images\\френки1_fe5b.jpeg"
+    },
+    {
       "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

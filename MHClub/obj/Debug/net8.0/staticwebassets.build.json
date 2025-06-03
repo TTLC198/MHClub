@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "rE5ucar2N7CkApVUsa4oMh+i0nugrhj5Ri44sDrJB44=",
+  "Hash": "5ac8O5rVPYHVRHCwjessi8pLEnfw67heZlHqla1jdXw=",
   "Source": "MHClub",
   "BasePath": "_content/MHClub",
   "Mode": "Default",
@@ -519,6 +519,48 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\Создание объявления - Успешное размещение объявления_24da.png"
+    },
+    {
+      "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\френки1_fe5b.jpeg",
+      "SourceId": "MHClub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\",
+      "BasePath": "_content/MHClub",
+      "RelativePath": "images/френки1_fe5b#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "zgzc4ntaca",
+      "Integrity": "k86rp4mTBpl3TGEx9LHkfR10rQ8e9Ysvsgg/wbHrEhE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\френки1_fe5b.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\френки1.jpeg",
+      "SourceId": "MHClub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\",
+      "BasePath": "_content/MHClub",
+      "RelativePath": "images/френки1#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "zgzc4ntaca",
+      "Integrity": "k86rp4mTBpl3TGEx9LHkfR10rQ8e9Ysvsgg/wbHrEhE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\френки1.jpeg"
     },
     {
       "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\avatar_1870.jpeg",
@@ -3814,6 +3856,170 @@
         {
           "Name": "integrity",
           "Value": "sha256-6C5y2teP+h0zHo9SB5fsxEbbRzxIBGXpfZSjZfU0YBY="
+        }
+      ]
+    },
+    {
+      "Route": "images/френки1_fe5b.jpeg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\френки1_fe5b.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "105860"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"k86rp4mTBpl3TGEx9LHkfR10rQ8e9Ysvsgg/wbHrEhE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Jun 2025 17:50:46 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-k86rp4mTBpl3TGEx9LHkfR10rQ8e9Ysvsgg/wbHrEhE="
+        }
+      ]
+    },
+    {
+      "Route": "images/френки1_fe5b.zgzc4ntaca.jpeg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\френки1_fe5b.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "105860"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"k86rp4mTBpl3TGEx9LHkfR10rQ8e9Ysvsgg/wbHrEhE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Jun 2025 17:50:46 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "zgzc4ntaca"
+        },
+        {
+          "Name": "label",
+          "Value": "images/френки1_fe5b.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-k86rp4mTBpl3TGEx9LHkfR10rQ8e9Ysvsgg/wbHrEhE="
+        }
+      ]
+    },
+    {
+      "Route": "images/френки1.jpeg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\френки1.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "105860"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"k86rp4mTBpl3TGEx9LHkfR10rQ8e9Ysvsgg/wbHrEhE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Jun 2025 17:49:35 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-k86rp4mTBpl3TGEx9LHkfR10rQ8e9Ysvsgg/wbHrEhE="
+        }
+      ]
+    },
+    {
+      "Route": "images/френки1.zgzc4ntaca.jpeg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\френки1.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "105860"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"k86rp4mTBpl3TGEx9LHkfR10rQ8e9Ysvsgg/wbHrEhE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Jun 2025 17:49:35 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "zgzc4ntaca"
+        },
+        {
+          "Name": "label",
+          "Value": "images/френки1.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-k86rp4mTBpl3TGEx9LHkfR10rQ8e9Ysvsgg/wbHrEhE="
         }
       ]
     },

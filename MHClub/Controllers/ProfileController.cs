@@ -206,6 +206,8 @@ public class ProfileController : BaseController
                 .ToListAsync();
             
             ViewBag.UserAds = archivedAds.Select(a => new SelectListItem(a.Name, a.Id.ToString())).ToList();
+            
+            ViewData["Title"] = "Активные объявления — " + user.Name;
 
             return View(await GetUserProfileAsync(user));
         }
@@ -240,6 +242,8 @@ public class ProfileController : BaseController
             {
                 Images = ad.Medias.Select(m => m.Path).ToList()
             }).ToList();
+            
+            ViewData["Title"] = "Архивные объявления — " + user.Name;
 
             return View("Profile", await GetUserProfileAsync(user));
         }
