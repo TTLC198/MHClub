@@ -122,23 +122,81 @@
 
             @if (Model.ChildrenAds != null && Model.ChildrenAds.Any())
             {
-                <div class="decomposition-section">
-                    <h2 class="section-title">Декомпозиции:</h2>
-                    <div class="decomposition-list">
-                        @foreach (var child in Model.ChildrenAds)
-                        {
-                            <div class="item-card">
-                                <div class="item-card__image-container">
-                                    <img
-                                        src="@Url.Action("Get", "Media", new { path = child.Images?.FirstOrDefault()?.GetLocalPath() })"
-                                        alt=""/>
+                <div class="d-flex flex-row">
+                    <h5 class="mb-2">Декомпозиция:</h5>
+                    <button
+                        onclick="location.href = '@Url.Action("Create", "Ads", new { parentAdId = Model.Id })';">
+                        <span class="iconify" data-icon="mdi:plus" style="font-size: 1.5rem; color: #999;"></span>
+                    </button>
+                </div>
+                <div class="d-flex flex-column gap-2">
+                    @foreach (var child in Model.ChildrenAds)
+                    {
+                        <div class="card p-1 rounded-2 shadow-sm">
+                            <div class="d-flex flex-row">
+                                <div class="item-card__image-container" onclick="location.href = '@Url.Action("Single", "Ads", new { id = child.Id })';">
+                                    @if (!string.IsNullOrEmpty(child.Images?.FirstOrDefault()))
+                                    {
+                                        <img
+                                            src="@Url.Action("Get", "Media", new { path = child.Images?.FirstOrDefault()?.GetLocalPath() })"
+                                            alt=""/>
+                                    }
+                                    else
+                                    {
+                                        <img
+                                            src="/images/no-photo.png"
+                                            alt=""/>
+                                    }
                                 </div>
                                 <div class="item-card__content">
                                     <h3 class="item-card__title">@child.Name</h3>
                                     <p class="item-card__subtitle">@child.Description</p>
                                 </div>
+                                <div class="item-card__content">
+                                    <button
+                                        type="button"
+                                        class="btn btn-link p-0 ms-3 text-dark"
+                                        style="font-size: 1.25rem; line-height: 1;"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#staticChildrenBackdrop"
+                                        data-bs-whatever="@child.Id">
+                                        <span class="iconify" data-icon="mdi:trash" style="font-size: 1.25rem;"></span>
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="btn btn-link p-0 ms-3 text-dark"
+                                        style="font-size: 1.25rem; line-height: 1;"
+                                        onclick="location.href = '@Url.Action("Edit", "Ads", new { id = child.Id })';">
+                                        <span class="iconify" data-icon="mdi:pencil" style="font-size: 1.25rem;"></span>
+                                    </button>
+                                </div>
                             </div>
+                        </div>
+                    }
+                </div>
+            }
+
+            @if (Model.ParentAd != null)
+            {
+                <h5 class="mb-2">Основное:</h5>
+                <div class="card p-1 rounded-2 shadow-sm" onclick="location.href = '@Url.Action("Single", "Ads", new { id = Model.ParentAd.Id })';">
+                    <div class="item-card__image-container">
+                        @if (!string.IsNullOrEmpty(Model.ParentAd.Images?.FirstOrDefault()))
+                        {
+                            <img
+                                src="@Url.Action("Get", "Media", new { path = Model.ParentAd.Images?.FirstOrDefault()?.GetLocalPath() })"
+                                alt=""/>
                         }
+                        else
+                        {
+                            <img
+                                src="/images/no-photo.png"
+                                alt=""/>
+                        }
+                    </div>
+                    <div class="item-card__content">
+                        <h3 class="item-card__title">@Model.ParentAd.Name</h3>
+                        <p class="item-card__subtitle">@Model.ParentAd.Description</p>
                     </div>
                 </div>
             }
@@ -221,6 +279,25 @@
     </div>
 </div>
 
+<div class="modal fade" id="staticChildrenBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticChildrenBackdropLabel">Вы действительно хотите удалить дочернее объявление?</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет</button>
+                @using (Html.BeginForm("Delete", "Ads", new { Model.Id }, FormMethod.Post, false, new { id = "deleteChildForm"}))
+                {
+                    <button type="submit" class="btn btn-primary">Да</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="restoreStaticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="restoreStaticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -281,6 +358,14 @@
             const mainImg = document.getElementById('currentImage');
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
+
+            var exampleModal = document.getElementById('staticChildrenBackdrop')
+            exampleModal.addEventListener('show.bs.modal', function (event) {
+                var button = event.relatedTarget
+                var childId = button.getAttribute('data-bs-whatever')
+                var deleteChildForm = document.getElementById('deleteChildForm');
+                deleteChildForm.action = 'Ads/' + childId + '/Delete';
+            })
 
             function updateMain(src) {
                 mainImg.src = src;

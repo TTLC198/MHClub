@@ -139,11 +139,6 @@ public class AdsController : BaseController
       {
         Images = a.Medias?.Select(m => m.Path).ToList(),
       }).ToList();
-      
-      var childrenAds = ad.ChildrenAds?.Select(a => new AdsIndexViewModel(a)
-      {
-        Images = a.Medias?.Select(m => m.Path).ToList(),
-      }).ToList();
 
       return View(new AdsIndexViewModel(ad)
       {
@@ -152,7 +147,11 @@ public class AdsController : BaseController
         IsOwn = isOwn,
         IsArchived = ad.Status?.Id == 2, //todo
         UserProfileDto = await GetUserProfileAsync(ad.Seller!),
-        ChildrenAds = childrenAds
+        ChildrenAds = childrenAds,
+        ParentAd = ad.ParentAd == null ? null : new AdsIndexViewModel(ad.ParentAd)
+        {
+          Images = ad.ParentAd.Medias?.Select(m => m.Path).ToList(),
+        }
       });
     }
     catch (Exception exception)
@@ -164,7 +163,7 @@ public class AdsController : BaseController
   [Authorize]
   [HttpGet]
   [Route("Create")]
-  public async Task<IActionResult> Create(string? returnUrl = null)
+  public async Task<IActionResult> Create(string? returnUrl = null, int parentAdId = -1)
   {
     var model = new AdsCreateViewModel();
     try
@@ -177,6 +176,8 @@ public class AdsController : BaseController
       ViewBag.Tariffs = tariffs.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
       var categories = await _dbContext.Categories.ToListAsync();
       ViewBag.AllCategories = categories.ToList();
+      if (parentAdId != -1)
+        ViewBag.ParentAdId = parentAdId;
     }
     catch (Exception exception)
     {
@@ -189,7 +190,7 @@ public class AdsController : BaseController
   [Authorize]
   [HttpPost]
   [Route("CreateWithCategories")]
-  public async Task<IActionResult> CreateWithCategories([FromForm] int categoryId, string? returnUrl = null)
+  public async Task<IActionResult> CreateWithCategories([FromForm] int categoryId, string? returnUrl = null, int parentAdId = -1)
   {
     if (categoryId == 0)
       return RedirectToAction("Create", "Ads", new { returnUrl });
@@ -205,6 +206,8 @@ public class AdsController : BaseController
       var selectedCategory = await _dbContext.Categories.FirstOrDefaultAsync(c => c.Id == categoryId);
       model.Category = selectedCategory;
       model.CategoryId = selectedCategory?.Id ?? 0;
+      if (parentAdId != -1)
+        ViewBag.ParentAdId = parentAdId;
     }
     catch (Exception exception)
     {
@@ -265,7 +268,8 @@ public class AdsController : BaseController
         Description = model.Description,
         SellerId = userId,
         CreationDate = DateTime.Now,
-        StatusId = 1
+        StatusId = 1,
+        ParentAdId = model.ParentAdId,
       };
 
       var adEntry = await _dbContext.Ads.AddAsync(ad);

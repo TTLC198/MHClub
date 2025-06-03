@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "1gsWDiU6IYL+kbyBUq4EFdMunfB7q+a4IZV5zDSFzLc=",
+  "Hash": "rE5ucar2N7CkApVUsa4oMh+i0nugrhj5Ri44sDrJB44=",
   "Source": "MHClub",
   "BasePath": "_content/MHClub",
   "Mode": "Default",
@@ -73,8 +73,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "rn5mdckgxi",
-      "Integrity": "J+Pmx6S6MfBwzF2y8K+aqYyLgrLmSLY9Wynu1Va6fXg=",
+      "Fingerprint": "8argqcysl5",
+      "Integrity": "IBh+H+tUvXxCe1dFZUPw9hc+UJMxm71yZNHnTJfYFys=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -162,6 +162,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\74b1_fa3d.png"
+    },
+    {
+      "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\Без имени-1_a0c8.png",
+      "SourceId": "MHClub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\",
+      "BasePath": "_content/MHClub",
+      "RelativePath": "images/Без имени-1_a0c8#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "7ycf544zeb",
+      "Integrity": "T6S+kb4jRwEaCJV7sKxL44K5PlzG4FOFUdR6aXqvFXg=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\Без имени-1_a0c8.png"
     },
     {
       "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\Отзывы о пользователе_3100.png",
@@ -542,6 +563,27 @@
       "OriginalItemSpec": "wwwroot\\images\\avatar_3e9f.jpeg"
     },
     {
+      "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\Benchmarks_254f.png",
+      "SourceId": "MHClub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\",
+      "BasePath": "_content/MHClub",
+      "RelativePath": "images/Benchmarks_254f#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "x12efbvncq",
+      "Integrity": "G9NxCJQOIde0dSsr9fouDvoPp1RS/HX0eQh5Vr39e8A=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\Benchmarks_254f.png"
+    },
+    {
       "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\ChatGPT Image 3 мая 2025 г., 22_56_12_46d7.png",
       "SourceId": "MHClub",
       "SourceType": "Discovered",
@@ -708,6 +750,48 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\no-photo.png"
+    },
+    {
+      "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\the_boys_7eff.png",
+      "SourceId": "MHClub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\",
+      "BasePath": "_content/MHClub",
+      "RelativePath": "images/the_boys_7eff#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "d18zoq5njp",
+      "Integrity": "jxzBb5BUG93tBxBdNQpplW2tONxI6bw2caOVpw1bUCs=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\the_boys_7eff.png"
+    },
+    {
+      "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\WhatsApp Image 2021-01-16 at 14.53.59_f4b6.jpeg",
+      "SourceId": "MHClub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\",
+      "BasePath": "_content/MHClub",
+      "RelativePath": "images/WhatsApp Image 2021-01-16 at 14.53.59_f4b6#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "79rxim3jpl",
+      "Integrity": "xZ03h68p7qPJRQ3flc8gqzX70ci70/JQ5dF0nsDYplk=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\WhatsApp Image 2021-01-16 at 14.53.59_f4b6.jpeg"
     },
     {
       "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\js\\site.js",
@@ -1930,6 +2014,51 @@
   ],
   "Endpoints": [
     {
+      "Route": "css/site.8argqcysl5.css",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\css\\site.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13668"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"IBh+H+tUvXxCe1dFZUPw9hc+UJMxm71yZNHnTJfYFys=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Jun 2025 16:13:55 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8argqcysl5"
+        },
+        {
+          "Name": "label",
+          "Value": "css/site.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-IBh+H+tUvXxCe1dFZUPw9hc+UJMxm71yZNHnTJfYFys="
+        }
+      ]
+    },
+    {
       "Route": "css/site.css",
       "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\css\\site.css",
       "Selectors": [],
@@ -1940,7 +2069,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "14320"
+          "Value": "13668"
         },
         {
           "Name": "Content-Type",
@@ -1948,11 +2077,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"J+Pmx6S6MfBwzF2y8K+aqYyLgrLmSLY9Wynu1Va6fXg=\""
+          "Value": "\"IBh+H+tUvXxCe1dFZUPw9hc+UJMxm71yZNHnTJfYFys=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 03 Jun 2025 15:56:09 GMT"
+          "Value": "Tue, 03 Jun 2025 16:13:55 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1962,52 +2091,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-J+Pmx6S6MfBwzF2y8K+aqYyLgrLmSLY9Wynu1Va6fXg="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.rn5mdckgxi.css",
-      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\css\\site.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "14320"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"J+Pmx6S6MfBwzF2y8K+aqYyLgrLmSLY9Wynu1Va6fXg=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 03 Jun 2025 15:56:09 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "rn5mdckgxi"
-        },
-        {
-          "Name": "label",
-          "Value": "css/site.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-J+Pmx6S6MfBwzF2y8K+aqYyLgrLmSLY9Wynu1Va6fXg="
+          "Value": "sha256-IBh+H+tUvXxCe1dFZUPw9hc+UJMxm71yZNHnTJfYFys="
         }
       ]
     },
@@ -2336,6 +2420,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-Iuw6xZR/KGWketety/uuZ2OsglsjJo2DR0R4twtmkFI="
+        }
+      ]
+    },
+    {
+      "Route": "images/Без имени-1_a0c8.7ycf544zeb.png",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\Без имени-1_a0c8.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2496915"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"T6S+kb4jRwEaCJV7sKxL44K5PlzG4FOFUdR6aXqvFXg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Jun 2025 16:53:10 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "7ycf544zeb"
+        },
+        {
+          "Name": "label",
+          "Value": "images/Без имени-1_a0c8.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-T6S+kb4jRwEaCJV7sKxL44K5PlzG4FOFUdR6aXqvFXg="
+        }
+      ]
+    },
+    {
+      "Route": "images/Без имени-1_a0c8.png",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\Без имени-1_a0c8.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2496915"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"T6S+kb4jRwEaCJV7sKxL44K5PlzG4FOFUdR6aXqvFXg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Jun 2025 16:53:10 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-T6S+kb4jRwEaCJV7sKxL44K5PlzG4FOFUdR6aXqvFXg="
         }
       ]
     },
@@ -3816,6 +3982,88 @@
       ]
     },
     {
+      "Route": "images/Benchmarks_254f.png",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\Benchmarks_254f.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1860026"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"G9NxCJQOIde0dSsr9fouDvoPp1RS/HX0eQh5Vr39e8A=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Jun 2025 16:49:25 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-G9NxCJQOIde0dSsr9fouDvoPp1RS/HX0eQh5Vr39e8A="
+        }
+      ]
+    },
+    {
+      "Route": "images/Benchmarks_254f.x12efbvncq.png",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\Benchmarks_254f.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1860026"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"G9NxCJQOIde0dSsr9fouDvoPp1RS/HX0eQh5Vr39e8A=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Jun 2025 16:49:25 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "x12efbvncq"
+        },
+        {
+          "Name": "label",
+          "Value": "images/Benchmarks_254f.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-G9NxCJQOIde0dSsr9fouDvoPp1RS/HX0eQh5Vr39e8A="
+        }
+      ]
+    },
+    {
       "Route": "images/ChatGPT Image 3 мая 2025 г., 22_56_12_46d7.8on8kq43gs.png",
       "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\ChatGPT Image 3 мая 2025 г., 22_56_12_46d7.png",
       "Selectors": [],
@@ -4468,6 +4716,170 @@
         {
           "Name": "integrity",
           "Value": "sha256-rXSLhJCmegRl9AdWNW5FtXkeW+fxbAb9Vb7qXEmUHaU="
+        }
+      ]
+    },
+    {
+      "Route": "images/the_boys_7eff.d18zoq5njp.png",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\the_boys_7eff.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7778104"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"jxzBb5BUG93tBxBdNQpplW2tONxI6bw2caOVpw1bUCs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Jun 2025 16:49:25 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "d18zoq5njp"
+        },
+        {
+          "Name": "label",
+          "Value": "images/the_boys_7eff.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-jxzBb5BUG93tBxBdNQpplW2tONxI6bw2caOVpw1bUCs="
+        }
+      ]
+    },
+    {
+      "Route": "images/the_boys_7eff.png",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\the_boys_7eff.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7778104"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"jxzBb5BUG93tBxBdNQpplW2tONxI6bw2caOVpw1bUCs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Jun 2025 16:49:25 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-jxzBb5BUG93tBxBdNQpplW2tONxI6bw2caOVpw1bUCs="
+        }
+      ]
+    },
+    {
+      "Route": "images/WhatsApp Image 2021-01-16 at 14.53.59_f4b6.79rxim3jpl.jpeg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\WhatsApp Image 2021-01-16 at 14.53.59_f4b6.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "80359"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"xZ03h68p7qPJRQ3flc8gqzX70ci70/JQ5dF0nsDYplk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Jun 2025 16:51:09 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "79rxim3jpl"
+        },
+        {
+          "Name": "label",
+          "Value": "images/WhatsApp Image 2021-01-16 at 14.53.59_f4b6.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-xZ03h68p7qPJRQ3flc8gqzX70ci70/JQ5dF0nsDYplk="
+        }
+      ]
+    },
+    {
+      "Route": "images/WhatsApp Image 2021-01-16 at 14.53.59_f4b6.jpeg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\WhatsApp Image 2021-01-16 at 14.53.59_f4b6.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "80359"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"xZ03h68p7qPJRQ3flc8gqzX70ci70/JQ5dF0nsDYplk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Jun 2025 16:51:09 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-xZ03h68p7qPJRQ3flc8gqzX70ci70/JQ5dF0nsDYplk="
         }
       ]
     },

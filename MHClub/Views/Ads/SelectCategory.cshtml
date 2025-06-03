@@ -50,6 +50,7 @@
     <!-- Скрытое поле для выбранной категории -->
     <form id="categoryForm" method="post" action="@Url.Action("CreateWithCategories", "Ads")">
         <input type="hidden" id="SelectedCategoryId" name="CategoryId" />
+        <input type="hidden" id="parentAdId" name="parentAdId" value="@ViewBag.ParentAdId"/>
     </form>
 </div>
 
