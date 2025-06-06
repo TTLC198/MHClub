@@ -28,7 +28,6 @@ public sealed class ApplicationDbContext : DbContext
     }
 
     public DbSet<Role> Roles { get; set; }
-    public DbSet<Tariff> Tariffs { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Condition> Conditions { get; set; }
     public DbSet<User> Users { get; set; }

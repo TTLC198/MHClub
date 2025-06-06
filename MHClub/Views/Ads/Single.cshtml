@@ -122,55 +122,62 @@
 
             @if (Model.ChildrenAds != null && Model.ChildrenAds.Any())
             {
-                <div class="d-flex flex-row">
-                    <h5 class="mb-2">Декомпозиция:</h5>
+                <div class="children-header mb-3">
+                    <h5 class="mb-0">Декомпозиция:</h5>
                     <button
-                        onclick="location.href = '@Url.Action("Create", "Ads", new { parentAdId = Model.Id })';">
-                        <span class="iconify" data-icon="mdi:plus" style="font-size: 1.5rem; color: #999;"></span>
+                        type="button"
+                        class="add-child-btn"
+                        title="Добавить подраздел"
+                        onclick="location.href='@Url.Action("Create", "Ads", new { parentAdId = Model.Id })';">
+                        <span class="iconify" data-icon="mdi:plus"></span>
                     </button>
                 </div>
                 <div class="d-flex flex-column gap-2">
                     @foreach (var child in Model.ChildrenAds)
                     {
-                        <div class="card p-1 rounded-2 shadow-sm">
-                            <div class="d-flex flex-row">
-                                <div class="item-card__image-container" onclick="location.href = '@Url.Action("Single", "Ads", new { id = child.Id })';">
-                                    @if (!string.IsNullOrEmpty(child.Images?.FirstOrDefault()))
-                                    {
-                                        <img
-                                            src="@Url.Action("Get", "Media", new { path = child.Images?.FirstOrDefault()?.GetLocalPath() })"
-                                            alt=""/>
-                                    }
-                                    else
-                                    {
-                                        <img
-                                            src="/images/no-photo.png"
-                                            alt=""/>
-                                    }
-                                </div>
-                                <div class="item-card__content">
-                                    <h3 class="item-card__title">@child.Name</h3>
-                                    <p class="item-card__subtitle">@child.Description</p>
-                                </div>
-                                <div class="item-card__content">
+                        <div class="child-ad-card">
+                            <!-- 1) Блок мини-изображения: кликаем — переходим на Single -->
+                            <div class="child-ad-card-image"
+                                 onclick="location.href='@Url.Action("Single", "Ads", new { id = child.Id })';">
+                                @if (!string.IsNullOrEmpty(child.Images?.FirstOrDefault()))
+                                {
+                                    <img
+                                        src="@Url.Action("Get", "Media", new { path = child.Images?.FirstOrDefault()?.GetLocalPath() })"
+                                        alt=""/>
+                                }
+                                else
+                                {
+                                    <img
+                                        src="/images/no-photo.png"
+                                        alt=""/>
+                                }
+                            </div>
+
+                            <div class="child-ad-card-body"
+                                 onclick="location.href='@Url.Action("Single", "Ads", new { id = child.Id })';">
+                                <h3 class="child-ad-card-title text-truncate">@child.Name</h3>
+                                <p class="child-ad-card-text text-truncate">@child.Description</p>
+                            </div>
+
+                            @if (Model.IsOwn == true)
+                            {
+                                <div class="child-ad-card-actions">
                                     <button
                                         type="button"
-                                        class="btn btn-link p-0 ms-3 text-dark"
-                                        style="font-size: 1.25rem; line-height: 1;"
+                                        class="btn btn-link p-0"
                                         data-bs-toggle="modal"
                                         data-bs-target="#staticChildrenBackdrop"
                                         data-bs-whatever="@child.Id">
-                                        <span class="iconify" data-icon="mdi:trash" style="font-size: 1.25rem;"></span>
+                                        <span class="iconify" data-icon="mdi:trash"></span>
                                     </button>
                                     <button
                                         type="button"
-                                        class="btn btn-link p-0 ms-3 text-dark"
-                                        style="font-size: 1.25rem; line-height: 1;"
-                                        onclick="location.href = '@Url.Action("Edit", "Ads", new { id = child.Id })';">
-                                        <span class="iconify" data-icon="mdi:pencil" style="font-size: 1.25rem;"></span>
+                                        class="btn btn-link p-0"
+                                        onclick="location.href='@Url.Action("Edit", "Ads", new { id = child.Id })';">
+                                        <span class="iconify" data-icon="mdi:pencil"></span>
                                     </button>
                                 </div>
-                            </div>
+                            }
                         </div>
                     }
                 </div>
@@ -179,7 +186,8 @@
             @if (Model.ParentAd != null)
             {
                 <h5 class="mb-2">Основное:</h5>
-                <div class="card p-1 rounded-2 shadow-sm" onclick="location.href = '@Url.Action("Single", "Ads", new { id = Model.ParentAd.Id })';">
+                <div class="card ad-card p-1 rounded-2 shadow-sm"
+                     onclick="location.href = '@Url.Action("Single", "Ads", new { id = Model.ParentAd.Id })';">
                     <div class="item-card__image-container">
                         @if (!string.IsNullOrEmpty(Model.ParentAd.Images?.FirstOrDefault()))
                         {
@@ -203,7 +211,7 @@
 
             <!-- Информация о публикаторе -->
             <h5 class="mb-2">Информация о публикаторе:</h5>
-            <div class="card p-3 rounded-2 shadow-sm mb-4">
+            <div class="card publisher-card p-3 rounded-2 shadow-sm mb-4">
                 <div class="d-flex align-items-center">
                     @if (!string.IsNullOrEmpty(Model.UserProfileDto?.ImageUrl))
                     {
@@ -284,12 +292,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticChildrenBackdropLabel">Вы действительно хотите удалить дочернее объявление?</h1>
+                <h1 class="modal-title fs-5" id="staticChildrenBackdropLabel">Вы действительно хотите удалить дочернее
+                    объявление?</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет</button>
-                @using (Html.BeginForm("Delete", "Ads", new { Model.Id }, FormMethod.Post, false, new { id = "deleteChildForm"}))
+                @using (Html.BeginForm("Delete", "Ads", new { Model.Id }, FormMethod.Post, false, new { id = "deleteChildForm" }))
                 {
                     <button type="submit" class="btn btn-primary">Да</button>
                 }
@@ -364,7 +373,7 @@
                 var button = event.relatedTarget
                 var childId = button.getAttribute('data-bs-whatever')
                 var deleteChildForm = document.getElementById('deleteChildForm');
-                deleteChildForm.action = 'Ads/' + childId + '/Delete';
+                deleteChildForm.action = '/Ads/' + childId + '/Delete';
             })
 
             function updateMain(src) {

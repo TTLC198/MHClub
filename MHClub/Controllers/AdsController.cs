@@ -172,8 +172,6 @@ public class AdsController : BaseController
       model.CountriesSelect = await _restCountriesService.GetAllForSelect();
       var conditions = await _dbContext.Conditions.ToListAsync();
       ViewBag.Conditions = conditions.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
-      var tariffs = await _dbContext.Tariffs.ToListAsync();
-      ViewBag.Tariffs = tariffs.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
       var categories = await _dbContext.Categories.ToListAsync();
       ViewBag.AllCategories = categories.ToList();
       if (parentAdId != -1)
@@ -201,8 +199,6 @@ public class AdsController : BaseController
       model.CountriesSelect = await _restCountriesService.GetAllForSelect();
       var conditions = await _dbContext.Conditions.ToListAsync();
       ViewBag.Conditions = conditions.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
-      var tariffs = await _dbContext.Tariffs.ToListAsync();
-      ViewBag.Tariffs = tariffs.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
       var selectedCategory = await _dbContext.Categories.FirstOrDefaultAsync(c => c.Id == categoryId);
       model.Category = selectedCategory;
       model.CategoryId = selectedCategory?.Id ?? 0;
@@ -228,8 +224,6 @@ public class AdsController : BaseController
       model.CountriesSelect = await _restCountriesService.GetAllForSelect();
       var conditions = await _dbContext.Conditions.ToListAsync();
       ViewBag.Conditions = conditions.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
-      var tariffs = await _dbContext.Tariffs.ToListAsync();
-      ViewBag.Tariffs = tariffs.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
       var selectedCategory = await _dbContext.Categories.FirstOrDefaultAsync(c => c.Id == model.CategoryId);
       model.Category = selectedCategory;
 
@@ -349,8 +343,6 @@ public class AdsController : BaseController
                 .ToList();
             var conditions = await _dbContext.Conditions.ToListAsync();
             ViewBag.Conditions = conditions.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
-            var tariffs = await _dbContext.Tariffs.ToListAsync();
-            ViewBag.Tariffs = tariffs.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
             
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
             if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
@@ -404,8 +396,6 @@ public class AdsController : BaseController
                 .ToList();
             var conditions = await _dbContext.Conditions.ToListAsync();
             ViewBag.Conditions = conditions.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
-            var tariffs = await _dbContext.Tariffs.ToListAsync();
-            ViewBag.Tariffs = tariffs.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
 
             model = model.TrimStringProperties();
           

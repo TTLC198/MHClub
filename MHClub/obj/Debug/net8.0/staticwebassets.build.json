@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "5ac8O5rVPYHVRHCwjessi8pLEnfw67heZlHqla1jdXw=",
+  "Hash": "QJzRUtaU994lFGwTLhVOORr4M5nSn/0v6aVicMYh678=",
   "Source": "MHClub",
   "BasePath": "_content/MHClub",
   "Mode": "Default",
@@ -73,8 +73,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "8argqcysl5",
-      "Integrity": "IBh+H+tUvXxCe1dFZUPw9hc+UJMxm71yZNHnTJfYFys=",
+      "Fingerprint": "s6yr9fzrdf",
+      "Integrity": "1BqzzFzBFVp2ALE+18m5NvcaOw3sNG8H7vJ8pWOf/tk=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -2056,51 +2056,6 @@
   ],
   "Endpoints": [
     {
-      "Route": "css/site.8argqcysl5.css",
-      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\css\\site.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "13668"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"IBh+H+tUvXxCe1dFZUPw9hc+UJMxm71yZNHnTJfYFys=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 03 Jun 2025 16:13:55 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "8argqcysl5"
-        },
-        {
-          "Name": "label",
-          "Value": "css/site.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-IBh+H+tUvXxCe1dFZUPw9hc+UJMxm71yZNHnTJfYFys="
-        }
-      ]
-    },
-    {
       "Route": "css/site.css",
       "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\css\\site.css",
       "Selectors": [],
@@ -2111,7 +2066,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "13668"
+          "Value": "19700"
         },
         {
           "Name": "Content-Type",
@@ -2119,11 +2074,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"IBh+H+tUvXxCe1dFZUPw9hc+UJMxm71yZNHnTJfYFys=\""
+          "Value": "\"1BqzzFzBFVp2ALE+18m5NvcaOw3sNG8H7vJ8pWOf/tk=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 03 Jun 2025 16:13:55 GMT"
+          "Value": "Thu, 05 Jun 2025 17:01:50 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2133,7 +2088,52 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-IBh+H+tUvXxCe1dFZUPw9hc+UJMxm71yZNHnTJfYFys="
+          "Value": "sha256-1BqzzFzBFVp2ALE+18m5NvcaOw3sNG8H7vJ8pWOf/tk="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.s6yr9fzrdf.css",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\css\\site.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "19700"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1BqzzFzBFVp2ALE+18m5NvcaOw3sNG8H7vJ8pWOf/tk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 05 Jun 2025 17:01:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "s6yr9fzrdf"
+        },
+        {
+          "Name": "label",
+          "Value": "css/site.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-1BqzzFzBFVp2ALE+18m5NvcaOw3sNG8H7vJ8pWOf/tk="
         }
       ]
     },

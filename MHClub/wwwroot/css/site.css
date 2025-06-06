@@ -142,6 +142,11 @@ body {
   font-size: 0.8rem;
 }
 
+.publisher-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+}
+
 /* Кнопки и элементы навбара */
 .catalog-button, .post-button {
   background-color: #000;
@@ -287,9 +292,6 @@ body {
   left: -9999px;
 }
 
-/* ---------------------------------------------------
-   2. Стиль контейнера-лейбла «текст + переключатель»
-   --------------------------------------------------- */
 .toggle-label {
   display: flex;
   align-items: center;
@@ -313,9 +315,6 @@ body {
   background-color: #fafafa;
 }
 
-/* ---------------------------------------------------
-   3. Сам «ползунок» (фон и бегунок внутри)
-   --------------------------------------------------- */
 .toggle-switch {
   position: relative;
   width: 48px;
@@ -338,11 +337,6 @@ body {
   transition: all 0.3s ease;
 }
 
-/* ---------------------------------------------------
-   4. Состояние «checked» для <input> → активируем тёмный фон
-   --------------------------------------------------- */
-/* когда checkbox (hidden) :checked, то ближайший .toggle-switch 
-   справа (сосед через +) меняет цвет фона и смещает «кружок» */
 .toggle-checkbox:checked + .toggle-switch {
   background: #000; /* Чёрный фон, как на вашем скриншоте */
 }
@@ -350,10 +344,6 @@ body {
   left: 26px; /* Смещаем белый кружок вправо до правого положения */
 }
 
-/* ---------------------------------------------------
-   5. Дополнительные стили (если нужно)
-   --------------------------------------------------- */
-/* Можно задать небольшое затухание, добавлять тень и т.п. */
 .toggle-switch {
   box-shadow: inset 0 0 2px rgba(0,0,0,0.2);
 }
@@ -361,9 +351,6 @@ body {
   box-shadow: inset 0 0 2px rgba(0,0,0,0.4);
 }
 
-/* ---------------------------------------------------
-   6. Стили для подписи (текста справа/слева)
-   --------------------------------------------------- */
 .toggle-label .toggle-text {
   color: #333;
   font-weight: 500;
@@ -383,8 +370,6 @@ body {
   /* Тень (ссылка на переменную из site.css) */
   box-shadow: var(--shadow-strong);
 
-  /* Чтобы карточка занимала всю доступную ширину родителя,
-     но не выходила за пределы, можно задать max-width, если нужно */
   width: 100%;
   /* max-width: 600px;  при желании можно ограничить ширину */
 }
@@ -444,4 +429,317 @@ body {
   /* white-space: nowrap;
      overflow: hidden;
      text-overflow: ellipsis; */
+}
+
+.child-ad-card {
+  /* Копируем из .ad-card: */
+  border-radius: calc(var(--radius-base) * 2);
+  box-shadow: var(--shadow-light);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+
+  /* Добавляем фон и горизонтальную “обёртку”: */
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-unit);
+  padding: calc(var(--spacing-unit) * 1); /* 8px */
+}
+
+.child-ad-card:hover {
+  /* Копируем из .ad-card:hover: */
+  transform: scale(1.02);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+}
+
+.child-ad-card-image {
+  flex-shrink: 0;
+  width: 80px;  /* фиксированная квадратная “мини-иконка” */
+  height: 80px;
+  border-radius: calc(var(--radius-base) * 0.5); /* чуть скругляем */
+  overflow: hidden;
+  background-color: #e0e0e0; /* серый фон-заглушка, пока нет картинки */
+}
+
+.child-ad-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.child-ad-card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* занимает оставшееся место */
+  cursor: pointer; /* чтобы подсказка, что можно кликнуть */
+}
+
+/* Заголовок товара */
+.child-ad-card-title {
+  margin: 0;
+  font-size: 1rem;      /* ≈16px */
+  font-weight: 600;
+  color: #000000;
+  line-height: 1.2;
+  margin-bottom: calc(var(--spacing-unit) * 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Дополнительный текст/описание */
+.child-ad-card-text {
+  margin: 0;
+  font-size: 0.875rem;   /* ≈14px */
+  font-weight: 400;
+  color: #555555;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.child-ad-card-actions {
+  display: flex;
+  gap: var(--spacing-unit);
+}
+
+/* Стили для иконок-кнопок внутри */
+.child-ad-card-actions .btn-link {
+  font-size: 1.25rem;
+  line-height: 1;
+  color: #000000;
+}
+.child-ad-card-actions .btn-link:hover {
+  color: #555555;
+}
+
+.child-ad-card + .child-ad-card {
+  margin-top: calc(var(--spacing-unit) * 1.5); /* ≈12px */
+}
+
+/* 1. Контейнер, в котором лежат заголовок и кнопка,
+      делаем его flex, чтобы выравнивать по центру по вертикали */
+.children-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* расстояние между заголовком и кнопкой */
+}
+
+/* 2. Самая кнопка-плюс: убираем стандартный фон и подчёркивание,
+      задаём фиксированный размер «иконки», наводочный hover-эффект */
+.add-child-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* задаём размеры «контейнера» под иконку */
+  width: 1.75rem;  /* примерно 28px */
+  height: 1.75rem; /* примерно 28px */
+
+  /* небольшое скругление, чтобы при hover было видно фон */
+  border-radius: 0.25rem;
+  transition: background-color 0.15s ease;
+}
+
+/* Цвет иконки «плюс» по умолчанию */
+.add-child-btn .iconify {
+  font-size: 1.5rem;
+  color: #666666; /* можно чуть потемнее, чем #999 */
+}
+
+/* Hover-эффект: чуть подсвечиваем фон иконки */
+.add-child-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.add-child-btn:hover .iconify {
+  color: #333333;
+}
+
+/* Дополнительно: если надо сделать фокус (клавиатура) */
+.add-child-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(100, 149, 237, 0.4);
+}
+
+.single-container {
+  display: flex;
+  gap: var(--spacing-unit);
+}
+
+.image-gallery {
+  display: flex;
+}
+
+.thumbnails {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-unit);
+  margin-right: calc(var(--spacing-unit) * 1.5);
+}
+
+.thumbnails img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: var(--radius-base);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: var(--shadow-light);
+}
+
+.thumbnails img.selected,
+.thumbnails img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.main-image-container {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  background-color: #e0e0e0;
+  border-radius: var(--radius-base);
+  overflow: hidden;
+}
+
+.main-image-container img#mainImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) scale(0);
+  background-color: rgba(255, 255, 255, 0.75);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  z-index: 2;
+}
+
+.nav-btn:hover {
+  transform: translateY(-50%) scale(1.2) !important;
+}
+
+.main-image-container:hover .nav-btn {
+  transform: translateY(-50%) scale(1);
+  opacity: 1;
+}
+
+#prevBtn {
+  left: 8px;
+}
+
+#nextBtn {
+  right: 8px;
+}
+
+.nav-btn .iconify {
+  font-size: 1.5rem;
+  color: #333333;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.details h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-unit);
+}
+
+.details h2 .iconify {
+  font-size: 1.5rem;
+  color: #f0c419;
+}
+
+.details .action-buttons {
+  display: flex;
+  gap: var(--spacing-unit);
+  margin-top: calc(var(--spacing-unit) * 1.5);
+}
+
+.details .action-buttons .btn {
+  border-radius: var(--radius-base);
+  font-weight: 600;
+  padding: calc(var(--spacing-unit) * 0.75) calc(var(--spacing-unit) * 1.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.details .action-buttons .btn-outline-dark {
+  background-color: transparent;
+  border: 1px solid #343a40;
+  color: #343a40;
+}
+
+.details .action-buttons .btn-outline-dark:hover {
+  background-color: #343a40;
+  color: #ffffff;
+}
+
+.details .action-buttons .btn-dark {
+  background-color: #343a40;
+  border: 1px solid #343a40;
+  color: #ffffff;
+}
+
+.details .action-buttons .btn-dark:hover {
+  background-color: #000000;
+  border-color: #000000;
+}
+
+.details .section-title {
+  margin: calc(var(--spacing-unit) * 2) 0 calc(var(--spacing-unit) * 0.5);
+  font-weight: 500;
+  font-size: 1rem;
+  color: #555555;
+}
+
+.details .description-text {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: #333333;
+}
+
+.details .attributes-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.details .attributes-list li {
+  margin-bottom: calc(var(--spacing-unit) * 0.5);
+  font-size: 0.9375rem;
+  color: #333333;
+}
+
+.details .decomposition-title {
+  margin: calc(var(--spacing-unit) * 2) 0 calc(var(--spacing-unit) * 0.5);
+  font-weight: 500;
+  font-size: 1rem;
+  color: #555555;
 }
