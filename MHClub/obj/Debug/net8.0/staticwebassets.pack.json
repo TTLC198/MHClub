@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\10248_alt5_a883.jpg",
+      "PackagePath": "staticwebassets\\images\\10248_alt5_a883.jpg"
+    },
+    {
       "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\12381563381.d5313cb45a884ac38d29314b0166f04c_71d2.jpg",
       "PackagePath": "staticwebassets\\images\\12381563381.d5313cb45a884ac38d29314b0166f04c_71d2.jpg"
     },
@@ -61,12 +65,32 @@
       "PackagePath": "staticwebassets\\images\\avatar_3e9f.jpeg"
     },
     {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\images (1)_4e75.jpeg",
+      "PackagePath": "staticwebassets\\images\\images (1)_4e75.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\images (2)_d1c0.jpeg",
+      "PackagePath": "staticwebassets\\images\\images (2)_d1c0.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\images (3)_5b4f.jpeg",
+      "PackagePath": "staticwebassets\\images\\images (3)_5b4f.jpeg"
+    },
+    {
       "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\images_1219.jpeg",
       "PackagePath": "staticwebassets\\images\\images_1219.jpeg"
     },
     {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\images_7f37.jpeg",
+      "PackagePath": "staticwebassets\\images\\images_7f37.jpeg"
+    },
+    {
       "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\legacy_campaigns_report_fa11.png",
       "PackagePath": "staticwebassets\\images\\legacy_campaigns_report_fa11.png"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\lego-ferrari-f40-set-10248-2-700x700_4678.jpg",
+      "PackagePath": "staticwebassets\\images\\lego-ferrari-f40-set-10248-2-700x700_4678.jpg"
     },
     {
       "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\no-photo.png",

@@ -17,7 +17,7 @@ public class Complaint
     [Column("iduser")]
     public int UserId { get; set; }
 
-    [ForeignKey("iduser")]
+    [ForeignKey("UserId")]
     public User User { get; set; } = new User();
 
     [Display(Name = "Объявление")]

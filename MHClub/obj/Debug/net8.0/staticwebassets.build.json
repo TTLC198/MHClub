@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "diraGY1q0oeubOHr2/sZC2QwqH8wYtZneHYdhXTqMpM=",
+  "Hash": "+0N7kagNVAPB4w45QWMTfMH1WNJuYopyZnltBjWMevE=",
   "Source": "MHClub",
   "BasePath": "_content/MHClub",
   "Mode": "Default",
@@ -73,8 +73,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "dqnegkpdzk",
-      "Integrity": "W+DBepNfKtaT+FSDLA9P+TA7BhjeUhenD75bLhatBhI=",
+      "Fingerprint": "68gxerat82",
+      "Integrity": "ZsqxhxqvO9MXp+jom68ww9kmwuJsz5X3LMm46RjY3Kc=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -99,6 +99,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\10248_alt5_a883.jpg",
+      "SourceId": "MHClub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\",
+      "BasePath": "_content/MHClub",
+      "RelativePath": "images/10248_alt5_a883#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "hwb1tfkz2d",
+      "Integrity": "gcut1cYfCfhA4DYT2MO3hJgDX3e/s5RXIsAkX2lmHXo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\10248_alt5_a883.jpg"
     },
     {
       "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\12381563381.d5313cb45a884ac38d29314b0166f04c_71d2.jpg",
@@ -731,6 +752,69 @@
       "OriginalItemSpec": "wwwroot\\images\\ChatGPT Image 3 мая 2025 г., 23_09_12_eb84.png"
     },
     {
+      "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\images (1)_4e75.jpeg",
+      "SourceId": "MHClub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\",
+      "BasePath": "_content/MHClub",
+      "RelativePath": "images/images (1)_4e75#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "g2ec4em7re",
+      "Integrity": "yJFpvBRP2/eWMG4/oWZX9AbMlUHrno0ytBc4BdVPt98=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\images (1)_4e75.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\images (2)_d1c0.jpeg",
+      "SourceId": "MHClub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\",
+      "BasePath": "_content/MHClub",
+      "RelativePath": "images/images (2)_d1c0#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "0jlvi2uxp0",
+      "Integrity": "RMfjQ6JiDXzkM3p8/mSHarXKBoGbG0shyY2BIWwhiM8=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\images (2)_d1c0.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\images (3)_5b4f.jpeg",
+      "SourceId": "MHClub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\",
+      "BasePath": "_content/MHClub",
+      "RelativePath": "images/images (3)_5b4f#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "hdh9qoesl2",
+      "Integrity": "y6WQM13+I6DHe9RS9eli5byfRG7Lbyc1g52O3G0Npzc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\images (3)_5b4f.jpeg"
+    },
+    {
       "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\images_1219.jpeg",
       "SourceId": "MHClub",
       "SourceType": "Discovered",
@@ -752,6 +836,27 @@
       "OriginalItemSpec": "wwwroot\\images\\images_1219.jpeg"
     },
     {
+      "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\images_7f37.jpeg",
+      "SourceId": "MHClub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\",
+      "BasePath": "_content/MHClub",
+      "RelativePath": "images/images_7f37#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "3kzf5sx138",
+      "Integrity": "PTm4GPp0M7rXJABOSNVKz6GQzBk7bWWCDo2IvO4iF+Y=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\images_7f37.jpeg"
+    },
+    {
       "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\legacy_campaigns_report_fa11.png",
       "SourceId": "MHClub",
       "SourceType": "Discovered",
@@ -771,6 +876,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\legacy_campaigns_report_fa11.png"
+    },
+    {
+      "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\lego-ferrari-f40-set-10248-2-700x700_4678.jpg",
+      "SourceId": "MHClub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\",
+      "BasePath": "_content/MHClub",
+      "RelativePath": "images/lego-ferrari-f40-set-10248-2-700x700_4678#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "sd1tgf5apf",
+      "Integrity": "wNfSJMlS+QPVogOoB3g9JHojEt+tNjRueP5Y/XYB5cY=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\lego-ferrari-f40-set-10248-2-700x700_4678.jpg"
     },
     {
       "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\no-photo.png",
@@ -2056,6 +2182,51 @@
   ],
   "Endpoints": [
     {
+      "Route": "css/site.68gxerat82.css",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\css\\site.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "19723"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ZsqxhxqvO9MXp+jom68ww9kmwuJsz5X3LMm46RjY3Kc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 09 Jun 2025 21:07:46 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "68gxerat82"
+        },
+        {
+          "Name": "label",
+          "Value": "css/site.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ZsqxhxqvO9MXp+jom68ww9kmwuJsz5X3LMm46RjY3Kc="
+        }
+      ]
+    },
+    {
       "Route": "css/site.css",
       "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\css\\site.css",
       "Selectors": [],
@@ -2066,7 +2237,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "19020"
+          "Value": "19723"
         },
         {
           "Name": "Content-Type",
@@ -2074,11 +2245,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"W+DBepNfKtaT+FSDLA9P+TA7BhjeUhenD75bLhatBhI=\""
+          "Value": "\"ZsqxhxqvO9MXp+jom68ww9kmwuJsz5X3LMm46RjY3Kc=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 09 Jun 2025 19:43:59 GMT"
+          "Value": "Mon, 09 Jun 2025 21:07:46 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2088,52 +2259,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-W+DBepNfKtaT+FSDLA9P+TA7BhjeUhenD75bLhatBhI="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.dqnegkpdzk.css",
-      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\css\\site.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "19020"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"W+DBepNfKtaT+FSDLA9P+TA7BhjeUhenD75bLhatBhI=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 09 Jun 2025 19:43:59 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "dqnegkpdzk"
-        },
-        {
-          "Name": "label",
-          "Value": "css/site.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-W+DBepNfKtaT+FSDLA9P+TA7BhjeUhenD75bLhatBhI="
+          "Value": "sha256-ZsqxhxqvO9MXp+jom68ww9kmwuJsz5X3LMm46RjY3Kc="
         }
       ]
     },
@@ -2216,6 +2342,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-Jtxf9L+5ITKRc1gIRl4VbUpGkRNfOBXjYTdhJD4facM="
+        }
+      ]
+    },
+    {
+      "Route": "images/10248_alt5_a883.hwb1tfkz2d.jpg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\10248_alt5_a883.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "373998"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"gcut1cYfCfhA4DYT2MO3hJgDX3e/s5RXIsAkX2lmHXo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 09 Jun 2025 20:50:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "hwb1tfkz2d"
+        },
+        {
+          "Name": "label",
+          "Value": "images/10248_alt5_a883.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-gcut1cYfCfhA4DYT2MO3hJgDX3e/s5RXIsAkX2lmHXo="
+        }
+      ]
+    },
+    {
+      "Route": "images/10248_alt5_a883.jpg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\10248_alt5_a883.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "373998"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"gcut1cYfCfhA4DYT2MO3hJgDX3e/s5RXIsAkX2lmHXo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 09 Jun 2025 20:50:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-gcut1cYfCfhA4DYT2MO3hJgDX3e/s5RXIsAkX2lmHXo="
         }
       ]
     },
@@ -4680,6 +4888,252 @@
       ]
     },
     {
+      "Route": "images/images (1)_4e75.g2ec4em7re.jpeg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\images (1)_4e75.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "10810"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"yJFpvBRP2/eWMG4/oWZX9AbMlUHrno0ytBc4BdVPt98=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 09 Jun 2025 20:49:47 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "g2ec4em7re"
+        },
+        {
+          "Name": "label",
+          "Value": "images/images (1)_4e75.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-yJFpvBRP2/eWMG4/oWZX9AbMlUHrno0ytBc4BdVPt98="
+        }
+      ]
+    },
+    {
+      "Route": "images/images (1)_4e75.jpeg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\images (1)_4e75.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "10810"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"yJFpvBRP2/eWMG4/oWZX9AbMlUHrno0ytBc4BdVPt98=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 09 Jun 2025 20:49:47 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-yJFpvBRP2/eWMG4/oWZX9AbMlUHrno0ytBc4BdVPt98="
+        }
+      ]
+    },
+    {
+      "Route": "images/images (2)_d1c0.0jlvi2uxp0.jpeg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\images (2)_d1c0.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7540"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"RMfjQ6JiDXzkM3p8/mSHarXKBoGbG0shyY2BIWwhiM8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 09 Jun 2025 20:56:39 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "0jlvi2uxp0"
+        },
+        {
+          "Name": "label",
+          "Value": "images/images (2)_d1c0.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-RMfjQ6JiDXzkM3p8/mSHarXKBoGbG0shyY2BIWwhiM8="
+        }
+      ]
+    },
+    {
+      "Route": "images/images (2)_d1c0.jpeg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\images (2)_d1c0.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7540"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"RMfjQ6JiDXzkM3p8/mSHarXKBoGbG0shyY2BIWwhiM8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 09 Jun 2025 20:56:39 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-RMfjQ6JiDXzkM3p8/mSHarXKBoGbG0shyY2BIWwhiM8="
+        }
+      ]
+    },
+    {
+      "Route": "images/images (3)_5b4f.hdh9qoesl2.jpeg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\images (3)_5b4f.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "11861"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"y6WQM13+I6DHe9RS9eli5byfRG7Lbyc1g52O3G0Npzc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 09 Jun 2025 20:55:13 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "hdh9qoesl2"
+        },
+        {
+          "Name": "label",
+          "Value": "images/images (3)_5b4f.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-y6WQM13+I6DHe9RS9eli5byfRG7Lbyc1g52O3G0Npzc="
+        }
+      ]
+    },
+    {
+      "Route": "images/images (3)_5b4f.jpeg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\images (3)_5b4f.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "11861"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"y6WQM13+I6DHe9RS9eli5byfRG7Lbyc1g52O3G0Npzc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 09 Jun 2025 20:55:13 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-y6WQM13+I6DHe9RS9eli5byfRG7Lbyc1g52O3G0Npzc="
+        }
+      ]
+    },
+    {
       "Route": "images/images_1219.a8f48xiawv.jpeg",
       "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\images_1219.jpeg",
       "Selectors": [],
@@ -4762,6 +5216,88 @@
       ]
     },
     {
+      "Route": "images/images_7f37.3kzf5sx138.jpeg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\images_7f37.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "14531"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"PTm4GPp0M7rXJABOSNVKz6GQzBk7bWWCDo2IvO4iF+Y=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 09 Jun 2025 20:49:47 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "3kzf5sx138"
+        },
+        {
+          "Name": "label",
+          "Value": "images/images_7f37.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-PTm4GPp0M7rXJABOSNVKz6GQzBk7bWWCDo2IvO4iF+Y="
+        }
+      ]
+    },
+    {
+      "Route": "images/images_7f37.jpeg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\images_7f37.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "14531"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"PTm4GPp0M7rXJABOSNVKz6GQzBk7bWWCDo2IvO4iF+Y=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 09 Jun 2025 20:49:47 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-PTm4GPp0M7rXJABOSNVKz6GQzBk7bWWCDo2IvO4iF+Y="
+        }
+      ]
+    },
+    {
       "Route": "images/legacy_campaigns_report_fa11.png",
       "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\legacy_campaigns_report_fa11.png",
       "Selectors": [],
@@ -4840,6 +5376,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-X9Y04VKjA9xlXR3EO2jqjbpcmR2Ydy1K3289ozwtl1w="
+        }
+      ]
+    },
+    {
+      "Route": "images/lego-ferrari-f40-set-10248-2-700x700_4678.jpg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\lego-ferrari-f40-set-10248-2-700x700_4678.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "72039"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"wNfSJMlS+QPVogOoB3g9JHojEt+tNjRueP5Y/XYB5cY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 09 Jun 2025 20:49:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-wNfSJMlS+QPVogOoB3g9JHojEt+tNjRueP5Y/XYB5cY="
+        }
+      ]
+    },
+    {
+      "Route": "images/lego-ferrari-f40-set-10248-2-700x700_4678.sd1tgf5apf.jpg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\lego-ferrari-f40-set-10248-2-700x700_4678.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "72039"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"wNfSJMlS+QPVogOoB3g9JHojEt+tNjRueP5Y/XYB5cY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 09 Jun 2025 20:49:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "sd1tgf5apf"
+        },
+        {
+          "Name": "label",
+          "Value": "images/lego-ferrari-f40-set-10248-2-700x700_4678.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-wNfSJMlS+QPVogOoB3g9JHojEt+tNjRueP5Y/XYB5cY="
         }
       ]
     },

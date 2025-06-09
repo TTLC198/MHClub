@@ -45,19 +45,35 @@
             @{
                 var userId = User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
                 var userName = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value ?? "Неизвестный пользователь";
+                var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value ?? "User";
             }
 
             <!-- Кнопка Разместить видна всем, кто аутентифицирован -->
             @if (User.Identity?.IsAuthenticated == true)
             {
-                <a href="@Url.Action("Index", "Favourites")" class="nav-link">
-                    <span class="iconify" data-icon="mdi:heart-outline" style="font-size: 20px;"></span>Избранное
-                </a>
-                <a href="@Url.Action("Profile", "Profile", new { userId = userId })" class="nav-link">
-                    <span class="iconify" data-icon="mdi:account-circle-outline" style="font-size: 20px;"></span>
-                    @userName
-                </a>
-                <button class="post-button ms-3" onclick="window.location.href='@Url.Action("Create", "Ads")'">Разместить</button>
+                @if (userRole == "Admin")
+                {
+                    <a href="@Url.Action("Index", "Management")" class="nav-link">
+                        <span class="iconify" data-icon="mdi:account-cog" style="font-size: 20px;"></span>Управление
+                    </a>
+                    <a href="@Url.Action("Profile", "Profile", new { userId = userId })" class="nav-link">
+                        <span class="iconify" data-icon="mdi:account-circle-outline" style="font-size: 20px;"></span>
+                        @userName
+                    </a>
+                    <button class="post-button ms-3" onclick="window.location.href='@Url.Action("Index", "Complaints")'">Жалобы</button>
+                }
+                else
+                {
+                    <a href="@Url.Action("Index", "Favourites")" class="nav-link">
+                        <span class="iconify" data-icon="mdi:heart-outline" style="font-size: 20px;"></span>Избранное
+                    </a>
+                    <a href="@Url.Action("Profile", "Profile", new { userId = userId })" class="nav-link">
+                        <span class="iconify" data-icon="mdi:account-circle-outline" style="font-size: 20px;"></span>
+                        @userName
+                    </a>
+                    <button class="post-button ms-3" onclick="window.location.href='@Url.Action("Create", "Ads")'">Разместить</button>
+                }
+                
             }
             @* Если не аутентифицированы, показываем кнопку Назад *@
             @if (User.Identity?.IsAuthenticated == false)

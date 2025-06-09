@@ -1,9 +1,11 @@
 @model MHClub.Models.Ads.AdsIndexViewModel
+@using System.Security.Claims
 @using MHClub.Domain.Models.Enums
 @using MHClub.Utils
 @{
     Layout = "_Layout";
     ViewData["Title"] = Model.Name + (Model.IsArchived == true ? " (Архивное)" : "");
+    var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value ?? "User";
 }
 
 <div class="container my-5">
@@ -52,7 +54,7 @@
                 {
                     <span class="text-muted fs-5 ms-2">(Архивное)</span>
                 }
-                @if (Model.IsOwn != true)
+                @if (User.Identity?.IsAuthenticated == true && Model.IsOwn != true && userRole != "Admin")
                 {
                     <!-- Кнопка избранное: просто звездочка без рамки -->
                     <button id="fav-button"
@@ -71,6 +73,10 @@
                     </button>
                 }
             </h2>
+
+            <h3 class="fs-2 fw-bold mb-3">
+                @($"{Model.Cost:N0}₽")
+            </h3>
 
             <div class="d-flex gap-2 mb-4">
                 @if (Model.IsOwn == true)
@@ -240,7 +246,7 @@
                 <p class="mb-0">Телефон: @Model.UserProfileDto.Phone</p>
             </div>
 
-            @if (Model.IsOwn != true && User.Identity?.IsAuthenticated == true)
+            @if (Model.IsOwn != true && User.Identity?.IsAuthenticated == true && userRole != "Admin")
             {
                 <!-- Пожаловаться на объявление -->
                 <button
@@ -248,6 +254,16 @@
                     type="button"
                     class="btn btn-outline-dark rounded-2 w-100 mb-3">
                     Пожаловаться на объявление
+                </button>
+            }
+            @if (userRole == "Admin")
+            {
+                <button
+                    data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop"
+                    type="button"
+                    class="btn btn-outline-dark rounded-2">
+                    Удалить
                 </button>
             }
         </div>
@@ -390,6 +406,7 @@
                 const prevIdx = (idx - 1 + thumbs.length) % thumbs.length;
                 updateMain(thumbs[prevIdx].dataset.src);
             });
+
             nextBtn.addEventListener('click', () => {
                 const idx = thumbs.findIndex(t => t.dataset.src === mainImg.src);
                 const nextIdx = (idx + 1) % thumbs.length;

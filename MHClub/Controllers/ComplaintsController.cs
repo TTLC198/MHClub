@@ -17,14 +17,82 @@ public class ComplaintsController : BaseController
 {
     private readonly ILogger<ComplaintsController> _logger;
     private readonly ApplicationDbContext _dbContext;
-    private readonly MediaService _mediaService;
 
-    public ComplaintsController(ILogger<ComplaintsController> logger, ApplicationDbContext dbContext,
-        MediaService mediaService)
+    public ComplaintsController(ILogger<ComplaintsController> logger, ApplicationDbContext dbContext)
     {
         _logger = logger;
         _dbContext = dbContext;
-        _mediaService = mediaService;
+    }
+    
+    [Authorize]
+    [HttpGet]
+    public async Task<IActionResult> Index()
+    {
+        try
+        {
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
+            if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
+                return Unauthorized();
+            var user = await _dbContext.Users
+                .Include(u => u.Favourites)!
+                .ThenInclude(f => f.Ad)
+                .ThenInclude(ad => ad.Medias)
+                .FirstOrDefaultAsync(u => u.Id == userId);
+            if (user is null)
+                return NotFound();
+
+            var complaints = _dbContext.Complaints
+                .Include(c => c.User)
+                .Include(c => c.Ad)
+                .ToList();
+
+            return View(complaints);
+        }
+        catch (Exception exception)
+        {
+            return RedirectToAction("Index", "Errors", new { error = exception.Message });
+        }
+    }
+    
+    [Authorize]
+    [HttpPost]
+    [Route("[action]")]
+    public async Task<string> SolveComplaint(int complaintId, bool deleteAd)
+    {
+        try
+        {
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
+            if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
+                return "";
+            var user = await _dbContext.Users
+                .Include(u => u.Favourites)!
+                .ThenInclude(f => f.Ad)
+                .ThenInclude(ad => ad.Medias)
+                .FirstOrDefaultAsync(u => u.Id == userId);
+            if (user is null)
+                return "";
+
+            var complaint = await _dbContext.Complaints
+                .FirstOrDefaultAsync(a => a.Id == complaintId);
+
+            if (complaint is not null)
+            {
+                if (deleteAd)
+                {
+                   var ad = await _dbContext.Ads.FirstOrDefaultAsync(a => a.Id == complaint.AdId);
+                   if (ad is not null)
+                       ad.StatusId = 4;
+                }
+                _dbContext.Complaints.Remove(complaint);
+                await _dbContext.SaveChangesAsync();
+                return JsonSerializer.Serialize(true);
+            }
+        }
+        catch
+        {
+            return JsonSerializer.Serialize(false);
+        }
+        return JsonSerializer.Serialize(false);
     }
 
     [Authorize]

@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using MHClub.Domain;
 using MHClub.Domain.Models;
 using MHClub.Domain.Models.Enums;
@@ -70,13 +71,13 @@ public class AdsController : BaseController
 
       var ads = await _dbContext.Ads
         .AsNoTracking()
-        .Where(a => a.ParentAdId == null)
         .Where(a => a.StatusId == (int)StatusType.Default)
         .Where(a => a.SellerId != userId)
         .Where(a => model.MinPrice == null || a.Cost > model.MinPrice)
         .Where(a => model.MaxPrice == null || a.Cost < model.MaxPrice)
         .Where(a => model.Condition == null || a.ConditionId == (int)(model.Condition ?? ItemCondition.New))
         .Where(a => model.SearchText == null || a.Name.ToLower().Contains(model.SearchText) || a.Description != null && a.Description.ToLower().Contains(model.SearchText))
+        .Where(a => (a.ParentAdId == null && model.Type == ItemType.Main) || (a.ParentAdId != null && model.Type == ItemType.Decomposed) || model.Type == null)
         .Include(a => a.Medias)
         .ToListAsync();
 
@@ -457,7 +458,6 @@ public class AdsController : BaseController
             adEntry.Description = model.Description;
             adEntry.CategoryId = model.CategoryId;
             adEntry.ConditionId = model.ConditionId;
-            adEntry.CreationDate = model.CreationDate;
             
             foreach (var mediaCreateDto in model.Images.Select(imageFile => new MediaCreateDto()
                      {
@@ -502,11 +502,13 @@ public class AdsController : BaseController
                 return RedirectToAction("Index", "Errors", new { error = "Объявление не найдено" });
             
             var isOwn = ad.SellerId == userId;
+            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value ?? "User";
             
-            if (!isOwn)
+            if (!isOwn && userRole != "Admin")
                 return RedirectToAction("Index", "Errors", new { error = "Вы не можете удалить чужое объявление" });
 
-            ad.StatusId = 2;
+            ad.StatusId = userRole == "Admin" ? 4 : 2;
+            
             await _dbContext.SaveChangesAsync();
             
             return Redirect(ViewBag.ReturnUrl);
