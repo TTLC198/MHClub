@@ -93,6 +93,12 @@
                 document.getElementById(`cat-level-${lv}`).innerHTML = '';
             }
             if (level < 3) {
+                const hasChildren = allCategories.some(c => c.ParentCategoryId === categoryId)
+                if (!hasChildren) {
+                    document.getElementById('SelectedCategoryId').value = categoryId;
+                    document.getElementById('categoryForm').submit();
+                    return;
+                }
                 populateLevel(level + 1, categoryId);
             } else {
                 document.getElementById('SelectedCategoryId').value = categoryId;

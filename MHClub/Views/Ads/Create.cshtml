@@ -1,4 +1,5 @@
-﻿@model MHClub.Models.Ads.AdsCreateViewModel
+﻿@using MHClub.Utils
+@model MHClub.Models.Ads.AdsCreateViewModel
 
 @{
     Layout = "_Layout";
@@ -63,7 +64,7 @@
                 <input type="hidden" id="CategoryId" name="CategoryId" value="@Model.CategoryId" />
                 <div class="mb-3">
                     @Html.LabelFor(m => m.Category, new { @class = "form-label fw-bold" })
-                    @Html.TextBox("Category", Model.Category?.Name ?? "Категория не выбрана!", new {
+                    @Html.TextBox("Category", Model.Category is null ? "Категория не выбрана!" : Model.Category.GetFullCategoryName(), new {
                         @class = "form-control bg-light rounded-2",
                         placeholder = "Введите категорию",
                         style = "border: none; background-color: #EAEAEA !important;",
@@ -110,11 +111,23 @@
                     @Html.ValidationMessageFor(m => m.Cost, "", new { @class = "text-danger" })
                 </div>
 
-                <div class="col-12">
-                    <label class="form-label fw-bold mb-1">Использовать как основной товар</label>
-                    @Html.CheckBoxFor(m => m.IsMainAd, new { @class = "toggle-checkbox", style = "border: none; background-color: #EAEAEA;" })
-                    @Html.ValidationMessageFor(m => m.Cost, "", new { @class = "text-danger" })
-                </div>
+                @if (ViewBag.ParentAdId is null)
+                {
+                    <div class="col-12">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <label class="form-label fw-bold mb-0" for="IsMainAdToggle">
+                                Использовать как основной товар
+                            </label>
+                            <div class="toggle-wrapper">
+                                @Html.CheckBoxFor(
+                                    m => m.IsMainAd,
+                                    new { @class = "toggle-checkbox", id = "IsMainAdToggle" })
+                                <label for="IsMainAdToggle" class="toggle-switch"></label>
+                            </div>
+                        </div>
+                        @Html.ValidationMessageFor(m => m.IsMainAd, "", new { @class = "text-danger" })
+                    </div>
+                }
 
                 <!-- Кнопка Разместить -->
                 <div class="col-12 mt-3">

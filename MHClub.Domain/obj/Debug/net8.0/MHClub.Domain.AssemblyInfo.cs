@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MHClub.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+11b605f5e5dcafd51c2db1a6c56020aa92eeac30")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+da339b0f4eabe746ab4ed415169212e07a33eb97")]
 [assembly: System.Reflection.AssemblyProductAttribute("MHClub.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MHClub.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

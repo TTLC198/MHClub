@@ -185,6 +185,7 @@ public class ProfileController : BaseController
 
             var ads = await _dbContext.Ads
                 .Include(a => a.Medias)
+                .Where(a => a.ParentAdId == null)
                 .Where(a => a.SellerId == user.Id && a.StatusId == (int)StatusType.Default)
                 .ToListAsync();
 
@@ -234,6 +235,7 @@ public class ProfileController : BaseController
             ViewBag.IsArchivedAds = true;
 
             var ads = await _dbContext.Ads
+                .Where(a => a.ParentAdId == null)
                 .Where(a => a.SellerId == user.Id && a.StatusId == (int)StatusType.Archived)
                 .Include(ad => ad.Medias)
                 .ToListAsync();

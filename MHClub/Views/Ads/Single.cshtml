@@ -1,4 +1,5 @@
 @model MHClub.Models.Ads.AdsIndexViewModel
+@using MHClub.Domain.Models.Enums
 @using MHClub.Utils
 @{
     Layout = "_Layout";
@@ -133,7 +134,7 @@
                     </button>
                 </div>
                 <div class="d-flex flex-column gap-2">
-                    @foreach (var child in Model.ChildrenAds)
+                    @foreach (var child in Model.ChildrenAds.Where(ad => ad.StatusId != (int)StatusType.Hidden))
                     {
                         <div class="child-ad-card">
                             <!-- 1) Блок мини-изображения: кликаем — переходим на Single -->

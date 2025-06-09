@@ -70,6 +70,8 @@ public class AdsController : BaseController
 
       var ads = await _dbContext.Ads
         .AsNoTracking()
+        .Where(a => a.ParentAdId == null)
+        .Where(a => a.StatusId == (int)StatusType.Default)
         .Where(a => a.SellerId != userId)
         .Where(a => model.MinPrice == null || a.Cost > model.MinPrice)
         .Where(a => model.MaxPrice == null || a.Cost < model.MaxPrice)
@@ -199,7 +201,10 @@ public class AdsController : BaseController
       model.CountriesSelect = await _restCountriesService.GetAllForSelect();
       var conditions = await _dbContext.Conditions.ToListAsync();
       ViewBag.Conditions = conditions.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
-      var selectedCategory = await _dbContext.Categories.FirstOrDefaultAsync(c => c.Id == categoryId);
+      var selectedCategory = await _dbContext.Categories
+        .Include(c => c.ParentCategory)
+        .ThenInclude(cc => cc!.ParentCategory)
+        .FirstOrDefaultAsync(c => c.Id == categoryId);
       model.Category = selectedCategory;
       model.CategoryId = selectedCategory?.Id ?? 0;
       if (parentAdId != -1)
@@ -268,6 +273,26 @@ public class AdsController : BaseController
 
       var adEntry = await _dbContext.Ads.AddAsync(ad);
       await _dbContext.SaveChangesAsync();
+
+      if (model.IsMainAd)
+      {
+        var hiddenAd = new Ad()
+        {
+          Cost = model.Cost,
+          CategoryId = model.CategoryId,
+          ConditionId = model.ConditionId,
+          Quantity = model.Quantity,
+          Name = model.Name,
+          ManufactureCountry = model.ManufactureCountry,
+          Description = model.Description,
+          SellerId = userId,
+          CreationDate = DateTime.Now,
+          StatusId = (int)StatusType.Hidden,
+          ParentAdId = adEntry.Entity.Id,
+        };
+        await _dbContext.Ads.AddAsync(hiddenAd);
+        await _dbContext.SaveChangesAsync();
+      }
 
       foreach (var mediaCreateDto in model.Images.Select(imageFile => new MediaCreateDto()
                {
@@ -352,11 +377,15 @@ public class AdsController : BaseController
                 .AsNoTracking()
                 .Include(a => a.Medias)
                 .Include(a => a.Seller)
-                .Include(a => a.Category)
                 .FirstOrDefaultAsync(a => a.Id == id);
 
             if (ad is null)
                 return RedirectToAction("Index", "Errors", new { error = "Объявление не найдено" });
+            
+            ad.Category = _dbContext.Categories
+              .Include(c => c!.ParentCategory)
+              .ThenInclude(cc => cc!.ParentCategory)
+              .FirstOrDefault(c => c.Id == ad.CategoryId);
             
             var isOwn = ad.SellerId == userId;
             
