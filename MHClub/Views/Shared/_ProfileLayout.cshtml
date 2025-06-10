@@ -85,11 +85,12 @@
               </div>
               @if (ViewBag.IsOwn == true)
               {
-                <div class="mt-auto d-grid w-100">
-                  <button onclick="location.href='@Url.Action("Logout", "Auth")';" class="btn btn-outline-danger rounded-2 py-2">
-                    Выйти
-                  </button>
-                </div>
+                @*<div class="mt-auto d-grid w-100">
+                  
+                </div>*@
+                <button onclick="location.href='@Url.Action("Logout", "Auth")';" class="btn btn-outline-danger rounded-2 py-2">
+                  Выйти
+                </button>
               }
             </div>
           }

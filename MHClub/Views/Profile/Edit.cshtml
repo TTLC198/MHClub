@@ -3,6 +3,7 @@
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Редактирование профиля";
+    var imageSrc = string.IsNullOrEmpty(Model.ImageUrl) ? "~/images/no-photo.png" : @Url.Action("Get", "Media", new { path = Model.ImageUrl.GetLocalPath() });
 }
 
 <div class="d-flex justify-content-center my-5">
@@ -11,12 +12,12 @@
     @using (Html.BeginForm("Edit", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
       @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
-
+      
       <div class="d-flex justify-content-center mb-4">
         <label class="cursor-pointer">
           @Html.TextBoxFor(m => m.Avatar, new { type = "file", onchange = "upload(this)", accept = "image/*", style = "display:none" })
           <div class="ratio ratio-1x1 rounded-circle overflow-hidden shadow" style="width:120px; height:120px;">
-            <img id="profile-image" src="@Url.Action("Get", "Media", new { path = Model.ImageUrl.GetLocalPath() })" class="img-cover" alt="avatar" />
+            <img id="profile-image" src="@imageSrc" class="img-cover" />
           </div>
         </label>
       </div>

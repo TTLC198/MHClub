@@ -772,3 +772,8 @@ body {
 .delete-ad-btn:hover {
   background-color: rgba(220, 53, 69, 0.1);
 }
+
+.ad-description {
+  white-space: pre-wrap;    /* сохраняет разрыв строк и оборачивает текст */
+  word-break: break-word;    /* переносит длинные слова по необходимости */
+}

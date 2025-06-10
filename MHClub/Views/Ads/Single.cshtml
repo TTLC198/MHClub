@@ -110,7 +110,7 @@
             </div>
 
             <h5 class="mb-2">Описание:</h5>
-            <p class="mb-4 text-break">@Model.Description</p>
+            <p class="mb-4 ad-description">@Model.Description</p>
 
             <h5 class="mb-2">Характеристики:</h5>
             <dl class="row">
@@ -226,6 +226,13 @@
                             src="@Url.Action("Get", "Media", new { path = Model.UserProfileDto.ImageUrl.GetLocalPath() })"
                             class="rounded-circle me-3"
                             style="width:48px; height:48px; object-fit:cover;" alt="Avatar"/>
+                    }
+                    else
+                    {
+                        <img src="~/images/no-photo.png"
+                             class="rounded-circle me-3"
+                             style="width:48px; height:48px; object-fit:cover;"
+                             alt="no avatar"/>
                     }
                     <div>
                         <a href="@Url.Action("Profile", "Profile", new { userId = Model.UserProfileDto.Id })"

@@ -17,7 +17,7 @@ public class RestCountriesService
     public async Task<List<CountryInfo>> GetAll()
     {
         using var httpClient = new HttpClient();
-        var responseStream = await httpClient.GetStreamAsync($"{_baseApiUrl}/all");
+        var responseStream = await httpClient.GetStreamAsync($"{_baseApiUrl}/all?fields=name,translations");
         var result = await JsonSerializer.DeserializeAsync<List<CountryInfo>>(responseStream);
         return result ?? [];
     }
@@ -27,7 +27,7 @@ public class RestCountriesService
         try
         {
             using var httpClient = new HttpClient() { };
-            var responseMessage = await httpClient.GetAsync($"{_baseApiUrl}/all");
+            var responseMessage = await httpClient.GetAsync($"{_baseApiUrl}/all?fields=name,translations");
             if (!responseMessage.IsSuccessStatusCode) return _defaultItems;
             var result =
                 await JsonSerializer.DeserializeAsync<List<CountryInfo>>(

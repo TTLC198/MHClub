@@ -24,6 +24,7 @@ public class AdsCreateViewModel : AdsIndexViewModel
     public override string ManufactureCountry { get; set; }
 
     [Display(Name = "Количество")]
+    [Required(ErrorMessage = "Значение не может быть пустым")]
     [Range(1, int.MaxValue, ErrorMessage = "Значение должно быть числом больше одного")]
     public override int? Quantity { get; set; }
 
@@ -37,6 +38,7 @@ public class AdsCreateViewModel : AdsIndexViewModel
 
     [Display(Name = "Состояние")]
     [Required(ErrorMessage = "Значение не может быть пустым")]
+    [Range(0, 3, ErrorMessage = "Выберите состояние товара")]
     public override int ConditionId { get; set; }
     
     [Display(Name = "Использовать как основной товар")]

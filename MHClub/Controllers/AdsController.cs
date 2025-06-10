@@ -66,7 +66,7 @@ public class AdsController : BaseController
       {
         model.Condition = (ItemCondition)condition;
       }
-      
+
       model.SearchText = model.SearchText?.ToLower().Trim();
 
       var ads = await _dbContext.Ads
@@ -76,8 +76,10 @@ public class AdsController : BaseController
         .Where(a => model.MinPrice == null || a.Cost > model.MinPrice)
         .Where(a => model.MaxPrice == null || a.Cost < model.MaxPrice)
         .Where(a => model.Condition == null || a.ConditionId == (int)(model.Condition ?? ItemCondition.New))
-        .Where(a => model.SearchText == null || a.Name.ToLower().Contains(model.SearchText) || a.Description != null && a.Description.ToLower().Contains(model.SearchText))
-        .Where(a => (a.ParentAdId == null && model.Type == ItemType.Main) || (a.ParentAdId != null && model.Type == ItemType.Decomposed) || model.Type == null)
+        .Where(a => model.SearchText == null || a.Name.ToLower().Contains(model.SearchText) ||
+                    a.Description != null && a.Description.ToLower().Contains(model.SearchText))
+        .Where(a => (a.ParentAdId == null && model.Type == ItemType.Main) ||
+                    (a.ParentAdId != null && model.Type == ItemType.Decomposed) || model.Type == null)
         .Include(a => a.Medias)
         .ToListAsync();
 
@@ -138,10 +140,12 @@ public class AdsController : BaseController
 
       var isOwn = ad.SellerId == userId;
 
-      var childrenAds = ad.ChildrenAds?.Select(a => new AdsIndexViewModel(a)
-      {
-        Images = a.Medias?.Select(m => m.Path).ToList(),
-      }).ToList();
+      var childrenAds = ad.ChildrenAds?
+        .Where(a => a.StatusId == 1)
+        .Select(a => new AdsIndexViewModel(a)
+        {
+          Images = a.Medias?.Select(m => m.Path).ToList(),
+        }).ToList();
 
       return View(new AdsIndexViewModel(ad)
       {
@@ -151,10 +155,12 @@ public class AdsController : BaseController
         IsArchived = ad.Status?.Id == 2, //todo
         UserProfileDto = await GetUserProfileAsync(ad.Seller!),
         ChildrenAds = childrenAds,
-        ParentAd = ad.ParentAd == null ? null : new AdsIndexViewModel(ad.ParentAd)
-        {
-          Images = ad.ParentAd.Medias?.Select(m => m.Path).ToList(),
-        }
+        ParentAd = ad.ParentAd == null
+          ? null
+          : new AdsIndexViewModel(ad.ParentAd)
+          {
+            Images = ad.ParentAd.Medias?.Select(m => m.Path).ToList(),
+          }
       });
     }
     catch (Exception exception)
@@ -191,7 +197,8 @@ public class AdsController : BaseController
   [Authorize]
   [HttpPost]
   [Route("CreateWithCategories")]
-  public async Task<IActionResult> CreateWithCategories([FromForm] int categoryId, string? returnUrl = null, int parentAdId = -1)
+  public async Task<IActionResult> CreateWithCategories([FromForm] int categoryId, string? returnUrl = null,
+    int parentAdId = -1)
   {
     if (categoryId == 0)
       return RedirectToAction("Create", "Ads", new { returnUrl });
@@ -232,12 +239,14 @@ public class AdsController : BaseController
       ViewBag.Conditions = conditions.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
       var selectedCategory = await _dbContext.Categories.FirstOrDefaultAsync(c => c.Id == model.CategoryId);
       model.Category = selectedCategory;
+      if (model.ParentAdId != -1)
+        ViewBag.ParentAdId = model.ParentAdId;
 
       model = model.TrimStringProperties();
 
       if (!ModelState.IsValid)
         return View(model);
-      
+
       var existedAd = await _dbContext.Ads.FirstOrDefaultAsync(u => u.Name == model.Name);
       if (existedAd is not null)
       {
@@ -313,211 +322,213 @@ public class AdsController : BaseController
       return View(model);
     }
   }
-  
+
   [Authorize]
-    [HttpPost]
-    [Route("{id}/Restore")]
-    public async Task<IActionResult> Restore(int id, string? returnUrl = null)
+  [HttpPost]
+  [Route("{id}/Restore")]
+  public async Task<IActionResult> Restore(int id, string? returnUrl = null)
+  {
+    try
     {
-        try
-        {
-            ViewBag.ReturnUrl = returnUrl ?? Request.Headers.Referer!;
+      ViewBag.ReturnUrl = returnUrl ?? Request.Headers.Referer!;
 
-            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
-            if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
-                return Unauthorized();
-            
-            var ad = await _dbContext.Ads
-                .Include(a => a.Medias)
-                .Include(a => a.Seller)
-                .FirstOrDefaultAsync(a => a.Id == id);
+      var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
+      if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
+        return Unauthorized();
 
-            if (ad is null)
-                return RedirectToAction("Index", "Errors", new { error = "Объявление не найдено" });
-            
-            var isOwn = ad.SellerId == userId;
-            
-            if (!isOwn)
-                return RedirectToAction("Index", "Errors", new { error = "Вы не можете восстановить чужое объявление" });
+      var ad = await _dbContext.Ads
+        .Include(a => a.Medias)
+        .Include(a => a.Seller)
+        .FirstOrDefaultAsync(a => a.Id == id);
 
-            ad.StatusId = 1;
-            await _dbContext.SaveChangesAsync();
-            
-            return Redirect(ViewBag.ReturnUrl);
-        }
-        catch (Exception exception)
-        {
-            return RedirectToAction("Index", "Errors", new { error = exception.Message });
-        }
+      if (ad is null)
+        return RedirectToAction("Index", "Errors", new { error = "Объявление не найдено" });
+
+      var isOwn = ad.SellerId == userId;
+
+      if (!isOwn)
+        return RedirectToAction("Index", "Errors", new { error = "Вы не можете восстановить чужое объявление" });
+
+      ad.StatusId = 1;
+      await _dbContext.SaveChangesAsync();
+
+      return Redirect(ViewBag.ReturnUrl);
     }
-    
-    [Authorize]
-    [HttpGet]
-    [Route("Edit/{id}")]
-    public async Task<IActionResult> Edit(int id, string? returnUrl = null)
+    catch (Exception exception)
     {
-        var model = new AdsCreateViewModel();
-        try
-        {
-            ViewBag.ReturnUrl = returnUrl ?? Request.Headers.Referer!;
-            model.CountriesSelect = await _restCountriesService.GetAllForSelect();
-            model.CategoriesSelect = _dbContext.Categories
-                .AsNoTracking()
-                .ToList()
-                .Where(x => !string.IsNullOrEmpty(x.Name))
-                .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
-                .ToList();
-            var conditions = await _dbContext.Conditions.ToListAsync();
-            ViewBag.Conditions = conditions.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
-            
-            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
-            if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
-                return Unauthorized();
-            
-            var ad = await _dbContext.Ads
-                .AsNoTracking()
-                .Include(a => a.Medias)
-                .Include(a => a.Seller)
-                .FirstOrDefaultAsync(a => a.Id == id);
+      return RedirectToAction("Index", "Errors", new { error = exception.Message });
+    }
+  }
 
-            if (ad is null)
-                return RedirectToAction("Index", "Errors", new { error = "Объявление не найдено" });
-            
-            ad.Category = _dbContext.Categories
-              .Include(c => c!.ParentCategory)
-              .ThenInclude(cc => cc!.ParentCategory)
-              .FirstOrDefault(c => c.Id == ad.CategoryId);
-            
-            var isOwn = ad.SellerId == userId;
-            
-            if (!isOwn)
-                return RedirectToAction("Index", "Errors", new { error = "Вы не можете редактировать чужое объявление" });
-            
-            return View(new AdsCreateViewModel(ad)
-            {
-                IsOwn = isOwn,
-                CountriesSelect = model.CountriesSelect,
-                CategoriesSelect = model.CategoriesSelect,
-                UserProfileDto = await GetUserProfileAsync(ad.Seller!)
-            });
-        }
-        catch (Exception exception)
-        {
-            ModelState.AddModelError(string.Empty, exception.Message);
-        }
+  [Authorize]
+  [HttpGet]
+  [Route("Edit/{id}")]
+  public async Task<IActionResult> Edit(int id, string? returnUrl = null)
+  {
+    var model = new AdsCreateViewModel();
+    try
+    {
+      ViewBag.ReturnUrl = returnUrl ?? Request.Headers.Referer!;
+      model.CountriesSelect = await _restCountriesService.GetAllForSelect();
+      model.CategoriesSelect = _dbContext.Categories
+        .AsNoTracking()
+        .ToList()
+        .Where(x => !string.IsNullOrEmpty(x.Name))
+        .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
+        .ToList();
+      var conditions = await _dbContext.Conditions.ToListAsync();
+      ViewBag.Conditions = conditions.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
+
+      var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
+      if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
+        return Unauthorized();
+
+      var ad = await _dbContext.Ads
+        .AsNoTracking()
+        .Include(a => a.Medias)
+        .Include(a => a.Seller)
+        .FirstOrDefaultAsync(a => a.Id == id);
+
+      if (ad is null)
+        return RedirectToAction("Index", "Errors", new { error = "Объявление не найдено" });
+
+      ad.Category = _dbContext.Categories
+        .Include(c => c!.ParentCategory)
+        .ThenInclude(cc => cc!.ParentCategory)
+        .FirstOrDefault(c => c.Id == ad.CategoryId);
+
+      var isOwn = ad.SellerId == userId;
+
+      if (!isOwn)
+        return RedirectToAction("Index", "Errors", new { error = "Вы не можете редактировать чужое объявление" });
+
+      return View(new AdsCreateViewModel(ad)
+      {
+        IsOwn = isOwn,
+        CountriesSelect = model.CountriesSelect,
+        CategoriesSelect = model.CategoriesSelect,
+        UserProfileDto = await GetUserProfileAsync(ad.Seller!)
+      });
+    }
+    catch (Exception exception)
+    {
+      ModelState.AddModelError(string.Empty, exception.Message);
+    }
+
+    return View(model);
+  }
+
+  [Authorize]
+  [HttpPost]
+  [Route("Edit/{id}")]
+  public async Task<IActionResult> Edit(int id, [FromForm] AdsCreateViewModel model, string? returnUrl = null)
+  {
+    try
+    {
+      model.Id = id;
+      ViewBag.ReturnUrl = returnUrl ?? Request.Headers.Referer!;
+      model.CountriesSelect = await _restCountriesService.GetAllForSelect();
+      model.CategoriesSelect = _dbContext.Categories
+        .AsNoTracking()
+        .ToList()
+        .Where(x => !string.IsNullOrEmpty(x.Name))
+        .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
+        .ToList();
+      var conditions = await _dbContext.Conditions.ToListAsync();
+      ViewBag.Conditions = conditions.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
+
+      model = model.TrimStringProperties();
+
+      if (!ModelState.IsValid)
         return View(model);
+
+      var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
+      if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
+        return Unauthorized();
+      var user = await _dbContext.Users
+        .Include(u => u.Medias)
+        .FirstOrDefaultAsync(u => u.Id == userId);
+      if (user is null)
+      {
+        ModelState.AddModelError(string.Empty, "Пользователь не найден");
+        return View(model);
+      }
+
+      var adEntry = await _dbContext.Ads.FirstOrDefaultAsync(x => x.Id == model.Id);
+
+      if (adEntry is null)
+      {
+        ModelState.AddModelError(string.Empty, "Объявление не найдено");
+        return View(model);
+      }
+
+      adEntry.Name = model.Name;
+      adEntry.Cost = model.Cost;
+      adEntry.ManufactureCountry = model.ManufactureCountry;
+      adEntry.Quantity = model.Quantity;
+      adEntry.Description = model.Description;
+      adEntry.CategoryId = model.CategoryId;
+      adEntry.ConditionId = model.ConditionId;
+
+      foreach (var mediaCreateDto in model.Images.Select(imageFile => new MediaCreateDto()
+               {
+                 AdId = adEntry.Id,
+                 Image = imageFile
+               }))
+      {
+        var uploadResult = await _mediaService.UploadImage(mediaCreateDto);
+      }
+
+      await _dbContext.SaveChangesAsync();
+
+      ViewBag.Success = true;
+      return View(model);
     }
-    
-    [Authorize]
-    [HttpPost]
-    [Route("Edit/{id}")]
-    public async Task<IActionResult> Edit(int id, [FromForm]AdsCreateViewModel model, string? returnUrl = null)
+    catch (Exception exception)
     {
-        try
-        {
-            model.Id = id;
-            ViewBag.ReturnUrl = returnUrl ?? Request.Headers.Referer!;
-            model.CountriesSelect = await _restCountriesService.GetAllForSelect();
-            model.CategoriesSelect = _dbContext.Categories
-                .AsNoTracking()
-                .ToList()
-                .Where(x => !string.IsNullOrEmpty(x.Name))
-                .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
-                .ToList();
-            var conditions = await _dbContext.Conditions.ToListAsync();
-            ViewBag.Conditions = conditions.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
-
-            model = model.TrimStringProperties();
-          
-            if (!ModelState.IsValid)
-                return View(model);
-
-            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
-            if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
-                return Unauthorized();
-            var user = await _dbContext.Users
-                .Include(u => u.Medias)
-                .FirstOrDefaultAsync(u => u.Id == userId);
-            if (user is null)
-            {
-                ModelState.AddModelError(string.Empty, "Пользователь не найден");
-                return View(model);
-            }
-            var adEntry = await _dbContext.Ads.FirstOrDefaultAsync(x => x.Id == model.Id);
-            
-            if (adEntry is null)
-            {
-              ModelState.AddModelError(string.Empty, "Объявление не найдено");
-              return View(model);
-            }
-            
-            adEntry.Name = model.Name;
-            adEntry.Cost = model.Cost;
-            adEntry.ManufactureCountry = model.ManufactureCountry;
-            adEntry.Quantity = model.Quantity;
-            adEntry.Description = model.Description;
-            adEntry.CategoryId = model.CategoryId;
-            adEntry.ConditionId = model.ConditionId;
-            
-            foreach (var mediaCreateDto in model.Images.Select(imageFile => new MediaCreateDto()
-                     {
-                       AdId = adEntry.Id,
-                       Image = imageFile
-                     }))
-            {
-              var uploadResult = await _mediaService.UploadImage(mediaCreateDto);
-            }
-            
-            await _dbContext.SaveChangesAsync();
-
-            ViewBag.Success = true;
-            return View(model);
-        }
-        catch (Exception exception)
-        {
-            ModelState.AddModelError(string.Empty, exception.Message);
-            return View(model);
-        }
+      ModelState.AddModelError(string.Empty, exception.Message);
+      return View(model);
     }
-    
-    [Authorize]
-    [HttpPost]
-    [Route("{id}/Delete")]
-    public async Task<IActionResult> Delete(int id, string? returnUrl = null)
+  }
+
+  [Authorize]
+  [HttpPost]
+  [Route("{id}/Delete")]
+  public async Task<IActionResult> Delete(int id, string? returnUrl = null)
+  {
+    try
     {
-        try
-        {
-            ViewBag.ReturnUrl = returnUrl ?? Request.Headers.Referer!;
+      ViewBag.ReturnUrl = returnUrl ?? Request.Headers.Referer!;
 
-            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
-            if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
-                return Unauthorized();
-            
-            var ad = await _dbContext.Ads
-                .Include(a => a.Medias)
-                .Include(a => a.Seller)
-                .FirstOrDefaultAsync(a => a.Id == id);
+      var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
+      if (userIdClaim is { Value: null } || !int.TryParse(userIdClaim?.Value, out var userId))
+        return Unauthorized();
 
-            if (ad is null)
-                return RedirectToAction("Index", "Errors", new { error = "Объявление не найдено" });
-            
-            var isOwn = ad.SellerId == userId;
-            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value ?? "User";
-            
-            if (!isOwn && userRole != "Admin")
-                return RedirectToAction("Index", "Errors", new { error = "Вы не можете удалить чужое объявление" });
+      var ad = await _dbContext.Ads
+        .Include(a => a.Medias)
+        .Include(a => a.Seller)
+        .FirstOrDefaultAsync(a => a.Id == id);
 
-            ad.StatusId = userRole == "Admin" ? 4 : 2;
-            
-            await _dbContext.SaveChangesAsync();
-            
-            return Redirect(ViewBag.ReturnUrl);
-        }
-        catch (Exception exception)
-        {
-            return RedirectToAction("Index", "Errors", new { error = exception.Message });
-        }
+      if (ad is null)
+        return RedirectToAction("Index", "Errors", new { error = "Объявление не найдено" });
+
+      var isOwn = ad.SellerId == userId;
+      var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value ?? "User";
+
+      if (!isOwn && userRole != "Admin")
+        return RedirectToAction("Index", "Errors", new { error = "Вы не можете удалить чужое объявление" });
+
+      ad.StatusId = userRole == "Admin" ? 4 : 2;
+
+      await _dbContext.SaveChangesAsync();
+
+      return Redirect(ViewBag.ReturnUrl);
     }
+    catch (Exception exception)
+    {
+      return RedirectToAction("Index", "Errors", new { error = exception.Message });
+    }
+  }
 
   private async Task<UserProfileDto> GetUserProfileAsync(User user)
   {
@@ -527,9 +538,9 @@ public class AdsController : BaseController
     var reviewsCount = await reviewsByAds.CountAsync();
     var ratings = reviewsByAds?.Select(x => x.Estimation);
     double? rating = ratings?.Any() == true ? ratings.Average() : null;
-    
+
     var photo = user.Medias?.FirstOrDefault();
-    
+
     return new UserProfileDto(user, rating, reviewsCount, adsCount, photo?.Path ?? "");
   }
 }
