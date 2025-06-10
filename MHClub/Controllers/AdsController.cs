@@ -85,11 +85,11 @@ public class AdsController : BaseController
 
       switch (model.SortBy)
       {
-        case "По цене":
-          ads = ads.OrderByDescending(a => a.Cost).ToList();
+        case "Цена по возрастанию":
+          ads = ads.OrderBy(a => a.Cost).ToList();
           break;
-        case "Популярные":
-          ads = ads.OrderByDescending(a => a.Quantity).ToList(); //todo
+        case "Цена по убыванию":
+          ads = ads.OrderByDescending(a => a.Cost).ToList();
           break;
         case "По рейтингу":
           ads = ads.OrderBy(a => a.Rating).ToList();

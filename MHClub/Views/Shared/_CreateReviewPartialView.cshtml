@@ -1,7 +1,6 @@
 
 @{
   var userAds = ViewBag.UserAds as IEnumerable<SelectListItem> ?? [];
-  var reviewUserId = ViewBag.Id as int? ?? 0;
 }
 
 <div class="modal fade" tabindex="-1" aria-labelledby="createReviewModalLabel" id="createReviewModal"
@@ -20,8 +19,6 @@
         <div id="reviewErrors" class="text-danger mb-3" style="display: none;"></div>
 
         <form id="createReviewForm">
-          @* Скрытые данные *@
-          <input type="hidden" name="UserId" value="@reviewUserId"/>
 
           <!-- Выпадающий список: объявления пользователя -->
           <div class="mb-3">
@@ -39,17 +36,19 @@
           <div class="mb-3">
             <label class="form-label fw-bold">Оцените продавца:</label>
             <div class="d-flex align-items-center">
-              @* Контейнер для звёздочек с обёртками-спанами *@
+              <input type="hidden" id="Estimation" name="Estimation" value="0" />
               <div id="starRatingContainer" class="star-rating d-flex me-2">
-                @for (int val = 1; val <= 5; val++)
+                @for (int val = 5; val > 0; val--)
                 {
                   <span class="star-wrapper mx-1" data-value="@val">
--       <i class="bi bi-star-outline fs-3 text-dark"></i>
--     </span>
+          <span
+            class="iconify star-icon fs-3 text-dark"
+            data-icon="mdi:star-outline"
+            data-inline="false">
+          </span>
+        </span>
                 }
               </div>
-              @* Скрытое поле для отправки оценки на сервер *@
-              <input type="hidden" id="Estimation" name="Estimation" value="0"/>
             </div>
             <div class="text-danger field-error" data-for="Estimation" style="display: none;"></div>
           </div>
@@ -80,22 +79,6 @@
   </div>
 </div>
 
-@* ==== Стили для чёрных звёздочек ==== *@
-<style>
-  .star-rating {
-    direction: rtl;
-    display: inline-block;
-  }
-
-  .star-rating .star {
-    font-size: 24px;
-    color: #000;
-    cursor: pointer;
-    padding: 0 2px;
-    transition: color 0.2s;
-  }
-</style>
-
 @* ==== JavaScript для AJAX-отправки и управления звёздами ==== *@
 <script>
   document.addEventListener("DOMContentLoaded", function () {
@@ -109,19 +92,11 @@
     function updateStars(selectedValue) {
       starContainer.querySelectorAll(".star-wrapper").forEach(wrapper => {
         const val = parseInt(wrapper.getAttribute("data-value"));
-        const iconEl = wrapper.querySelector("i");
-        if (val <= selectedValue) {
-          // Заполненная звезда, класс bi-star-fill
-          iconEl.classList.remove("bi-star-outline");
-          iconEl.classList.add("bi-star-fill");
-          // Цвет оставляем text-dark (чёрный)
-          iconEl.classList.add("text-dark");
-        } else {
-          // Контур (outline)
-          iconEl.classList.remove("bi-star-fill");
-          iconEl.classList.add("bi-star-outline");
-          iconEl.classList.add("text-dark");
-        }
+        const iconEl = wrapper.querySelector(".star-icon");
+        iconEl.setAttribute(
+          "data-icon",
+          val <= selectedValue ? "mdi:star" : "mdi:star-outline"
+        );
       });
     }
 
@@ -135,13 +110,12 @@
 
     // Обработчики для звёздочек
     stars.forEach(star => {
-      star.addEventListener("click", function () {
-        const wrapper = event.target.closest(".star-wrapper");
-        if (!wrapper) return;
-        const val = parseInt(wrapper.getAttribute("data-value"));
+      star.parentElement.addEventListener("click", function () {
+        const val = parseInt(this.getAttribute("data-value"));
         estimationInput.value = val;
         updateStars(val);
-        clearFieldError("Estimation");
+        const err = document.querySelector(`.field-error[data-for='Estimation']`);
+        if (err) { err.style.display = "none"; err.innerText = ""; }
       });
     });
 
@@ -204,3 +178,5 @@
     });
   });
 </script>
+
+<script src="https://code.iconify.design/2/2.2.1/iconify.min.js" defer></script>

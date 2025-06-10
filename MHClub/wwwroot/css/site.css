@@ -52,6 +52,7 @@ body {
   padding: calc(var(--spacing-unit) * 2);
   box-shadow: var(--shadow-strong);
   flex-basis: 150px;
+  height: fit-content;
 }
 
 /* Заголовки внутри карточки */
@@ -776,4 +777,20 @@ body {
 .ad-description {
   white-space: pre-wrap;    /* сохраняет разрыв строк и оборачивает текст */
   word-break: break-word;    /* переносит длинные слова по необходимости */
+}
+
+.limit-chars {
+  display: inline-block;      /* или block, в зависимости от контекста */
+  max-width: 30ch;            /* не более 30 символов в строке */
+  white-space: nowrap;        /* одна строка */
+  overflow: hidden;           /* скрыть обрезанный текст */
+  text-overflow: ellipsis;    /* добавить “…” в конце */
+}
+
+.multiline-clamp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;      /* сколько строк показывать */
+  max-width: 30ch;            /* максимум 30 символов в строке */
+  overflow: hidden;
 }

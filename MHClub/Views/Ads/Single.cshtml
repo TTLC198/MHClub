@@ -14,35 +14,49 @@
         <div class="col-md-6 d-flex">
             <!-- Мини-превью -->
             <div class="d-flex flex-column gap-3 me-4">
+                @{
+                    int i = 0;
+                }
                 @foreach (var img in Model.Images ?? Enumerable.Empty<string>())
                 {
                     var thumbUrl = Url.Action("Get", "Media", new { path = img.GetLocalPath() });
                     <img src="@thumbUrl"
                          class="thumb-img rounded-2 shadow-sm"
                          style="width: 64px; height: 64px; object-fit: cover; cursor: pointer;"
-                         data-src="@thumbUrl"/>
+                         data-src="@thumbUrl"
+                         data-counter="@i"/>
+                    i++;
                 }
             </div>
             <!-- Главное изображение с контролами -->
             <div class="flex-grow-1 position-relative" style="height: fit-content;">
-                @{
-                    var first = Model.Images?.FirstOrDefault();
-                    var firstUrl = first != null
-                        ? Url.Action("Get", "Media", new { path = first.GetLocalPath() })
-                        : Url.Content("~/images/no-photo.png");
-                }
-                <img id="currentImage"
-                     src="@firstUrl"
-                     class="w-100 rounded-3 shadow-sm"
-                     style="object-fit: cover; cursor: zoom-in;"/>
-                <button id="prevBtn" type="button"
-                        class="btn btn-light rounded-circle position-absolute top-50 start-0 translate-middle-y shadow-sm">
-                    <i class="bi-chevron-left"></i>
-                </button>
-                <button id="nextBtn" type="button"
-                        class="btn btn-light rounded-circle position-absolute top-50 end-0 translate-middle-y shadow-sm">
-                    <i class="bi-chevron-right"></i>
-                </button>
+                <div id="carousel" class="carousel slide mb-3" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        @{
+                            var firstImage = true;
+                        }
+                        @foreach (var img in Model.Images ?? Enumerable.Empty<string>())
+                        {
+                            <div class="carousel-item@(firstImage ? Html.Raw(" active") : Html.Raw(""))">
+                                @{
+                                    var thumbUrl = string.IsNullOrEmpty(img) ? "/images/no-photo.png" : Url.Action("Get", "Media", new { path = img.GetLocalPath() });
+                                }
+                                <img src="@thumbUrl"
+                                     class="w-100 rounded-3 shadow-sm"
+                                     data-src="@thumbUrl"/>
+                            </div>
+                            firstImage = false;
+                        }
+                    </div>
+                </div>
+                <a class="carousel-control-prev" data-bs-target="#carousel" role="button"
+                   data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                </a>
+                <a class="carousel-control-next" data-bs-target="#carousel" role="button"
+                   data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                </a>
             </div>
         </div>
 
@@ -143,7 +157,6 @@
                     @foreach (var child in Model.ChildrenAds.Where(ad => ad.StatusId != (int)StatusType.Hidden))
                     {
                         <div class="child-ad-card">
-                            <!-- 1) Блок мини-изображения: кликаем — переходим на Single -->
                             <div class="child-ad-card-image"
                                  onclick="location.href='@Url.Action("Single", "Ads", new { id = child.Id })';">
                                 @if (!string.IsNullOrEmpty(child.Images?.FirstOrDefault()))
@@ -162,8 +175,8 @@
 
                             <div class="child-ad-card-body"
                                  onclick="location.href='@Url.Action("Single", "Ads", new { id = child.Id })';">
-                                <h3 class="child-ad-card-title text-truncate">@child.Name</h3>
-                                <p class="child-ad-card-text text-truncate">@child.Description</p>
+                                <h3 class="child-ad-card-title text-truncate limit-chars">@child.Name</h3>
+                                <p class="child-ad-card-text text-truncate limit-chars">@child.Description</p>
                             </div>
 
                             @if (Model.IsOwn == true)
@@ -193,13 +206,13 @@
             @if (Model.ParentAd != null)
             {
                 <h5 class="mb-2">Основное:</h5>
-                <div class="card ad-card p-1 rounded-2 shadow-sm"
-                     onclick="location.href = '@Url.Action("Single", "Ads", new { id = Model.ParentAd.Id })';">
-                    <div class="item-card__image-container">
-                        @if (!string.IsNullOrEmpty(Model.ParentAd.Images?.FirstOrDefault()))
+                <div class="child-ad-card">
+                    <div class="child-ad-card-image"
+                         onclick="location.href='@Url.Action("Single", "Ads", new { id = @Model.ParentAd.Id })';">
+                        @if (!string.IsNullOrEmpty(@Model.ParentAd.Images?.FirstOrDefault()))
                         {
                             <img
-                                src="@Url.Action("Get", "Media", new { path = Model.ParentAd.Images?.FirstOrDefault()?.GetLocalPath() })"
+                                src="@Url.Action("Get", "Media", new { path = @Model.ParentAd.Images?.FirstOrDefault()?.GetLocalPath() })"
                                 alt=""/>
                         }
                         else
@@ -209,9 +222,11 @@
                                 alt=""/>
                         }
                     </div>
-                    <div class="item-card__content">
-                        <h3 class="item-card__title">@Model.ParentAd.Name</h3>
-                        <p class="item-card__subtitle">@Model.ParentAd.Description</p>
+
+                    <div class="child-ad-card-body"
+                         onclick="location.href='@Url.Action("Single", "Ads", new { id = @Model.ParentAd.Id })';">
+                        <h3 class="child-ad-card-title text-truncate limit-chars">@Model.ParentAd.Name</h3>
+                        <p class="child-ad-card-text text-truncate limit-chars">@Model.ParentAd.Description</p>
                     </div>
                 </div>
             }
@@ -389,8 +404,6 @@
         document.addEventListener('DOMContentLoaded', function () {
             const thumbs = Array.from(document.querySelectorAll('.thumb-img'));
             const mainImg = document.getElementById('currentImage');
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
 
             var exampleModal = document.getElementById('staticChildrenBackdrop')
             exampleModal.addEventListener('show.bs.modal', function (event) {
@@ -400,25 +413,14 @@
                 deleteChildForm.action = '/Ads/' + childId + '/Delete';
             })
 
-            function updateMain(src) {
-                mainImg.src = src;
+            function updateMain(counter) {
+                const carousel = new bootstrap.Carousel('#carousel');
+                carousel.to(counter);
             }
 
             thumbs.forEach(thumb => thumb.addEventListener('click', () => {
-                updateMain(thumb.dataset.src);
+                updateMain(thumb.dataset.counter);
             }));
-
-            prevBtn.addEventListener('click', () => {
-                const idx = thumbs.findIndex(t => t.dataset.src === mainImg.src);
-                const prevIdx = (idx - 1 + thumbs.length) % thumbs.length;
-                updateMain(thumbs[prevIdx].dataset.src);
-            });
-
-            nextBtn.addEventListener('click', () => {
-                const idx = thumbs.findIndex(t => t.dataset.src === mainImg.src);
-                const nextIdx = (idx + 1) % thumbs.length;
-                updateMain(thumbs[nextIdx].dataset.src);
-            });
 
             // Масштабирование через Bootstrap Modal
             mainImg.addEventListener('click', () => {

@@ -31,12 +31,6 @@ public class ReviewsController : BaseController
     {
         try
         {
-            var user = await _dbContext.Users
-                .Include(u => u.Medias)
-                .FirstOrDefaultAsync(u => u.Id == model.UserId);
-            if (user is null)
-                return NotFound();
-            
             if (!ModelState.IsValid)
                 return BadRequest("Не валидные данные!");
 
@@ -45,7 +39,6 @@ public class ReviewsController : BaseController
                 return Unauthorized();
             
             var ownUser = await _dbContext.Users
-                .Include(u => u.Medias)
                 .FirstOrDefaultAsync(u => u.Id == ownUserId);
             
             if (ownUser is null)
@@ -53,6 +46,8 @@ public class ReviewsController : BaseController
                 ModelState.AddModelError(string.Empty, "Пользователь не найден");
                 return View(model);
             }
+            
+            model.UserId = ownUserId;
 
             await _dbContext.Reviews.AddAsync(model);
             await _dbContext.SaveChangesAsync();

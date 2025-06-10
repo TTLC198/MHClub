@@ -3,7 +3,7 @@
     Layout = "_ProfileLayout";
 }
 
-<h2 class="mb-4">Активные объявления</h2>
+<h2 class="mb-4">@ViewBag.Title</h2>
 
 @{
     var ads = ViewBag.Ads as List<MHClub.Models.Ads.AdsIndexViewModel> ?? new();

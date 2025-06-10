@@ -13,15 +13,16 @@
             <div class="card ad-card h-auto" onclick="location.href = '@Url.Action("Single", "Ads", new { id = ad.Id })';">
                 @{
                     var image = ad.Images?.FirstOrDefault();
+                    var imageUrl = @Url.Action("Get", "Media", new { path = image?.GetLocalPath() });
                 }
                 <div class="ad-card-image">
-                    @if (image is null)
+                    @if (image is null || imageUrl == "/Media")
                     {
                         <img src="~/images/no-photo.png" class="card-img-top" alt="Без изображения">
                     }
                     else
                     {
-                        <img src="@Url.Action("Get", "Media", new { path = image?.GetLocalPath() })" class="card-img-top" alt="Изображение товара">
+                        <img src="@imageUrl" class="card-img-top" alt="Изображение товара">
                     }
                 </div>
                 <div class="ad-card-body">

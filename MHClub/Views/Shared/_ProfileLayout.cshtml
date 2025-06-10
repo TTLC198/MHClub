@@ -69,7 +69,7 @@
           }
           else
           {
-            <div class="d-flex flex-column vh-100">
+            <div class="d-flex flex-column">
               <div class="d-grid gap-2 w-100">
                 @if (ViewBag.IsOwn == true)
                 {
@@ -82,16 +82,13 @@
                         class="btn btn-outline-dark rounded-2 py-2">
                   Показать архивные объявления
                 </button>
+                @if (ViewBag.IsOwn == true)
+                {
+                  <button onclick="location.href='@Url.Action("Logout", "Auth")';" class="btn btn-outline-danger rounded-2 py-2">
+                    Выйти
+                  </button>
+                }
               </div>
-              @if (ViewBag.IsOwn == true)
-              {
-                @*<div class="mt-auto d-grid w-100">
-                  
-                </div>*@
-                <button onclick="location.href='@Url.Action("Logout", "Auth")';" class="btn btn-outline-danger rounded-2 py-2">
-                  Выйти
-                </button>
-              }
             </div>
           }
         </div>
