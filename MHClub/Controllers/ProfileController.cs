@@ -197,6 +197,7 @@ public class ProfileController : BaseController
             ViewBag.Reviews = await _dbContext.Ads
                 .Include(a => a.Reviews)!
                 .ThenInclude(r => r.User)
+                .ThenInclude(u => u.Medias)
                 .Where(a => a.SellerId == user.Id)
                 .SelectMany(a => a.Reviews)
                 .ToListAsync();
