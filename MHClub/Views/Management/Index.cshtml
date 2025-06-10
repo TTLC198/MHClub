@@ -1,0 +1,49 @@
+﻿@model IEnumerable<MHClub.Domain.Models.User>
+@{
+    ViewData["Title"] = "Управление администраторами";
+}
+
+<h1 class="mb-4">@ViewData["Title"]</h1>
+
+<div class="d-flex justify-content-end mb-3">
+    <a asp-action="Create" class="post-button">
+        <span class="iconify me-2" data-icon="mdi:account-plus"></span>
+        Новый админ
+    </a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover align-middle">
+        <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Email</th>
+            <th>Телефон</th>
+            <th>Дата регистрации</th>
+            <th class="text-center">Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var admin in Model)
+        {
+            <tr>
+                <td>@admin.Name</td>
+                <td>@admin.Email</td>
+                <td>@admin.Phone</td>
+                <td>@admin.DateOfRegistration.ToString("dd.MM.yyyy")</td>
+                <td class="text-center">
+                    <form asp-action="Delete" method="post" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@admin.Id" />
+                        <button type="submit"
+                                class="btn btn-outline-danger btn-sm delete-ad-btn"
+                                title="Удалить админа">
+                            <span class="iconify" data-icon="mdi:delete"></span>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
