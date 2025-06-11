@@ -11,6 +11,7 @@ public class AdsIndexViewModel : Ad
     
     public bool? IsOwn { get; set; }
     public bool? IsArchived { get; set; }
+    public bool? IsDeleted { get; set; }
     
     public UserProfileDto? UserProfileDto { get; set; }
     

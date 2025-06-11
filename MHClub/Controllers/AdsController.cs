@@ -153,6 +153,7 @@ public class AdsController : BaseController
         IsFavourite = isFav,
         IsOwn = isOwn,
         IsArchived = ad.Status?.Id == 2, //todo
+        IsDeleted = ad.Status?.Id == 4, //todo
         UserProfileDto = await GetUserProfileAsync(ad.Seller!),
         ChildrenAds = childrenAds,
         ParentAd = ad.ParentAd == null

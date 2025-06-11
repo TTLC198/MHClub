@@ -67,6 +67,10 @@
                 @if (Model.IsArchived == true)
                 {
                     <span class="text-muted fs-5 ms-2">(Архивное)</span>
+                } 
+                @if (Model.IsDeleted == true)
+                {
+                    <span class="text-muted fs-5 ms-2">(Удалено админом)</span>
                 }
                 @if (User.Identity?.IsAuthenticated == true && Model.IsOwn != true && userRole != "Admin")
                 {
@@ -280,13 +284,16 @@
             }
             @if (userRole == "Admin")
             {
-                <button
-                    data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop"
-                    type="button"
-                    class="btn btn-outline-dark rounded-2">
-                    Удалить
-                </button>
+                if (Model.StatusId == 1)
+                {
+                    <button
+                        data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop"
+                        type="button"
+                        class="btn btn-outline-dark rounded-2">
+                        Удалить
+                    </button>
+                }
             }
         </div>
     </div>
@@ -403,7 +410,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const thumbs = Array.from(document.querySelectorAll('.thumb-img'));
-            const mainImg = document.getElementById('currentImage');
 
             var exampleModal = document.getElementById('staticChildrenBackdrop')
             exampleModal.addEventListener('show.bs.modal', function (event) {
@@ -421,13 +427,6 @@
             thumbs.forEach(thumb => thumb.addEventListener('click', () => {
                 updateMain(thumb.dataset.counter);
             }));
-
-            // Масштабирование через Bootstrap Modal
-            mainImg.addEventListener('click', () => {
-                document.getElementById('modalImage').src = mainImg.src;
-                const bsPhotoModal = new bootstrap.Modal(document.getElementById('photoModal'));
-                bsPhotoModal.show();
-            });
 
             // Показать окно жалобы
             const openComplaintBtn = document.getElementById("openComplaintBtn");
