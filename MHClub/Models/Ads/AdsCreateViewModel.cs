@@ -12,11 +12,12 @@ public class AdsCreateViewModel : AdsIndexViewModel
 {
     [Display(Name = "Название объявления")]
     [Required(ErrorMessage = "Значение не может быть пустым")]
+    [MaxLength(50)]
     public override string Name { get; set; } = string.Empty;
 
     [Display(Name = "Стоимость товара в рублях")]
     [Required(ErrorMessage = "Значение не может быть пустым")]
-    [Range(0, double.MaxValue, ErrorMessage = "Значение должно быть числом")]
+    [Range(0, 1000000000, ErrorMessage = "Значение должно быть числом от 0 до 1000000000")]
     public override float Cost { get; set; }
 
     [Display(Name = "Страна производства")]
@@ -30,19 +31,20 @@ public class AdsCreateViewModel : AdsIndexViewModel
 
     [Display(Name = "Описание")]
     [Required(ErrorMessage = "Значение не может быть пустым")]
+    [MaxLength(500)]
     public override string Description { get; set; }
 
     [Display(Name = "Категория")]
     [Required(ErrorMessage = "Значение не может быть пустым")]
-    public override int CategoryId { get; set; }
+    public override int CategoryId { get; set; } = 0;
 
     [Display(Name = "Состояние")]
     [Required(ErrorMessage = "Значение не может быть пустым")]
-    [Range(0, 3, ErrorMessage = "Выберите состояние товара")]
-    public override int ConditionId { get; set; }
-    
+    [Range(1, 3, ErrorMessage = "Выберите состояние товара")]
+    public override int ConditionId { get; set; } = 0;
+
     [Display(Name = "Использовать как основной товар")]
-    public bool IsMainAd { get; set; }
+    public bool IsMainAd { get; set; } = false;
 
     public List<SelectListItem> CountriesSelect { get; set; } = new();
     

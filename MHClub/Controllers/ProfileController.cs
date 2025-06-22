@@ -7,12 +7,15 @@ using MHClub.Models.Ads;
 using MHClub.Models.User;
 using MHClub.Services;
 using MHClub.Utils;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.VisualBasic;
 
 namespace MHClub.Controllers;
 
@@ -83,7 +86,7 @@ public class ProfileController : BaseController
                 return Unauthorized();
             ViewBag.Id = userId;
             var user = await _dbContext.Users
-                .Include(u => u.Medias)
+                .Include(u => u.Medias).Include(user => user.Role)
                 .FirstOrDefaultAsync(u => u.Id == userId);
             if (user is null)
             {
@@ -94,10 +97,11 @@ public class ProfileController : BaseController
             var userPhoto = user.Medias?.FirstOrDefault();
             inputUser.ImageUrl = userPhoto?.Path ?? "";
 
-            if (ModelState.IsValid)
-            {
+            if (_dbContext.Users.Any(u => u.Phone == inputUser.Phone))
+                ModelState.AddModelError(nameof(UserEditDto.Phone), "Данный номер телефона уже используется в системе");
+            
+            if (!ModelState.IsValid)
                 return View(inputUser);
-            }
 
             if (passwordEditMode)
             {
@@ -137,6 +141,17 @@ public class ProfileController : BaseController
             user.Name = inputUser.Name;
 
             await _dbContext.SaveChangesAsync();
+
+            await HttpContext.SignOutAsync();
+            var authClaims = new List<Claim>
+            {
+                new("id", Strings.Trim($"{user.Id}")),
+                new(ClaimTypes.Role, Strings.Trim(user.Role?.Name)),
+                new(ClaimTypes.Name, Strings.Trim(user.Name))
+            };
+            var claimsIdentity = new ClaimsIdentity(authClaims, "Cookies");
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity));
 
             return RedirectToAction("OwnProfile");
         }
@@ -209,7 +224,7 @@ public class ProfileController : BaseController
             
             ViewBag.UserAds = archivedAds.Select(a => new SelectListItem(a.Name, a.Id.ToString())).ToList();
             
-            ViewData["Title"] = "Активные объявления — " + user.Name;
+            ViewData["Title"] = "Активные объявления";
 
             return View(await GetUserProfileAsync(user));
         }
@@ -246,7 +261,7 @@ public class ProfileController : BaseController
                 Images = ad.Medias.Select(m => m.Path).ToList()
             }).ToList();
             
-            ViewData["Title"] = "Архивные объявления — " + user.Name;
+            ViewData["Title"] = "Архивные объявления";
 
             return View("Profile", await GetUserProfileAsync(user));
         }

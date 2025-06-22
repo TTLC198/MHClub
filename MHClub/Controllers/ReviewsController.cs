@@ -49,6 +49,12 @@ public class ReviewsController : BaseController
             
             model.UserId = ownUserId;
 
+            if (_dbContext.Reviews.Any(r => r.UserId == model.UserId && r.AdId == model.AdId))
+            {
+                ModelState.AddModelError(string.Empty, "Нельзя создать два отзыва на одно объявление");
+                return View(model);
+            }
+
             await _dbContext.Reviews.AddAsync(model);
             await _dbContext.SaveChangesAsync();
 

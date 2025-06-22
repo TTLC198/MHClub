@@ -141,7 +141,7 @@ public class AdsController : BaseController
       var isOwn = ad.SellerId == userId;
 
       var childrenAds = ad.ChildrenAds?
-        .Where(a => a.StatusId == 1)
+        .Where(a => a.StatusId == 1 || a.StatusId == (int)StatusType.Hidden)
         .Select(a => new AdsIndexViewModel(a)
         {
           Images = a.Medias?.Select(m => m.Path).ToList(),
@@ -248,7 +248,7 @@ public class AdsController : BaseController
       if (!ModelState.IsValid)
         return View(model);
 
-      var existedAd = await _dbContext.Ads.FirstOrDefaultAsync(u => u.Name == model.Name);
+      var existedAd = await _dbContext.Ads.FirstOrDefaultAsync(u => u.Name == model.Name && u.StatusId == (int)StatusType.Default);
       if (existedAd is not null)
       {
         ModelState.AddModelError(string.Empty, "Объявление с подобным именем уже существует!");
@@ -304,7 +304,7 @@ public class AdsController : BaseController
         await _dbContext.Ads.AddAsync(hiddenAd);
         await _dbContext.SaveChangesAsync();
       }
-
+      
       foreach (var mediaCreateDto in model.Images.Select(imageFile => new MediaCreateDto()
                {
                  AdId = adEntry.Entity.Id,
@@ -319,7 +319,7 @@ public class AdsController : BaseController
     }
     catch (Exception exception)
     {
-      ModelState.AddModelError(string.Empty, exception.Message);
+      ModelState.AddModelError(string.Empty, "Произошла системная ошибка!");
       return View(model);
     }
   }
@@ -349,6 +349,9 @@ public class AdsController : BaseController
 
       if (!isOwn)
         return RedirectToAction("Index", "Errors", new { error = "Вы не можете восстановить чужое объявление" });
+      
+      if (_dbContext.Ads.Any(a => a.Name == ad.Name || a.StatusId == (int)StatusType.Default))
+        return RedirectToAction("Index", "Errors", new { error = "Объявление не может иметь такое же название, как у другого объявления. Сначала измените имя объявления" });
 
       ad.StatusId = 1;
       await _dbContext.SaveChangesAsync();
@@ -439,6 +442,13 @@ public class AdsController : BaseController
       ViewBag.Conditions = conditions.Select(c => new SelectListItem(c.Name, c.Id.ToString())).ToList();
 
       model = model.TrimStringProperties();
+      
+      var existedAd = await _dbContext.Ads.FirstOrDefaultAsync(u => u.Name == model.Name && u.StatusId == (int)StatusType.Default);
+      if (existedAd is not null)
+      {
+        ModelState.AddModelError(string.Empty, "Объявление с подобным именем уже существует!");
+        return View(model);
+      }
 
       if (!ModelState.IsValid)
         return View(model);

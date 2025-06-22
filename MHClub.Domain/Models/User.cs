@@ -14,7 +14,7 @@ public class User
 
     [Display(Name = "Имя пользователя")]
     [Required(ErrorMessage = "Необходимо заполнить поле")]
-    [RegularExpression("^[А-ЯЁ][а-яё]+(?:\\s+[А-ЯЁ][а-яё]+)?$", ErrorMessage = "Имя должно содержать только буквы (русские или английские)")]
+    //[RegularExpression("^[А-ЯЁ][а-яё]+(?:\\s+[А-ЯЁ][а-яё]+)?$", ErrorMessage = "Имя должно содержать только буквы (русские или английские)")]
     [Column("user_name")]
     public string? Name { get; set; }
 

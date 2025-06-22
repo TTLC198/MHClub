@@ -15,7 +15,16 @@
             <!-- Мини-превью -->
             <div class="d-flex flex-column gap-3 me-4">
                 @{
-                    int i = 0;
+                    var i = 0;
+                }
+                @if (Model.Images?.Count == 0)
+                {
+                    <img src="/images/no-photo.png"
+                         class="thumb-img rounded-2 shadow-sm"
+                         style="width: 64px; height: 64px; object-fit: cover; cursor: pointer;"
+                         data-src="/images/no-photo.png"
+                         data-counter="@i"/>
+                    i++;
                 }
                 @foreach (var img in Model.Images ?? Enumerable.Empty<string>())
                 {
@@ -30,10 +39,18 @@
             </div>
             <!-- Главное изображение с контролами -->
             <div class="flex-grow-1 position-relative" style="height: fit-content;">
-                <div id="carousel" class="carousel slide mb-3" data-bs-ride="carousel">
+                <div id="carousel" class="carousel slide mb-3">
                     <div class="carousel-inner">
                         @{
                             var firstImage = true;
+                        }
+                        @if (Model.Images?.Count == 0)
+                        {
+                            <div class="carousel-item@(firstImage ? Html.Raw(" active") : Html.Raw(""))">
+                                <img src="/images/no-photo.png"
+                                     class="w-100 rounded-3 shadow-sm"
+                                     data-src="/images/no-photo.png"/>
+                            </div>
                         }
                         @foreach (var img in Model.Images ?? Enumerable.Empty<string>())
                         {

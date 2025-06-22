@@ -35,6 +35,7 @@
                     <label class="form-label fw-bold mb-1">Название объявления</label>
                     @Html.TextBoxFor(m => m.Name, new { @class = "form-control bg-light", placeholder = "Например: Коллекционная монета 1905 г.", style = "border: none; background-color: #EAEAEA;" })
                     @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                    <div class="form-text text-muted mt-1">Максимум 50 символов</div>
                 </div>
 
                 <!-- Состояние -->
@@ -93,6 +94,7 @@
                     <label class="form-label fw-bold mb-1">Описание</label>
                     @Html.TextAreaFor(m => m.Description, new { @class = "form-control bg-light", placeholder = "Расскажите о вашем предмете", style = "border: none; background-color: #EAEAEA;", rows = 4 })
                     @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                    <div class="form-text text-muted mt-1">Максимум 500 символов</div>
                 </div>
 
                 <!-- Фотографии -->

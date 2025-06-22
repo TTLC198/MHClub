@@ -5,7 +5,7 @@ namespace MHClub.Models.User;
 public class UserEditDto : Domain.Models.User
 {
     public IFormFile? Avatar { get; set; }
-    public string ImageUrl { get; set; }
+    public string? ImageUrl { get; set; }
     
     [Display(Name = "Повторите пароль")]
     [Required(ErrorMessage = "Необходимо заполнить поле")]

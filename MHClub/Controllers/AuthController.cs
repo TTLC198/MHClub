@@ -102,7 +102,10 @@ public class AuthController : BaseController
         {
             if (!inputUser.IsPasswordEquals)
                 ModelState.AddModelError(nameof(UserRegisterDto.RepeatPassword), "Пароли должны совпадать");
-
+            
+            if (_dbContext.Users.Any(u => u.Phone == inputUser.Phone))
+                ModelState.AddModelError(nameof(UserRegisterDto.Phone), "Данный номер телефона уже используется в системе");
+            
             if (!ModelState.IsValid)
                 return View(inputUser);
 
