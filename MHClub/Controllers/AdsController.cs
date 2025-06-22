@@ -45,6 +45,10 @@ public class AdsController : BaseController
         }
       };
       ViewBag.SearchText = Search;
+      
+      var categories = await _dbContext.Categories.ToListAsync();
+      ViewBag.AllCategories = categories.ToList();
+      
       return View(model);
     }
     catch (Exception exception)
@@ -75,6 +79,7 @@ public class AdsController : BaseController
         .Where(a => a.SellerId != userId)
         .Where(a => model.MinPrice == null || a.Cost > model.MinPrice)
         .Where(a => model.MaxPrice == null || a.Cost < model.MaxPrice)
+        .Where(a => model.CategoryId == null || a.CategoryId == model.CategoryId)
         .Where(a => model.Condition == null || a.ConditionId == (int)(model.Condition ?? ItemCondition.New))
         .Where(a => model.SearchText == null || a.Name.ToLower().Contains(model.SearchText) ||
                     a.Description != null && a.Description.ToLower().Contains(model.SearchText))

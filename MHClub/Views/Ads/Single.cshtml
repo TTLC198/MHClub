@@ -166,13 +166,16 @@
             {
                 <div class="children-header mb-3">
                     <h5 class="mb-0">Декомпозиция:</h5>
-                    <button
-                        type="button"
-                        class="add-child-btn"
-                        title="Добавить подраздел"
-                        onclick="location.href='@Url.Action("Create", "Ads", new { parentAdId = Model.Id })';">
-                        <span class="iconify" data-icon="mdi:plus"></span>
-                    </button>
+                    @if (Model.IsOwn == true)
+                    {
+                        <button
+                            type="button"
+                            class="add-child-btn"
+                            title="Добавить подраздел"
+                            onclick="location.href='@Url.Action("Create", "Ads", new { parentAdId = Model.Id })';">
+                            <span class="iconify" data-icon="mdi:plus"></span>
+                        </button>
+                    }
                 </div>
                 <div class="d-flex flex-column gap-2">
                     @foreach (var child in Model.ChildrenAds.Where(ad => ad.StatusId != (int)StatusType.Hidden))

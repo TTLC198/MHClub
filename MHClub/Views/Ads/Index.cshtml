@@ -1,59 +1,93 @@
-﻿@using MHClub.Domain.Models.Enums
-@using MHClub.Models.Ads
-@using Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@using System.Text.Json
+@using System.Text.Json.Serialization
+@using MHClub.Domain.Models
+@using MHClub.Domain.Models.Enums
 @model MHClub.Models.Ads.AdsIndexDto
 
 @{
     Layout = "_Layout";
     ViewBag.Title = "Главная";
     ViewBag.ColumnsCount = 4;
+
+    var allCategories = ViewBag.AllCategories as List<Category> ?? [];
+    var categoriesJson = JsonSerializer.Serialize(allCategories, new JsonSerializerOptions() { MaxDepth = 0, ReferenceHandler = ReferenceHandler.IgnoreCycles });
 }
 
 <div class="container-main">
-    <div class="filter-card">
-        <form id="filterForm">
-            <input type="hidden" name="SearchText" value="@Model.AdsSearchViewModel.SearchText"/>
-            <h6>Цена</h6>
-            <div class="d-flex gap-2 mb-3">
-                <input type="text" name="MinPrice" placeholder="0" class="form-control" value="@Model.AdsSearchViewModel.MinPrice">
-                <input type="text" name="MaxPrice" placeholder="999999" class="form-control" value="@Model.AdsSearchViewModel.MaxPrice">
-            </div>
-            <h6>Высокий рейтинг</h6>
-            <div class="form-check form-switch mb-3">
-                <input type="checkbox" class="form-check-input" id="highRating" name="HighRating" value="@Model.AdsSearchViewModel.HighRating">
-            </div>
-            <h6>Состояние</h6>
-            @foreach (ItemCondition condition in Enum.GetValues(typeof(ItemCondition)))
-            {
-                var conditionLabel = condition switch
-                {
-                    ItemCondition.New => "Новое",
-                    ItemCondition.Used => "Б/у",
-                    ItemCondition.NeedsRepair => "Требует ремонта",
-                    _ => "Неизвестное"
-                };
-
-                <div class="form-check">
-                    <input type="radio" class="form-check-input" id="@condition" name="Condition" value="@condition">
-                    <label class="form-check-label" for="@condition">@conditionLabel</label>
+    <div class="d-flex flex-column gap-2">
+        <div class="filter-card">
+            <form id="filterForm">
+                <input type="hidden" name="SearchText" value="@Model.AdsSearchViewModel.SearchText"/>
+                <h6>Цена</h6>
+                <div class="d-flex gap-2 mb-3">
+                    <input type="text" name="MinPrice" placeholder="0" class="form-control"
+                           value="@Model.AdsSearchViewModel.MinPrice">
+                    <input type="text" name="MaxPrice" placeholder="999999" class="form-control"
+                           value="@Model.AdsSearchViewModel.MaxPrice">
                 </div>
-            }
-            <h6>Тип</h6>
-            @foreach (ItemType type in Enum.GetValues(typeof(ItemType)))
-            {
-                var typeLabel = type switch
-                {
-                    ItemType.Main => "Основное",
-                    ItemType.Decomposed => "Декомпозированное",
-                    _ => "Неизвестное"
-                };
-
-                <div class="form-check">
-                    <input type="radio" class="form-check-input" id="@type" name="Type" value="@type">
-                    <label class="form-check-label" for="@type">@typeLabel</label>
+                <h6>Высокий рейтинг</h6>
+                <div class="form-check form-switch mb-3">
+                    <input type="checkbox" class="form-check-input" id="highRating" name="HighRating"
+                           value="@Model.AdsSearchViewModel.HighRating">
                 </div>
-            }
-        </form>
+                <h6>Состояние</h6>
+                @foreach (ItemCondition condition in Enum.GetValues(typeof(ItemCondition)))
+                {
+                    var conditionLabel = condition switch
+                    {
+                        ItemCondition.New => "Новое",
+                        ItemCondition.Used => "Б/у",
+                        ItemCondition.NeedsRepair => "Требует ремонта",
+                        _ => "Неизвестное"
+                    };
+
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="@condition" name="Condition"
+                               value="@condition">
+                        <label class="form-check-label" for="@condition">@conditionLabel</label>
+                    </div>
+                }
+                <h6>Тип</h6>
+                @foreach (ItemType type in Enum.GetValues(typeof(ItemType)))
+                {
+                    var typeLabel = type switch
+                    {
+                        ItemType.Main => "Основное",
+                        ItemType.Decomposed => "Декомпозированное",
+                        _ => "Неизвестное"
+                    };
+
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="@type" name="Type" value="@type">
+                        <label class="form-check-label" for="@type">@typeLabel</label>
+                    </div>
+                }
+                <input type="hidden" id="SelectedCategoryId" name="CategoryId"/>
+            </form>
+        </div>
+        @* Выбор категорий *@
+        <div class="filter-card">
+            <div class="d-flex gap-3">
+                <!-- Первый уровень категорий -->
+                <div class="flex-fill">
+                    <div class="list-group bg-white rounded var-shadow-light" id="cat-level-1">
+                        <!-- Заполняется через JS -->
+                    </div>
+                </div>
+                <!-- Второй уровень категорий -->
+                <div class="flex-fill">
+                    <div class="list-group bg-white rounded var-shadow-light" id="cat-level-2">
+                        <!-- Заполняется через JS -->
+                    </div>
+                </div>
+                <!-- Третий уровень категорий -->
+                <div class="flex-fill">
+                    <div class="list-group bg-white rounded var-shadow-light" id="cat-level-3">
+                        <!-- Заполняется через JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="ads-list">
         <div class="sort-select">
@@ -75,95 +109,152 @@
 @section Scripts
 {
     <script>
+        const allCategories = @Html.Raw(categoriesJson);
+
+        const updateAds = () => {
+            const formData = new FormData(filterForm);
+            formData.append('SortBy', sortBy.value);
+
+            fetch('@Url.Action("AdsList")', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.text())
+                .then(html => {
+                    adsContainer.innerHTML = html;
+                    updateFilterTags(Object.fromEntries(formData.entries()));
+                })
+                .catch(error => console.error('Ошибка загрузки объявлений:', error));
+        };
+
+        const updateFilterTags = (filters) => {
+            filterTags.innerHTML = '';
+            Object.entries(filters).forEach(([key, value]) => {
+                if (key === 'Condition') {
+                    value = {
+                        New: 'Новое',
+                        Used: 'Б/у',
+                        NeedsRepair: 'Требует ремонта'
+                    }[value] || value;
+                } else if (key === 'Type') {
+                    value = {
+                        Main: 'Основное',
+                        Decomposed: 'Декомпозированное'
+                    }[value] || value;
+                } else if (key === 'CategoryId') {
+                    if (allCategories.find(x => x["Id"] == value)) 
+                        value = allCategories.find(x => x["Id"] == value)["Name"] || value;
+                }
+
+                let friendlyName = ``;
+                switch (key) {
+                    case 'Condition':
+                        friendlyName = 'Состояние';
+                        break;
+                    case 'Type':
+                        friendlyName = 'Тип';
+                        break;
+                    case 'HighRating':
+                        friendlyName = 'Высокий рейтинг';
+                        break;
+                    case 'MinPrice':
+                        friendlyName = 'Мин. цена';
+                        break;
+                    case 'MaxPrice':
+                        friendlyName = 'Макс. цена';
+                        break;
+                    case 'SortBy':
+                        friendlyName = 'Сортировка по';
+                        break;
+                    case 'SearchText':
+                        friendlyName = 'Поиск';
+                        break;
+                    case 'CategoryId':
+                        friendlyName = 'Категория';
+                        break;
+                    default :
+                        friendlyName = key;
+                        break;
+                }
+
+                const tag = document.createElement('div');
+                tag.classList.add('filter-tag');
+                tag.textContent = `${friendlyName}: ${value}`;
+
+                const removeButton = document.createElement('button');
+                // в JS при создании тега
+                removeButton.innerHTML = '<span class="iconify" data-icon="mdi:close" style="font-size: 2em;"></span>';
+                removeButton.addEventListener('click', () => {
+                    if (key === 'HighRating') {
+                        document.getElementById('highRating').checked = false;
+                    } else if (key === 'Condition' || key === 'Type') {
+                        const inputs = filterForm.querySelectorAll(`input[name='${key}']`);
+                        inputs.forEach(input => input.checked = false);
+                    } else {
+                        filterForm.querySelector(`input[name='${key}']`).value = '';
+                    }
+                    updateAds();
+                });
+                tag.appendChild(removeButton);
+                filterTags.appendChild(tag);
+            });
+        };
+
+        function populateLevel(level, parentId) {
+            const container = document.getElementById(`cat-level-${level}`);
+            container.innerHTML = '';
+            const items = allCategories.filter(cat => cat.ParentCategoryId === parentId);
+            items.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'list-group-item list-group-item-action bg-white mb-2 rounded d-flex justify-content-between align-items-center';
+                btn.style = 'border: none; color: #000;';
+                btn.textContent = cat.Name;
+                const hasChildren = allCategories.some(c => c.ParentCategoryId === cat.Id);
+                if (hasChildren) {
+                    const arrow = document.createElement('i');
+                    arrow.className = 'bi-chevron-right';
+                    arrow.style.color = '#333';
+                    btn.appendChild(arrow);
+                }
+                btn.onmouseenter = () => btn.style.boxShadow = 'var(--shadow-light)';
+                btn.onmouseleave = () => btn.style.boxShadow = 'none';
+                btn.onclick = () => onCategoryClick(level, cat.Id, event);
+                container.appendChild(btn);
+            });
+        }
+
+        function onCategoryClick(level, categoryId, event) {
+            const levelContainer = document.getElementById(`cat-level-${level}`);
+            Array.from(levelContainer.children).forEach(ch => ch.classList.remove('cat-selected', 'active'));
+            const clicked = event.currentTarget;
+            clicked.classList.add('cat-selected');
+            clicked.classList.add('active');
+
+            for (let lv = level + 1; lv <= 3; lv++) {
+                document.getElementById(`cat-level-${lv}`).innerHTML = '';
+            }
+            if (level < 3) {
+                const hasChildren = allCategories.some(c => c.ParentCategoryId === categoryId)
+                if (!hasChildren) {
+                    document.getElementById('SelectedCategoryId').value = categoryId;
+                    updateAds();
+                    return;
+                }
+                populateLevel(level + 1, categoryId);
+            } else {
+                document.getElementById('SelectedCategoryId').value = categoryId;
+                updateAds();
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const filterForm = document.getElementById('filterForm');
             const filterTags = document.getElementById('filterTags');
             const sortBy = document.getElementById('sortBy');
             const adsContainer = document.getElementById('adsContainer');
 
-            const updateAds = () => {
-                const formData = new FormData(filterForm);
-                formData.append('SortBy', sortBy.value);
-
-                fetch('@Url.Action("AdsList")', {
-                    method: 'POST',
-                    body: formData
-                })
-                    .then(response => response.text())
-                    .then(html => {
-                        adsContainer.innerHTML = html;
-                        updateFilterTags(Object.fromEntries(formData.entries()));
-                    })
-                    .catch(error => console.error('Ошибка загрузки объявлений:', error));
-            };
-
-            const updateFilterTags = (filters) => {
-                filterTags.innerHTML = '';
-                Object.entries(filters).forEach(([key, value]) => {
-                    if (key === 'Condition') {
-                        value = {
-                            New: 'Новое',
-                            Used: 'Б/у',
-                            NeedsRepair: 'Требует ремонта'
-                        }[value] || value;
-                    } else if (key === 'Type') {
-                        value = {
-                            Main: 'Основное',
-                            Decomposed: 'Декомпозированное'
-                        }[value] || value;
-                    }
-                    
-                    let friendlyName = ``;
-                    switch (key) {
-                        case 'Condition':
-                            friendlyName = 'Состояние';
-                            break;
-                        case 'Type':
-                            friendlyName = 'Тип';
-                            break;
-                        case 'HighRating':
-                            friendlyName = 'Высокий рейтинг';
-                            break;
-                        case 'MinPrice':
-                            friendlyName = 'Мин. цена';
-                            break;
-                        case 'MaxPrice':
-                            friendlyName = 'Макс. цена';
-                            break;
-                        case 'SortBy':
-                            friendlyName = 'Сортировка по';
-                            break;
-                        case 'SearchText':
-                            friendlyName = 'Поиск';
-                            break;
-                        default :
-                            friendlyName = key;
-                            break;
-                    }
-
-                    const tag = document.createElement('div');
-                    tag.classList.add('filter-tag');
-                    tag.textContent = `${friendlyName}: ${value}`;
-
-                    const removeButton = document.createElement('button');
-                    // в JS при создании тега
-                    removeButton.innerHTML = '<span class="iconify" data-icon="mdi:close" style="font-size: 2em;"></span>';
-                    removeButton.addEventListener('click', () => {
-                        if (key === 'HighRating') {
-                            document.getElementById('highRating').checked = false;
-                        } else if (key === 'Condition' || key === 'Type') {
-                            const inputs = filterForm.querySelectorAll(`input[name='${key}']`);
-                            inputs.forEach(input => input.checked = false);
-                        } else {
-                            filterForm.querySelector(`input[name='${key}']`).value = '';
-                        }
-                        updateAds();
-                    });
-                    tag.appendChild(removeButton);
-                    filterTags.appendChild(tag);
-                });
-            };
-
+            populateLevel(1, null);
             filterForm.addEventListener('input', updateAds);
             sortBy.addEventListener('change', updateAds);
             updateAds();

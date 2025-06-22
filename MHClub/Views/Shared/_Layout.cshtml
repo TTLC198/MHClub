@@ -113,8 +113,11 @@
 {
     <script>
         document.getElementById('toggleFilterBtn').addEventListener('click', function () {
-            var sidebar = document.querySelector('.filter-card');
-            if (sidebar) sidebar.classList.toggle('d-none');
+            let sidebar = document.getElementsByClassName('.filter-card');
+            Object.entries(sidebar).forEach(([key, value]) => {
+                console.log(key, value);
+                value.classList.toggle('d-none')
+            })
         });
     </script>
 }

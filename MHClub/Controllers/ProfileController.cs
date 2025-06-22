@@ -97,7 +97,7 @@ public class ProfileController : BaseController
             var userPhoto = user.Medias?.FirstOrDefault();
             inputUser.ImageUrl = userPhoto?.Path ?? "";
 
-            if (_dbContext.Users.Any(u => u.Phone == inputUser.Phone))
+            if (_dbContext.Users.Any(u => u.Phone == inputUser.Phone && u.Id != userId))
                 ModelState.AddModelError(nameof(UserEditDto.Phone), "Данный номер телефона уже используется в системе");
             
             if (!ModelState.IsValid)
