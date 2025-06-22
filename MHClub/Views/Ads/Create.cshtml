@@ -42,7 +42,7 @@
                 <div class="col-12">
                     <label class="form-label fw-bold mb-1">Состояние</label>
                     <div class="btn-group" role="group" aria-label="Состояние" id="state-group">
-                        @foreach (var cond in (List<SelectListItem>)ViewBag.Conditions)
+                        @foreach (var cond in (List<SelectListItem>)ViewBag.Conditions ?? [])
                         {
                             var isSelected = Model.ConditionId.ToString() == cond.Value;
                             var inputId = "Condition_" + cond.Value;
