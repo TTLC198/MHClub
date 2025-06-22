@@ -151,7 +151,7 @@
             <div class="modal-body text-center py-4">
                 <p class="mb-3">Ваше объявление успешно размещено.</p>
                 <button type="button" class="btn btn-dark px-4" data-bs-dismiss="modal"
-                        onclick="location.href='@Url.Action("Index", "Ads")';">
+                        onclick="location.href='@Url.Action("Single", "Ads", new { Model.Id})';">
                     Хорошо
                 </button>
             </div>

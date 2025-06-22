@@ -21,6 +21,14 @@
       "PackagePath": "staticwebassets\\images\\12381563381.d5313cb45a884ac38d29314b0166f04c_71d2.jpg"
     },
     {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\300_300_0__files_sitedata_401_1439_f0bfa4ae-2267-4aeb-8a53-1bb6010cf0df_jpg_4BC2A3D6.jpg",
+      "PackagePath": "staticwebassets\\images\\300_300_0__files_sitedata_401_1439_f0bfa4ae-2267-4aeb-8a53-1bb6010cf0df_jpg_4BC2A3D6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\300_300_0__files_sitedata_401_1439_f0bfa4ae-2267-4aeb-8a53-1bb6010cf0df_jpg_4BC2A3D6_1906.jpg",
+      "PackagePath": "staticwebassets\\images\\300_300_0__files_sitedata_401_1439_f0bfa4ae-2267-4aeb-8a53-1bb6010cf0df_jpg_4BC2A3D6_1906.jpg"
+    },
+    {
       "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\74b1_0414.png",
       "PackagePath": "staticwebassets\\images\\74b1_0414.png"
     },
@@ -57,12 +65,12 @@
       "PackagePath": "staticwebassets\\images\\WhatsApp Image 2021-01-16 at 14.53.59_f4b6.jpeg"
     },
     {
-      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\avatar_1870.jpeg",
-      "PackagePath": "staticwebassets\\images\\avatar_1870.jpeg"
-    },
-    {
       "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\avatar_3e9f.jpeg",
       "PackagePath": "staticwebassets\\images\\avatar_3e9f.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\avatar_8412.jpeg",
+      "PackagePath": "staticwebassets\\images\\avatar_8412.jpeg"
     },
     {
       "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\images (1)_4e75.jpeg",
@@ -117,6 +125,10 @@
       "PackagePath": "staticwebassets\\images\\Просмотр чужого профиля. Возможность оставить отзыв (2)_8d45.png"
     },
     {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\Снимок экрана 2024-11-27 005825_c854.png",
+      "PackagePath": "staticwebassets\\images\\Снимок экрана 2024-11-27 005825_c854.png"
+    },
+    {
       "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\Создание объявления - Новое объявление 1 (1)_55b5.png",
       "PackagePath": "staticwebassets\\images\\Создание объявления - Новое объявление 1 (1)_55b5.png"
     },
@@ -169,12 +181,376 @@
       "PackagePath": "staticwebassets\\images\\Создание объявления - Успешное размещение объявления_24da.png"
     },
     {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\ава1.jpg",
+      "PackagePath": "staticwebassets\\images\\ава1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\ава1_fb6f.jpg",
+      "PackagePath": "staticwebassets\\images\\ава1_fb6f.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\кинопроектор.png",
+      "PackagePath": "staticwebassets\\images\\кинопроектор.png"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\кинопроектор_bdd4.png",
+      "PackagePath": "staticwebassets\\images\\кинопроектор_bdd4.png"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\клодинрасвет.jpg",
+      "PackagePath": "staticwebassets\\images\\клодинрасвет.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\клодинрасвет_a6c4.jpg",
+      "PackagePath": "staticwebassets\\images\\клодинрасвет_a6c4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\клодинрассвет2.jpg",
+      "PackagePath": "staticwebassets\\images\\клодинрассвет2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\клодинрассвет2_e548.jpg",
+      "PackagePath": "staticwebassets\\images\\клодинрассвет2_e548.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\клодинрепро.jpeg",
+      "PackagePath": "staticwebassets\\images\\клодинрепро.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\клодинрепро2.jpeg",
+      "PackagePath": "staticwebassets\\images\\клодинрепро2.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\клодинрепро2_b4ba.jpeg",
+      "PackagePath": "staticwebassets\\images\\клодинрепро2_b4ba.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\клодинрепро3.jpeg",
+      "PackagePath": "staticwebassets\\images\\клодинрепро3.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\клодинрепро3_9d2b.jpeg",
+      "PackagePath": "staticwebassets\\images\\клодинрепро3_9d2b.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\клодинрепро_43bb.jpeg",
+      "PackagePath": "staticwebassets\\images\\клодинрепро_43bb.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\купюра1.webp",
+      "PackagePath": "staticwebassets\\images\\купюра1.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\купюра1_21fa.webp",
+      "PackagePath": "staticwebassets\\images\\купюра1_21fa.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\купюра1_af66.webp",
+      "PackagePath": "staticwebassets\\images\\купюра1_af66.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\купюра2.webp",
+      "PackagePath": "staticwebassets\\images\\купюра2.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\купюра2_f7b1.webp",
+      "PackagePath": "staticwebassets\\images\\купюра2_f7b1.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\купюра6.webp",
+      "PackagePath": "staticwebassets\\images\\купюра6.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\купюра6_07d2.webp",
+      "PackagePath": "staticwebassets\\images\\купюра6_07d2.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\купюра6_69a5.webp",
+      "PackagePath": "staticwebassets\\images\\купюра6_69a5.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\лагуна1.jpg",
+      "PackagePath": "staticwebassets\\images\\лагуна1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\лагуна1.uWXCAIKyGj0pW89LsjDyBsUDZztH7qeyinSlUkOKXH0.webp",
+      "PackagePath": "staticwebassets\\images\\лагуна1.uWXCAIKyGj0pW89LsjDyBsUDZztH7qeyinSlUkOKXH0.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\лагуна1_47e7.jpg",
+      "PackagePath": "staticwebassets\\images\\лагуна1_47e7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\марка.UlcfrSgCVZTMGakzssNuuh4XeA-STKyKcMATkNdseqM.webp",
+      "PackagePath": "staticwebassets\\images\\марка.UlcfrSgCVZTMGakzssNuuh4XeA-STKyKcMATkNdseqM.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\марка.png",
+      "PackagePath": "staticwebassets\\images\\марка.png"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\марка2.jpg",
+      "PackagePath": "staticwebassets\\images\\марка2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\марка2.png",
+      "PackagePath": "staticwebassets\\images\\марка2.png"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\марка2_845b.png",
+      "PackagePath": "staticwebassets\\images\\марка2_845b.png"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\марка2_aa2c.jpg",
+      "PackagePath": "staticwebassets\\images\\марка2_aa2c.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\марка2_c341.jpg",
+      "PackagePath": "staticwebassets\\images\\марка2_c341.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\марка3.png",
+      "PackagePath": "staticwebassets\\images\\марка3.png"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\марка3_1c30.png",
+      "PackagePath": "staticwebassets\\images\\марка3_1c30.png"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\марка3_1c30.zip",
+      "PackagePath": "staticwebassets\\images\\марка3_1c30.zip"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\марка4.png",
+      "PackagePath": "staticwebassets\\images\\марка4.png"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\марка4_b69b.png",
+      "PackagePath": "staticwebassets\\images\\марка4_b69b.png"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\марка5.png",
+      "PackagePath": "staticwebassets\\images\\марка5.png"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\марка5_634b.png",
+      "PackagePath": "staticwebassets\\images\\марка5_634b.png"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\марка6.png",
+      "PackagePath": "staticwebassets\\images\\марка6.png"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\марка6_c9ef.png",
+      "PackagePath": "staticwebassets\\images\\марка6_c9ef.png"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\марка7.png",
+      "PackagePath": "staticwebassets\\images\\марка7.png"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\марка7_781f.png",
+      "PackagePath": "staticwebassets\\images\\марка7_781f.png"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\марка8.png",
+      "PackagePath": "staticwebassets\\images\\марка8.png"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\марка_69f4.png",
+      "PackagePath": "staticwebassets\\images\\марка_69f4.png"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\масло1.webp",
+      "PackagePath": "staticwebassets\\images\\масло1.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\масло1_1426.webp",
+      "PackagePath": "staticwebassets\\images\\масло1_1426.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\масло2.webp",
+      "PackagePath": "staticwebassets\\images\\масло2.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\масло2_912f.webp",
+      "PackagePath": "staticwebassets\\images\\масло2_912f.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\масло3.webp",
+      "PackagePath": "staticwebassets\\images\\масло3.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\масло3_1463.webp",
+      "PackagePath": "staticwebassets\\images\\масло3_1463.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\масло3_5b46.webp",
+      "PackagePath": "staticwebassets\\images\\масло3_5b46.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\монета1.jpg",
+      "PackagePath": "staticwebassets\\images\\монета1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\монета1_1da5.jpg",
+      "PackagePath": "staticwebassets\\images\\монета1_1da5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\монета2.webp",
+      "PackagePath": "staticwebassets\\images\\монета2.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\монета2_032b.webp",
+      "PackagePath": "staticwebassets\\images\\монета2_032b.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\монета2_7651.webp",
+      "PackagePath": "staticwebassets\\images\\монета2_7651.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\монета3.webp",
+      "PackagePath": "staticwebassets\\images\\монета3.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\монета3_7611.webp",
+      "PackagePath": "staticwebassets\\images\\монета3_7611.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\монета3_f075.webp",
+      "PackagePath": "staticwebassets\\images\\монета3_f075.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\монета4.webp",
+      "PackagePath": "staticwebassets\\images\\монета4.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\монета4_6584.webp",
+      "PackagePath": "staticwebassets\\images\\монета4_6584.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\монета4_b5c7.webp",
+      "PackagePath": "staticwebassets\\images\\монета4_b5c7.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\монета5.webp",
+      "PackagePath": "staticwebassets\\images\\монета5.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\монета5_1dea.webp",
+      "PackagePath": "staticwebassets\\images\\монета5_1dea.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\монета5_73db.webp",
+      "PackagePath": "staticwebassets\\images\\монета5_73db.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\радиоприемник.png",
+      "PackagePath": "staticwebassets\\images\\радиоприемник.png"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\радиоприемник_be6a.png",
+      "PackagePath": "staticwebassets\\images\\радиоприемник_be6a.png"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\реп(1).webp",
+      "PackagePath": "staticwebassets\\images\\реп(1).webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\реп.webp",
+      "PackagePath": "staticwebassets\\images\\реп.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\реп_240b.webp",
+      "PackagePath": "staticwebassets\\images\\реп_240b.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\робекка1.jpg",
+      "PackagePath": "staticwebassets\\images\\робекка1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\робекка1_bb1f.jpg",
+      "PackagePath": "staticwebassets\\images\\робекка1_bb1f.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\робекка2.webp",
+      "PackagePath": "staticwebassets\\images\\робекка2.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\робекка2_eff1.webp",
+      "PackagePath": "staticwebassets\\images\\робекка2_eff1.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\спектра1.jpg",
+      "PackagePath": "staticwebassets\\images\\спектра1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\спектра1_19c7.jpg",
+      "PackagePath": "staticwebassets\\images\\спектра1_19c7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\спектра2.jpg",
+      "PackagePath": "staticwebassets\\images\\спектра2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\спектра2_03c2.jpg",
+      "PackagePath": "staticwebassets\\images\\спектра2_03c2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\фанко_ae4c.webp",
+      "PackagePath": "staticwebassets\\images\\фанко_ae4c.webp"
+    },
+    {
       "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\френки1.jpeg",
       "PackagePath": "staticwebassets\\images\\френки1.jpeg"
     },
     {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\френки1_8103.jpeg",
+      "PackagePath": "staticwebassets\\images\\френки1_8103.jpeg"
+    },
+    {
       "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\френки1_fe5b.jpeg",
       "PackagePath": "staticwebassets\\images\\френки1_fe5b.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\френки2.jpg",
+      "PackagePath": "staticwebassets\\images\\френки2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\френки2_010d.jpg",
+      "PackagePath": "staticwebassets\\images\\френки2_010d.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\френкиРасс1.webp",
+      "PackagePath": "staticwebassets\\images\\френкиРасс1.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\френкиРасс1_d943.webp",
+      "PackagePath": "staticwebassets\\images\\френкиРасс1_d943.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\френкирасс2.jpg",
+      "PackagePath": "staticwebassets\\images\\френкирасс2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\френкирасс2_46a7.jpg",
+      "PackagePath": "staticwebassets\\images\\френкирасс2_46a7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\френкирасс3.jpeg",
+      "PackagePath": "staticwebassets\\images\\френкирасс3.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\френкирасс3_2282.jpeg",
+      "PackagePath": "staticwebassets\\images\\френкирасс3_2282.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\френкирассвет.jpg",
+      "PackagePath": "staticwebassets\\images\\френкирассвет.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\френкирассвет_9ab7.jpg",
+      "PackagePath": "staticwebassets\\images\\френкирассвет_9ab7.jpg"
     },
     {
       "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\js\\site.js",

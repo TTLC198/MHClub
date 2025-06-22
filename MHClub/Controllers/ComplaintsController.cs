@@ -82,6 +82,10 @@ public class ComplaintsController : BaseController
                    var ad = await _dbContext.Ads.FirstOrDefaultAsync(a => a.Id == complaint.AdId);
                    if (ad is not null)
                        ad.StatusId = 4;
+                   foreach (var childrenAd in ad.ChildrenAds?.ToList() ?? [])
+                   {
+                       childrenAd.StatusId = 4;
+                   }
                 }
                 _dbContext.Complaints.Remove(complaint);
                 await _dbContext.SaveChangesAsync();

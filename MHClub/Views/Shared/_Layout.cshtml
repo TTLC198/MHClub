@@ -114,10 +114,9 @@
     <script>
         document.getElementById('toggleFilterBtn').addEventListener('click', function () {
             let sidebar = document.getElementsByClassName('filter-card');
-            console.log(sidebar);
             Object.entries(sidebar).forEach(([key, value]) => {
-                console.log(key, value);
-                value.classList.toggle('d-none')
+                if (key == 1)
+                    value.classList.toggle('d-none')
             })
         });
     </script>

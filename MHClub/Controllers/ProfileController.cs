@@ -225,8 +225,15 @@ public class ProfileController : BaseController
             ViewBag.UserAds = archivedAds.Select(a => new SelectListItem(a.Name, a.Id.ToString())).ToList();
             
             ViewData["Title"] = "Активные объявления";
-
-            return View(await GetUserProfileAsync(user));
+            
+            if (user.RoleId == 1)
+            {
+                return View("AdminProfile", await GetUserProfileAsync(user));
+            }
+            else
+            {
+                return View(await GetUserProfileAsync(user));
+            }
         }
         catch (Exception exception)
         {

@@ -801,7 +801,7 @@ body {
 
 .category-list {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: calc(var(--spacing-unit) * 1);
 }
 
@@ -814,13 +814,12 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  flex: 1 1 calc(25% - var(--spacing-unit)); /* равномерная ширина */
-  text-align: center;
+  text-align: left;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  min-width: 100px;
-  max-width: 100%;
+  width: 100%;          /* растягиваем по ширине контейнера */
+  box-sizing: border-box;
 }
 
 .category-tag:hover {

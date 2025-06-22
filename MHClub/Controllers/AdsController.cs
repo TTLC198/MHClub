@@ -320,6 +320,7 @@ public class AdsController : BaseController
       }
 
       ViewBag.Success = true;
+      model.Id = adEntry.Entity.Id;
       return View(model);
     }
     catch (Exception exception)
@@ -523,6 +524,7 @@ public class AdsController : BaseController
       var ad = await _dbContext.Ads
         .Include(a => a.Medias)
         .Include(a => a.Seller)
+        .Include(a => a.ChildrenAds)
         .FirstOrDefaultAsync(a => a.Id == id);
 
       if (ad is null)
@@ -535,6 +537,11 @@ public class AdsController : BaseController
         return RedirectToAction("Index", "Errors", new { error = "Вы не можете удалить чужое объявление" });
 
       ad.StatusId = userRole == "Admin" ? 4 : 2;
+
+      foreach (var childrenAd in ad.ChildrenAds?.ToList() ?? [])
+      {
+        childrenAd.StatusId = userRole == "Admin" ? 4 : 2;
+      }
 
       await _dbContext.SaveChangesAsync();
 

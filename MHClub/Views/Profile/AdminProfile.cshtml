@@ -1,0 +1,48 @@
+@model MHClub.Models.User.UserProfileDto
+@using MHClub.Utils
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Профиль администратора";
+    var imageSrc = string.IsNullOrEmpty(Model.ImageUrl) ? "/images/no-photo.png" : @Url.Action("Get", "Media", new { path = Model.ImageUrl.GetLocalPath() });
+}
+
+<div class="d-flex justify-content-center my-5">
+  <div class="card rounded-3 shadow-sm p-4" style="max-width: 500px; width:100%">
+    <h2 class="text-center mb-4">@ViewData["Title"]</h2>
+    <div class="d-flex justify-content-center mb-4">
+      <label class="cursor-pointer">
+        <div class="ratio ratio-1x1 rounded-circle overflow-hidden shadow" style="width:120px; height:120px;">
+          <img id="profile-image" src="@imageSrc" class="img-cover" />
+        </div>
+      </label>
+    </div>
+
+    <div class="mb-3">
+      <label asp-for="Name" class="form-label">Имя</label>
+      <input asp-for="Name" class="form-control rounded-2 bg-light border-0 p-3" placeholder="Введите имя" readonly="readonly"/>
+      <span asp-validation-for="Name" class="text-danger small"></span>
+    </div>
+
+    <div class="mb-3">
+      <label asp-for="Email" class="form-label">Email</label>
+      <input asp-for="Email" type="email" class="form-control rounded-2 bg-light border-0 p-3" placeholder="Введите почту" readonly="readonly"/>
+      <span asp-validation-for="Email" class="text-danger small"></span>
+    </div>
+
+    <div class="mb-3">
+      <label asp-for="Phone" class="form-label">Телефон</label>
+      <input asp-for="Phone" class="form-control rounded-2 bg-light border-0 p-3" placeholder="Введите телефон" readonly="readonly"/>
+      <span asp-validation-for="Phone" class="text-danger small"></span>
+    </div>
+
+    <div class="d-flex gap-2">
+      <button onclick="location.href='@Url.Action("Edit", "Profile")';"
+              class="btn btn-outline-dark rounded-2 py-2">
+        Редактировать
+      </button>
+      <button onclick="location.href='@Url.Action("Logout", "Auth")';" class="btn btn-outline-danger rounded-2 py-2">
+        Выйти
+      </button>
+    </div>
+  </div>
+</div>

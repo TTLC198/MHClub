@@ -3,7 +3,7 @@
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Редактирование профиля";
-    var imageSrc = string.IsNullOrEmpty(Model.ImageUrl) ? "~/images/no-photo.png" : @Url.Action("Get", "Media", new { path = Model.ImageUrl.GetLocalPath() });
+    var imageSrc = string.IsNullOrEmpty(Model.ImageUrl) ? "/images/no-photo.png" : @Url.Action("Get", "Media", new { path = Model.ImageUrl.GetLocalPath() });
 }
 
 <div class="d-flex justify-content-center my-5">
