@@ -11,6 +11,7 @@ public class Complaint
 
     [Display(Name = "Описание жалобы")]
     [Column("description")]
+    [MaxLength(50, ErrorMessage = "Максимальная длина описания - 50 сим.")]
     public string? Description { get; set; }
 
     [Display(Name = "Пользователь")]

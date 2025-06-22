@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using MHClub.Domain;
@@ -6,6 +7,8 @@ using MHClub.Services;
 using MHClub.Utils;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 
@@ -34,6 +37,15 @@ public class Startup
                         "X-Pagination") // if you want to add any additional headers - place them here, parameter is string[]
             );
         });
+        
+        services.Configure<MvcOptions>(options =>
+        {
+            options.ModelBindingMessageProvider.SetValueIsInvalidAccessor(fieldName =>
+                $"Недопустимое значение для поля «{fieldName}».");
+
+            options.ModelBindingMessageProvider.SetValueMustBeANumberAccessor(fieldName =>
+                $"Поле «{fieldName}» должно быть числом.");
+        });
 
         var connection = Configuration.GetConnectionString("DefaultConnection")!;
         services.AddMvc();
@@ -54,11 +66,25 @@ public class Startup
             opt.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
             opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
         });
-        services.AddControllersWithViews();
+        
+        services.AddLocalization(options => options.ResourcesPath = "Resources");
+        services
+            .AddControllersWithViews()
+            .AddDataAnnotationsLocalization()
+            .AddViewLocalization();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
+        var supportedCultures = new[] { new CultureInfo("ru") };
+
+        app.UseRequestLocalization(new RequestLocalizationOptions
+        {
+            DefaultRequestCulture = new RequestCulture("ru"),
+            SupportedCultures = supportedCultures,
+            SupportedUICultures = supportedCultures
+        });
+        
         app.UseCors("_MyPolicy");
         app.UseStaticFiles();
         

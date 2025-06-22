@@ -16,9 +16,9 @@ public class Ad
     public virtual string Name { get; set; } = string.Empty;
 
     [Display(Name = "Стоимость товара в рублях")]
-    [Range(10, double.MaxValue, ErrorMessage = "Значение должно быть числом")]
+    [Range(typeof(double),"10", "1000000000", ErrorMessage = "Значение должно быть числом от 10 до 1000000000")]
     [Column("cost")]
-    public virtual float Cost { get; set; }
+    public virtual double Cost { get; set; }
 
     [Display(Name = "Страна производства")]
     [Column("manufacturecountry")]

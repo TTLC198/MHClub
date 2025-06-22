@@ -17,6 +17,7 @@ public class Review
     [Display(Name = "Оставьте письменный отзыв")]
     [Required]
     [Column("description")]
+    [MaxLength(100, ErrorMessage = "Максимальная длина описания - 100 сим.")]
     public string Description { get; set; } = string.Empty;
 
     [Display(Name = "Объявление")]

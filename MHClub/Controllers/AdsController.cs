@@ -356,7 +356,7 @@ public class AdsController : BaseController
       if (!isOwn)
         return RedirectToAction("Index", "Errors", new { error = "Вы не можете восстановить чужое объявление" });
       
-      if (_dbContext.Ads.Any(a => a.Name == ad.Name || a.StatusId == (int)StatusType.Default))
+      if (_dbContext.Ads.Any(a => a.Name == ad.Name && a.StatusId == (int)StatusType.Default && a.Id != id))
         return RedirectToAction("Index", "Errors", new { error = "Объявление не может иметь такое же название, как у другого объявления. Сначала измените имя объявления" });
 
       ad.StatusId = 1;
@@ -449,7 +449,7 @@ public class AdsController : BaseController
 
       model = model.TrimStringProperties();
       
-      var existedAd = await _dbContext.Ads.FirstOrDefaultAsync(u => u.Name == model.Name && u.StatusId == (int)StatusType.Default);
+      var existedAd = await _dbContext.Ads.FirstOrDefaultAsync(u => u.Name == model.Name && u.StatusId == (int)StatusType.Default && u.Id != id);
       if (existedAd is not null)
       {
         ModelState.AddModelError(string.Empty, "Объявление с подобным именем уже существует!");

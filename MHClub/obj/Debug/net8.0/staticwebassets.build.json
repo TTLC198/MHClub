@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "SU9qW7OumxABaShkI0LSpvljLebxXXoTFd507KNyNQo=",
+  "Hash": "PrjZ5l2rKSDheOuqlCynPLEZw089ZpBRulJzlf6frN8=",
   "Source": "MHClub",
   "BasePath": "_content/MHClub",
   "Mode": "Default",
@@ -2285,6 +2285,90 @@
       "OriginalItemSpec": "wwwroot\\images\\фанко_ae4c.webp"
     },
     {
+      "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\фанко_e864.webp",
+      "SourceId": "MHClub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\",
+      "BasePath": "_content/MHClub",
+      "RelativePath": "images/фанко_e864#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "jedgthb3v7",
+      "Integrity": "JcccNcpl9Jvf3D/n3L41aPUHfKyeJJQPoW4CvV3/738=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\фанко_e864.webp"
+    },
+    {
+      "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\фанко_f8ce.webp",
+      "SourceId": "MHClub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\",
+      "BasePath": "_content/MHClub",
+      "RelativePath": "images/фанко_f8ce#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "jedgthb3v7",
+      "Integrity": "JcccNcpl9Jvf3D/n3L41aPUHfKyeJJQPoW4CvV3/738=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\фанко_f8ce.webp"
+    },
+    {
+      "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\фанко1_ef2e.jpg",
+      "SourceId": "MHClub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\",
+      "BasePath": "_content/MHClub",
+      "RelativePath": "images/фанко1_ef2e#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "fo897jj52r",
+      "Integrity": "L5e3UqqRFy5TXKCegT8VlpfL3SopFHwT7whxDFgov4I=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\фанко1_ef2e.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\фанко2_51e0.jpg",
+      "SourceId": "MHClub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\",
+      "BasePath": "_content/MHClub",
+      "RelativePath": "images/фанко2_51e0#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "i7tipj41vj",
+      "Integrity": "XsnNvuzG6WcWp1iT0kkkIvnCyfiK7xtKHQTcCeuggl0=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\фанко2_51e0.jpg"
+    },
+    {
       "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\френки1_8103.jpeg",
       "SourceId": "MHClub",
       "SourceType": "Discovered",
@@ -2577,27 +2661,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\avatar_3e9f.jpeg"
-    },
-    {
-      "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\avatar_8412.jpeg",
-      "SourceId": "MHClub",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\",
-      "BasePath": "_content/MHClub",
-      "RelativePath": "images/avatar_8412#[.{fingerprint}]?.jpeg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "1fsbp5kcdt",
-      "Integrity": "Y27YXrPSAXiKLlPs2/eALwOFHSRlfgWQmNZNDN87mA0=",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\avatar_8412.jpeg"
     },
     {
       "Identity": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\Benchmarks_254f.png",
@@ -12848,6 +12911,334 @@
       ]
     },
     {
+      "Route": "images/фанко_e864.jedgthb3v7.webp",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\фанко_e864.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "122508"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"JcccNcpl9Jvf3D/n3L41aPUHfKyeJJQPoW4CvV3/738=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 22 Jun 2025 18:58:40 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "jedgthb3v7"
+        },
+        {
+          "Name": "label",
+          "Value": "images/фанко_e864.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-JcccNcpl9Jvf3D/n3L41aPUHfKyeJJQPoW4CvV3/738="
+        }
+      ]
+    },
+    {
+      "Route": "images/фанко_e864.webp",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\фанко_e864.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "122508"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"JcccNcpl9Jvf3D/n3L41aPUHfKyeJJQPoW4CvV3/738=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 22 Jun 2025 18:58:40 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-JcccNcpl9Jvf3D/n3L41aPUHfKyeJJQPoW4CvV3/738="
+        }
+      ]
+    },
+    {
+      "Route": "images/фанко_f8ce.jedgthb3v7.webp",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\фанко_f8ce.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "122508"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"JcccNcpl9Jvf3D/n3L41aPUHfKyeJJQPoW4CvV3/738=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 22 Jun 2025 18:58:40 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "jedgthb3v7"
+        },
+        {
+          "Name": "label",
+          "Value": "images/фанко_f8ce.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-JcccNcpl9Jvf3D/n3L41aPUHfKyeJJQPoW4CvV3/738="
+        }
+      ]
+    },
+    {
+      "Route": "images/фанко_f8ce.webp",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\фанко_f8ce.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "122508"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"JcccNcpl9Jvf3D/n3L41aPUHfKyeJJQPoW4CvV3/738=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 22 Jun 2025 18:58:40 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-JcccNcpl9Jvf3D/n3L41aPUHfKyeJJQPoW4CvV3/738="
+        }
+      ]
+    },
+    {
+      "Route": "images/фанко1_ef2e.fo897jj52r.jpg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\фанко1_ef2e.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "65179"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"L5e3UqqRFy5TXKCegT8VlpfL3SopFHwT7whxDFgov4I=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 22 Jun 2025 18:27:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "fo897jj52r"
+        },
+        {
+          "Name": "label",
+          "Value": "images/фанко1_ef2e.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-L5e3UqqRFy5TXKCegT8VlpfL3SopFHwT7whxDFgov4I="
+        }
+      ]
+    },
+    {
+      "Route": "images/фанко1_ef2e.jpg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\фанко1_ef2e.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "65179"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"L5e3UqqRFy5TXKCegT8VlpfL3SopFHwT7whxDFgov4I=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 22 Jun 2025 18:27:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-L5e3UqqRFy5TXKCegT8VlpfL3SopFHwT7whxDFgov4I="
+        }
+      ]
+    },
+    {
+      "Route": "images/фанко2_51e0.i7tipj41vj.jpg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\фанко2_51e0.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "28975"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"XsnNvuzG6WcWp1iT0kkkIvnCyfiK7xtKHQTcCeuggl0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 22 Jun 2025 18:25:46 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "i7tipj41vj"
+        },
+        {
+          "Name": "label",
+          "Value": "images/фанко2_51e0.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-XsnNvuzG6WcWp1iT0kkkIvnCyfiK7xtKHQTcCeuggl0="
+        }
+      ]
+    },
+    {
+      "Route": "images/фанко2_51e0.jpg",
+      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\фанко2_51e0.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "28975"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"XsnNvuzG6WcWp1iT0kkkIvnCyfiK7xtKHQTcCeuggl0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 22 Jun 2025 18:25:46 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-XsnNvuzG6WcWp1iT0kkkIvnCyfiK7xtKHQTcCeuggl0="
+        }
+      ]
+    },
+    {
       "Route": "images/френки1_8103.0x6z8om36i.jpeg",
       "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\френки1_8103.jpeg",
       "Selectors": [],
@@ -13982,88 +14373,6 @@
         {
           "Name": "Last-Modified",
           "Value": "Sun, 11 May 2025 19:44:20 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=3600, must-revalidate"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-Y27YXrPSAXiKLlPs2/eALwOFHSRlfgWQmNZNDN87mA0="
-        }
-      ]
-    },
-    {
-      "Route": "images/avatar_8412.1fsbp5kcdt.jpeg",
-      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\avatar_8412.jpeg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "12050"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"Y27YXrPSAXiKLlPs2/eALwOFHSRlfgWQmNZNDN87mA0=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sun, 22 Jun 2025 17:42:49 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "1fsbp5kcdt"
-        },
-        {
-          "Name": "label",
-          "Value": "images/avatar_8412.jpeg"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-Y27YXrPSAXiKLlPs2/eALwOFHSRlfgWQmNZNDN87mA0="
-        }
-      ]
-    },
-    {
-      "Route": "images/avatar_8412.jpeg",
-      "AssetFile": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\avatar_8412.jpeg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "12050"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"Y27YXrPSAXiKLlPs2/eALwOFHSRlfgWQmNZNDN87mA0=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sun, 22 Jun 2025 17:42:49 GMT"
         },
         {
           "Name": "Cache-Control",

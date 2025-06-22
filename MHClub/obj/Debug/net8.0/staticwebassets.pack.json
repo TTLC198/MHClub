@@ -69,10 +69,6 @@
       "PackagePath": "staticwebassets\\images\\avatar_3e9f.jpeg"
     },
     {
-      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\avatar_8412.jpeg",
-      "PackagePath": "staticwebassets\\images\\avatar_8412.jpeg"
-    },
-    {
       "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\images (1)_4e75.jpeg",
       "PackagePath": "staticwebassets\\images\\images (1)_4e75.jpeg"
     },
@@ -497,8 +493,24 @@
       "PackagePath": "staticwebassets\\images\\спектра2_03c2.jpg"
     },
     {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\фанко1_ef2e.jpg",
+      "PackagePath": "staticwebassets\\images\\фанко1_ef2e.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\фанко2_51e0.jpg",
+      "PackagePath": "staticwebassets\\images\\фанко2_51e0.jpg"
+    },
+    {
       "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\фанко_ae4c.webp",
       "PackagePath": "staticwebassets\\images\\фанко_ae4c.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\фанко_e864.webp",
+      "PackagePath": "staticwebassets\\images\\фанко_e864.webp"
+    },
+    {
+      "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\фанко_f8ce.webp",
+      "PackagePath": "staticwebassets\\images\\фанко_f8ce.webp"
     },
     {
       "Id": "C:\\Users\\yoreh\\RiderProjects\\MHClub\\MHClub\\wwwroot\\images\\френки1.jpeg",

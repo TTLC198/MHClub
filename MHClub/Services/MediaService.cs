@@ -1,3 +1,4 @@
+using System.Text;
 using MHClub.Domain;
 using MHClub.Domain.Models;
 using MHClub.Models;
@@ -21,7 +22,12 @@ public class MediaService
 
     public async Task<ValueTuple<bool, string>> UploadImage(MediaCreateDto mediaCreateDto)
     {
-        var uniqueFileName = FileNameHelper.GetUniqueFileName(mediaCreateDto.Image.FileName);
+
+
+        var filename = Path.GetFileName(mediaCreateDto.Image.FileName)
+            .Normalize(NormalizationForm.FormC);
+        
+        var uniqueFileName = FileNameHelper.GetUniqueFileName(filename);
         
         var filePath = Path.Combine(_environment.WebRootPath,
             "images",

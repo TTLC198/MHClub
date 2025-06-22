@@ -15,6 +15,11 @@
         },
         "runtime": {
           "MHClub.dll": {}
+        },
+        "resources": {
+          "ru/MHClub.resources.dll": {
+            "locale": "ru"
+          }
         }
       },
       "Humanizer.Core/2.14.1": {

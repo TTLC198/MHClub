@@ -17,8 +17,8 @@ public class AdsCreateViewModel : AdsIndexViewModel
 
     [Display(Name = "Стоимость товара в рублях")]
     [Required(ErrorMessage = "Значение не может быть пустым")]
-    [Range(0, 1000000000, ErrorMessage = "Значение должно быть числом от 0 до 1000000000")]
-    public override float Cost { get; set; }
+    [Range(typeof(double),"10", "1000000000", ErrorMessage = "Значение должно быть числом от 10 до 1000000000")]
+    public override double Cost { get; set; }
 
     [Display(Name = "Страна производства")]
     [Required(ErrorMessage = "Значение не может быть пустым")]

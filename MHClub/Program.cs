@@ -1,4 +1,6 @@
+using System.Globalization;
 using MHClub;
+using Microsoft.AspNetCore.Localization;
 
 public static class Program
 {

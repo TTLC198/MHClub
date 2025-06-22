@@ -43,16 +43,14 @@ public class ReviewsController : BaseController
             
             if (ownUser is null)
             {
-                ModelState.AddModelError(string.Empty, "Пользователь не найден");
-                return View(model);
+                return BadRequest("Пользователь не найден");
             }
             
             model.UserId = ownUserId;
 
             if (_dbContext.Reviews.Any(r => r.UserId == model.UserId && r.AdId == model.AdId))
             {
-                ModelState.AddModelError(string.Empty, "Нельзя создать два отзыва на одно объявление");
-                return View(model);
+                return BadRequest("Нельзя создать два отзыва на одно объявление");
             }
 
             await _dbContext.Reviews.AddAsync(model);

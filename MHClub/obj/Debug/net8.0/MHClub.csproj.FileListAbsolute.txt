@@ -228,3 +228,8 @@ C:\Users\yoreh\RiderProjects\MHClub\MHClub\obj\Debug\net8.0\staticwebassets.pack
 C:\Users\yoreh\RiderProjects\MHClub\MHClub\obj\Debug\net8.0\MHClub.csproj.Up2Date
 C:\Users\yoreh\RiderProjects\MHClub\MHClub\obj\Debug\net8.0\MHClub.genruntimeconfig.cache
 C:\Users\yoreh\RiderProjects\MHClub\MHClub\obj\Debug\net8.0\ref\MHClub.dll
+C:\Users\yoreh\RiderProjects\MHClub\MHClub\bin\Debug\net8.0\ru\MHClub.resources.dll
+C:\Users\yoreh\RiderProjects\MHClub\MHClub\obj\Debug\net8.0\MHClub.csproj.GenerateResource.cache
+C:\Users\yoreh\RiderProjects\MHClub\MHClub\obj\Debug\net8.0\ru\MHClub.resources.cs
+C:\Users\yoreh\RiderProjects\MHClub\MHClub\obj\Debug\net8.0\ru\MHClub.resources.dll
+C:\Users\yoreh\RiderProjects\MHClub\MHClub\obj\Debug\net8.0\MHClub.Resources.Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingMessages.ru.resources
