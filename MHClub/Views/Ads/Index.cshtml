@@ -67,25 +67,10 @@
         </div>
         @* Выбор категорий *@
         <div class="filter-card">
-            <div class="d-flex gap-3">
-                <!-- Первый уровень категорий -->
-                <div class="flex-fill">
-                    <div class="list-group bg-white rounded var-shadow-light" id="cat-level-1">
-                        <!-- Заполняется через JS -->
-                    </div>
-                </div>
-                <!-- Второй уровень категорий -->
-                <div class="flex-fill">
-                    <div class="list-group bg-white rounded var-shadow-light" id="cat-level-2">
-                        <!-- Заполняется через JS -->
-                    </div>
-                </div>
-                <!-- Третий уровень категорий -->
-                <div class="flex-fill">
-                    <div class="list-group bg-white rounded var-shadow-light" id="cat-level-3">
-                        <!-- Заполняется через JS -->
-                    </div>
-                </div>
+            <div class="category-nav">
+                <h6 class="category-title">Категория</h6>
+                <button id="backBtn" class="category-back display-none">← Назад</button>
+                <div id="categoryList" class="category-list"></div>
             </div>
         </div>
     </div>
@@ -110,6 +95,10 @@
 {
     <script>
         const allCategories = @Html.Raw(categoriesJson);
+        const categoryList = document.getElementById('categoryList');
+        const categoryIdInput = document.getElementById('SelectedCategoryId');
+        const backBtn = document.getElementById('backBtn');
+        const stack = []; // стек родительских категорий
 
         const updateAds = () => {
             const formData = new FormData(filterForm);
@@ -142,7 +131,7 @@
                         Decomposed: 'Декомпозированное'
                     }[value] || value;
                 } else if (key === 'CategoryId') {
-                    if (allCategories.find(x => x["Id"] == value)) 
+                    if (allCategories.find(x => x["Id"] == value))
                         value = allCategories.find(x => x["Id"] == value)["Name"] || value;
                 }
 
@@ -200,61 +189,51 @@
             });
         };
 
-        function populateLevel(level, parentId) {
-            const container = document.getElementById(`cat-level-${level}`);
-            container.innerHTML = '';
-            const items = allCategories.filter(cat => cat.ParentCategoryId === parentId);
-            items.forEach(cat => {
+        function renderCategories(categories) {
+            categoryList.innerHTML = '';
+
+            categories.forEach(cat => {
                 const btn = document.createElement('button');
-                btn.type = 'button';
-                btn.className = 'list-group-item list-group-item-action bg-white mb-2 rounded d-flex justify-content-between align-items-center';
-                btn.style = 'border: none; color: #000;';
+                btn.className = 'category-tag';
                 btn.textContent = cat.Name;
-                const hasChildren = allCategories.some(c => c.ParentCategoryId === cat.Id);
-                if (hasChildren) {
-                    const arrow = document.createElement('i');
-                    arrow.className = 'bi-chevron-right';
-                    arrow.style.color = '#333';
-                    btn.appendChild(arrow);
-                }
-                btn.onmouseenter = () => btn.style.boxShadow = 'var(--shadow-light)';
-                btn.onmouseleave = () => btn.style.boxShadow = 'none';
-                btn.onclick = () => onCategoryClick(level, cat.Id, event);
-                container.appendChild(btn);
+                btn.onclick = () => {
+                    if (cat.Children && cat.Children.length > 0) {
+                        stack.push(cat); // сохраняем текущую категорию в стек
+                        renderCategories(cat.Children);
+                    } else {
+                        console.log("Selected category:", cat);
+                        if (categoryIdInput)
+                        {
+                            categoryIdInput.value = cat["Id"];
+                            updateAds();
+                        }
+                    }
+                };
+                categoryList.appendChild(btn);
             });
+
+            backBtn.classList.toggle('display-none', stack.length === 0);
         }
 
-        function onCategoryClick(level, categoryId, event) {
-            const levelContainer = document.getElementById(`cat-level-${level}`);
-            Array.from(levelContainer.children).forEach(ch => ch.classList.remove('cat-selected', 'active'));
-            const clicked = event.currentTarget;
-            clicked.classList.add('cat-selected');
-            clicked.classList.add('active');
-
-            for (let lv = level + 1; lv <= 3; lv++) {
-                document.getElementById(`cat-level-${lv}`).innerHTML = '';
-            }
-            if (level < 3) {
-                const hasChildren = allCategories.some(c => c.ParentCategoryId === categoryId)
-                if (!hasChildren) {
-                    document.getElementById('SelectedCategoryId').value = categoryId;
-                    updateAds();
-                    return;
-                }
-                populateLevel(level + 1, categoryId);
+        backBtn.addEventListener('click', () => {
+            stack.pop(); // выходим на уровень выше
+            if (stack.length > 0) {
+                const parent = stack[stack.length - 1];
+                renderCategories(parent.Children);
             } else {
-                document.getElementById('SelectedCategoryId').value = categoryId;
-                updateAds();
+                const rootCategories = allCategories.filter(c => c.ParentCategoryId == null);
+                renderCategories(rootCategories);
             }
-        }
+        });
 
         document.addEventListener('DOMContentLoaded', () => {
             const filterForm = document.getElementById('filterForm');
             const filterTags = document.getElementById('filterTags');
             const sortBy = document.getElementById('sortBy');
             const adsContainer = document.getElementById('adsContainer');
-
-            populateLevel(1, null);
+            const rootCategories = allCategories.filter(c => c.ParentCategoryId == null);
+            
+            renderCategories(rootCategories);
             filterForm.addEventListener('input', updateAds);
             sortBy.addEventListener('change', updateAds);
             updateAds();

@@ -814,6 +814,13 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  flex: 1 1 calc(25% - var(--spacing-unit)); /* равномерная ширина */
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 100px;
+  max-width: 100%;
 }
 
 .category-tag:hover {
